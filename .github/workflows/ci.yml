@@ -51,5 +51,6 @@ jobs:
           node-version: "22"
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-      - run: npm ci
+      # 잠금 파일은 Windows 에서 만들어져 리눅스용 선택 의존성(@emnapi/*)이 빠져 있다. npm ci 는 그 차이로 멈추므로 install 을 쓴다.
+      - run: npm install --no-audit --no-fund
       - run: npm run build
