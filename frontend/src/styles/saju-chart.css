@@ -1,0 +1,435 @@
+/* 명식 차트(sc-*). 천간·지지 두 줄, 오행 색 칸, 한자. 한 사람도 두 사람도 같은 표.
+   .ai-match-page 안에서만 효과가 있다. 버튼은 index.css 전역 규칙(44px, 그라데이션, ::before)을 되돌려야 해서 선택자가 길다. */
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc {
+  --sc-목: #2f9e6b;
+  --sc-화: #df5540;
+  --sc-토: #c9962b;
+  --sc-금: #8d97a8;
+  --sc-수: #2f63d6;
+  display: grid;
+  gap: 10px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__title {
+  font-family: var(--saju-serif) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__toggle,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__toggle:hover {
+  min-height: 0 !important;
+  height: 26px;
+  padding: 0 10px !important;
+  border: 1px solid rgba(109, 79, 210, 0.25) !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: var(--saju-purple-dark) !important;
+  font-family: var(--saju-serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  transition: transform 0.15s var(--v2-ease), background 0.15s;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__toggle::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__toggle::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__toggle:active {
+  transform: scale(0.94);
+}
+
+/* ---------- 표 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__board {
+  display: grid;
+  grid-template-columns: 26px repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  align-items: stretch;
+  perspective: 700px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__axis {
+  display: grid;
+  place-items: center;
+  font-family: var(--saju-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__axis--kr {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__axis--rel {
+  color: #b8860b !important;
+}
+
+/* 기둥 머리(時 日 月 年) */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head:hover {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 1px;
+  min-height: 0 !important;
+  height: 40px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: var(--saju-purple-tint) !important;
+  color: var(--saju-ink) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.12) !important;
+  filter: none !important;
+  text-shadow: none !important;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.16s var(--v2-ease);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head b {
+  font-family: var(--saju-serif);
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 700;
+  color: inherit !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head small {
+  font-size: 9.5px !important;
+  font-weight: 700;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head.is-on {
+  background: var(--saju-ink) !important;
+  color: #ffe9b8 !important;
+  box-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head.is-on small {
+  color: rgba(255, 233, 184, 0.7) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sc__head:active {
+  transform: scale(0.94);
+}
+
+/* 이름 줄 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__name {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  min-width: 0;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__name em {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--saju-gold);
+  color: var(--saju-ink) !important;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__name--theirs em {
+  background: var(--saju-purple);
+  color: #fff !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__name strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 칸 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  height: 54px;
+  border-radius: 12px;
+  background: var(--saju-purple);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18), 0 3px 8px rgba(42, 31, 77, 0.14);
+  cursor: pointer;
+  transition: transform 0.22s var(--v2-spring), box-shadow 0.22s, opacity 0.22s;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell b {
+  font-family: var(--saju-serif);
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  color: #fff !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell small {
+  font-size: 10px !important;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell i {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-family: var(--saju-serif);
+  font-style: normal;
+  font-size: 8.5px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--목 { background: linear-gradient(180deg, #3aa876, #27855a); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--화 { background: linear-gradient(180deg, #ea6a52, #cf4630); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--토 { background: linear-gradient(180deg, #d6a63c, #b3841f); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--금 { background: linear-gradient(180deg, #a3adbd, #7c8798); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--수 { background: linear-gradient(180deg, #3d73e0, #2551b8); }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--none {
+  background: repeating-linear-gradient(135deg, #f3effa 0 6px, #ebe5f5 6px 12px);
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.16);
+  cursor: default;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--none b,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell--none small {
+  color: var(--v2-text-3) !important;
+  text-shadow: none;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc.has-on .sc__cell:not(.is-on),
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc.has-on .sc__rel:not(.is-on) {
+  opacity: 0.5;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__cell.is-on {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--saju-gold), 0 8px 16px rgba(42, 31, 77, 0.22);
+}
+
+/* 등장: 칸이 하나씩 뒤집히며 나타난다 */
+@keyframes sc-flip {
+  from { opacity: 0; transform: rotateX(-75deg); }
+  to { opacity: 1; transform: none; }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc:not(.is-in) .sc__cell {
+  opacity: 0;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc.is-in .sc__cell {
+  animation: sc-flip 0.55s var(--v2-ease) backwards;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+
+/* 관계 줄 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__rel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--saju-purple-tint);
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.12);
+  cursor: pointer;
+  transition: opacity 0.22s, box-shadow 0.22s;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__rel.is-on {
+  box-shadow: inset 0 0 0 1px var(--saju-gold), 0 0 0 2px rgba(217, 180, 90, 0.3);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__rel-mark,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__legend i {
+  font-family: var(--saju-serif);
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sc__rel-mark--hap, .sc__rel-mark--sam) { color: #b8860b !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sc__rel-mark--give, .sc__rel-mark--take) { color: #2f9e6b !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__rel-mark--same { color: #7f78a0 !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sc__rel-mark--clash, .sc__rel-mark--chung) { color: #d9483b !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__rel-mark--none { color: #c9c2d8 !important; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 0 2px;
+  list-style: none;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__legend i {
+  font-size: 13px;
+}
+
+/* 풀이 */
+@keyframes sc-pop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border-left: 3px solid var(--saju-gold);
+  background: var(--saju-purple-tint);
+  animation: sc-pop 0.25s var(--v2-ease) both;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note-copy {
+  font-size: 12px;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note ul {
+  display: grid;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note li span {
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note li i {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.5px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--saju-purple-dark) !important;
+  font-family: var(--saju-serif);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sc__note--hap, .sc__note--sam) i { background: var(--saju-gold-soft); color: #8a5f10 !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sc__note--give, .sc__note--take) i { background: #e6f5ec; color: #237a4f !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sc__note--clash, .sc__note--chung) i { background: #fdeceb; color: #c93d30 !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note--star i { background: var(--saju-ink); color: #ffe9b8 !important; font-size: 10px; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__hint {
+  margin: 0;
+  padding: 0 2px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--v2-text-3) !important;
+}
+
+/* ---------- 일간 도장(목록 사진 귀퉁이) ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo {
+  position: relative;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--saju-purple);
+  color: #fff !important;
+  font-family: var(--saju-serif);
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9), 0 3px 8px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal--sm {
+  top: 8px;
+  left: 8px;
+  width: 26px;
+  height: 26px;
+  font-size: 15px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal--목 { background: var(--sc-목, #2f9e6b); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal--화 { background: var(--sc-화, #df5540); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal--토 { background: var(--sc-토, #c9962b); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal--금 { background: var(--sc-금, #8d97a8); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sc-seal--수 { background: var(--sc-수, #2f63d6); }
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sc:not(.is-in) .sc__cell,
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sc.is-in .sc__cell {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sc__note {
+    animation: none !important;
+  }
+}

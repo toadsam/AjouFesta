@@ -1,0 +1,419 @@
+/*
+ * 치토 도사의 산통 뽑기(components/SajuFortune.jsx). 접두사 sf-.
+ * 색: 밤하늘 #1d1740 · 자수정 #6d4fd2 · 금박 #d9b45a · 한지 #fbf7ee · 인주 #c8362d.
+ * 소개팅 페이지 안에서는 `.ai-match-page strong|p|small { color !important }`(0,4,1)에 눌리므로
+ * 밝은 글자는 .app-shell.festival-shell[data-v2] .ai-match-page 접두사(0,5,0)로 쓴다.
+ */
+.app-shell .sf {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 85% 0%, rgba(217, 180, 90, 0.22), rgba(29, 23, 64, 0) 60%),
+    radial-gradient(80% 60% at 0% 100%, rgba(109, 79, 210, 0.45), rgba(29, 23, 64, 0) 65%),
+    #1d1740;
+  box-shadow: 0 14px 34px rgba(42, 31, 77, 0.28), inset 0 0 0 1px rgba(217, 180, 90, 0.35);
+}
+
+.app-shell .sf-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.app-shell .sf-head > div {
+  display: grid;
+  gap: 3px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-head small {
+  font-size: 11.5px !important;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffe9b8 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-head strong {
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  color: #fff4dc !important;
+}
+
+/* ---- 버튼 공통 되돌리기 ---- */
+.app-shell.app-shell.app-shell .sf-primary,
+.app-shell.app-shell.app-shell .sf-close,
+.app-shell.app-shell.app-shell .sf-santong-btn,
+.app-shell.app-shell.app-shell .sf-bar {
+  min-height: 0 !important;
+  border: 0 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell .sf-primary::before,
+.app-shell.app-shell.app-shell .sf-primary::after,
+.app-shell.app-shell.app-shell .sf-close::before,
+.app-shell.app-shell.app-shell .sf-close::after,
+.app-shell.app-shell.app-shell .sf-santong-btn::before,
+.app-shell.app-shell.app-shell .sf-santong-btn::after,
+.app-shell.app-shell.app-shell .sf-bar::before,
+.app-shell.app-shell.app-shell .sf-bar::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .sf-primary,
+.app-shell.app-shell.app-shell.app-shell .sf-primary:hover {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #e6c878 0%, #c99a3c 100%) !important;
+  color: #2a1f4d !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 8px 18px rgba(201, 154, 60, 0.3) !important;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.app-shell.app-shell.app-shell.app-shell .sf-primary:disabled {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .sf-primary:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.app-shell.app-shell.app-shell.app-shell .sf-close,
+.app-shell.app-shell.app-shell.app-shell .sf-close:hover {
+  flex: 0 0 auto;
+  height: 30px;
+  padding: 0 10px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+}
+
+/* ---- 무대: 치토와 산통이 한 장면 ---- */
+.app-shell .sf-stage {
+  display: grid;
+  gap: 10px;
+}
+
+.app-shell .sf-scene {
+  position: relative;
+  height: 214px;
+}
+
+.app-shell .sf-scene__glow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 180, 90, 0.28) 0%, rgba(109, 79, 210, 0.22) 38%, rgba(29, 23, 64, 0) 68%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.app-shell .sf-chito {
+  position: absolute;
+  left: calc(50% - 138px);
+  bottom: 2px;
+  width: 104px;
+  height: auto;
+  z-index: 2;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.4));
+  animation: sf-bob 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sf-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-bubble {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: 18px;
+  z-index: 3;
+  padding: 6px 11px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff8e6;
+  color: #2a1f4d !important;
+  font-family: "Gowun Batang", "Noto Serif KR", serif;
+  font-size: 13px !important;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.app-shell.app-shell.app-shell.app-shell .sf-santong-btn,
+.app-shell.app-shell.app-shell.app-shell .sf-santong-btn:hover,
+.app-shell.app-shell.app-shell.app-shell .sf-santong-btn:disabled {
+  position: absolute;
+  left: calc(50% - 56px);
+  bottom: 0;
+  width: 160px;
+  height: 210px;
+  padding: 0 !important;
+  border-radius: 24px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  opacity: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.app-shell .sf-santong {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: 50% 92%;
+}
+
+.app-shell .sf-santong--idle {
+  animation: sf-idle 2.6s ease-in-out infinite;
+}
+
+@keyframes sf-idle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.app-shell .sf-santong--shake {
+  animation: sf-shake 0.22s linear infinite;
+}
+
+@keyframes sf-shake {
+  0% { transform: rotate(-9deg) translateY(0); }
+  25% { transform: rotate(8deg) translateY(-6px); }
+  50% { transform: rotate(-7deg) translateY(0); }
+  75% { transform: rotate(9deg) translateY(-5px); }
+  100% { transform: rotate(-9deg) translateY(0); }
+}
+
+.app-shell .sf-santong--shake .sf-santong__sticks {
+  animation: sf-rattle 0.11s linear infinite;
+}
+
+@keyframes sf-rattle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.app-shell .sf-santong__drawn {
+  transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.app-shell .sf-santong--rise .sf-santong__drawn,
+.app-shell .sf-santong--done .sf-santong__drawn {
+  transform: translateY(-40px);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-say {
+  margin: 0;
+  text-align: center;
+  font-size: 13px !important;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+
+/* ---- 결과: 산가지 + 풀이 ---- */
+.app-shell .sf-result {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  animation: sf-unfold 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes sf-unfold {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-shell .sf-stick {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  gap: 8px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff8e6 0%, #f3e1b4 100%);
+  box-shadow: inset 0 0 0 1px rgba(201, 154, 60, 0.6), 0 8px 18px rgba(0, 0, 0, 0.25);
+  border-top: 10px solid #c8362d;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-stick__no {
+  writing-mode: vertical-rl;
+  font-family: "Gowun Batang", serif;
+  font-size: 12px !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #6b4a11 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-stick__hanja {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sf-el, #6d4fd2);
+  color: #fff !important;
+  font-family: "Gowun Batang", serif;
+  font-size: 22px !important;
+  font-weight: 700;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-stick__el {
+  font-size: 11px !important;
+  font-weight: 800;
+  color: #6b4a11 !important;
+}
+
+.app-shell .sf-result__body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-result__title {
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-result__line {
+  margin: 0;
+  font-size: 14px !important;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-shell .sf-luck {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.app-shell .sf-luck > div {
+  display: grid;
+  gap: 2px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.app-shell .sf-luck dt {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.app-shell .sf-luck dd {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-result__mine {
+  margin: 0;
+  padding: 9px 11px;
+  border-radius: 12px;
+  border-left: 3px solid #d9b45a;
+  background: rgba(217, 180, 90, 0.12);
+  font-size: 12.5px !important;
+  line-height: 1.55;
+  color: #ffe9b8 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-result__foot {
+  font-size: 11.5px !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* ---- 접힌 막대(로그인 뒤 목록 위) ---- */
+.app-shell.app-shell.app-shell.app-shell .sf-bar,
+.app-shell.app-shell.app-shell.app-shell .sf-bar:hover {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 14px 8px 10px !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgba(217, 180, 90, 0.25), rgba(29, 23, 64, 0) 60%),
+    #1d1740 !important;
+  box-shadow: 0 8px 20px rgba(42, 31, 77, 0.22), inset 0 0 0 1px rgba(217, 180, 90, 0.35) !important;
+  text-align: left;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.app-shell.app-shell.app-shell.app-shell .sf-bar:active {
+  transform: scale(0.985);
+}
+
+.app-shell .sf-bar img {
+  width: 44px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.app-shell .sf-bar__text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-bar__text small {
+  font-size: 11px !important;
+  font-weight: 700;
+  color: #ffe9b8 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-bar__text strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sf-bar__go {
+  font-size: 12px !important;
+  font-weight: 800;
+  white-space: nowrap;
+  color: #d9b45a !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .sf-chito,
+  .app-shell .sf-santong--idle,
+  .app-shell .sf-santong--shake,
+  .app-shell .sf-santong--shake .sf-santong__sticks,
+  .app-shell .sf-result {
+    animation: none !important;
+  }
+}

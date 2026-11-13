@@ -1,0 +1,616 @@
+/*
+ * /admin 상단 바와 대시보드(홈). 흰 카드 + 파란 포인트(로그인 화면과 같은 톤).
+ * index.css 의 admin-console 규칙이 !important 로 덮고 있어서 .app-shell 을 세 번 겹쳐 올린다.
+ */
+.app-shell.app-shell.app-shell .admin-console-page {
+  --ah-bg: #f4f6f9;
+  --ah-card: #ffffff;
+  --ah-line: #e8ecf1;
+  --ah-text: #191f28;
+  --ah-sub: #6b7684;
+  --ah-faint: #8b95a1;
+  --ah-blue: #3182f6;
+  --ah-blue-soft: #e8f3ff;
+  --ah-red: #f04452;
+  --ah-green: #03b26c;
+  background: var(--ah-bg) !important;
+}
+
+.app-shell.app-shell.app-shell .admin-console-main {
+  align-content: start;
+  gap: 16px !important;
+  background: var(--ah-bg) !important;
+}
+
+.app-shell.app-shell.app-shell .admin-console-sidebar > strong {
+  color: var(--ah-text) !important;
+}
+
+/* ---------- 상단 바 ---------- */
+.app-shell.app-shell.app-shell .ahome-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0 0;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__title {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__title span {
+  color: var(--ah-faint) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__title h1 {
+  margin: 0 !important;
+  color: var(--ah-text) !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.02em !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__icon,
+.app-shell.app-shell.app-shell .ahome-top__logout {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 12px !important;
+  border: 1px solid var(--ah-line) !important;
+  border-radius: 10px !important;
+  background: var(--ah-card) !important;
+  color: var(--ah-sub) !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__icon {
+  width: 36px !important;
+  padding: 0 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__icon:hover,
+.app-shell.app-shell.app-shell .ahome-top__logout:hover {
+  color: var(--ah-text) !important;
+  border-color: #d1d6db !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__who {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+  color: var(--ah-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .ahome-top__who i {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--ah-blue-soft);
+  color: var(--ah-blue);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.app-shell.app-shell.app-shell .is-spin {
+  animation: ahome-spin 0.9s linear infinite;
+}
+
+@keyframes ahome-spin {
+  to { transform: rotate(360deg); }
+}
+
+.app-shell.app-shell.app-shell .ahome-status {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  padding: 10px 14px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: var(--ah-blue-soft) !important;
+  color: #1b64da !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- 홈 ---------- */
+.app-shell.app-shell.app-shell .ahome {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.app-shell.app-shell.app-shell .ahome-hello {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3182f6 0%, #1b64da 100%);
+  color: #fff;
+}
+
+.app-shell.app-shell.app-shell .ahome-hello h2 {
+  margin: 10px 0 4px !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  background: none !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-hello p {
+  margin: 0 !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-hello__badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-hello__link {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-hello__link:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.app-shell.app-shell.app-shell .ahome-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.app-shell.app-shell.app-shell .ahome-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  padding: 20px !important;
+  border: 1px solid var(--ah-line) !important;
+  border-radius: 18px !important;
+  background: var(--ah-card) !important;
+  box-shadow: none !important;
+  color: var(--ah-text) !important;
+  text-decoration: none !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.app-shell.app-shell.app-shell .ahome-card__label {
+  color: var(--ah-sub) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-card__head small {
+  color: var(--ah-faint) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-card h3 {
+  margin: 0 !important;
+  color: var(--ah-text) !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.02em !important;
+  overflow-wrap: anywhere;
+}
+
+.app-shell.app-shell.app-shell .ahome-card p {
+  margin: 0 !important;
+  color: var(--ah-sub) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+}
+
+/* 주점 */
+.app-shell.app-shell.app-shell .ahome-booth h3 {
+  font-size: 22px !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-stats,
+.app-shell.app-shell.app-shell .ahome-match__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 4px 0 0;
+}
+
+.app-shell.app-shell.app-shell .ahome-stats > div,
+.app-shell.app-shell.app-shell .ahome-match__grid > div {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f7f8fa;
+}
+
+.app-shell.app-shell.app-shell .ahome-stats dt,
+.app-shell.app-shell.app-shell .ahome-match__grid dt {
+  color: var(--ah-faint);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .ahome-stats dd,
+.app-shell.app-shell.app-shell .ahome-match__grid dd {
+  margin: 0;
+  color: var(--ah-text);
+  font-size: 20px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell.app-shell.app-shell .ahome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.app-shell.app-shell.app-shell .ahome-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 40px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #f2f4f6 !important;
+  color: #4e5968 !important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.app-shell.app-shell.app-shell .ahome-btn:hover {
+  background: #e5e8eb !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-btn--primary {
+  background: var(--ah-blue) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-btn--primary:hover {
+  background: #1b64da !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-booth__extra {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 2px !important;
+  padding: 10px 12px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #fff8e6 !important;
+  color: #9a6700 !important;
+  box-shadow: none !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  cursor: pointer;
+}
+
+/* 소개팅 */
+.app-shell.app-shell.app-shell .ahome-match {
+  background: linear-gradient(160deg, #2a2150 0%, #1b1733 100%) !important;
+  border-color: transparent !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-match .ahome-card__label {
+  color: #f4d58d !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-match .ahome-card__head small {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-match__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.app-shell.app-shell.app-shell .ahome-match__grid > div {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.app-shell.app-shell.app-shell .ahome-match__grid dt {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.app-shell.app-shell.app-shell .ahome-match__grid dd {
+  color: #fff;
+}
+
+.app-shell.app-shell.app-shell .ahome-match__grid > div.is-alert {
+  background: rgba(240, 68, 82, 0.2);
+}
+
+.app-shell.app-shell.app-shell .ahome-match__grid > div.is-alert dd {
+  color: #ff8a93;
+}
+
+.app-shell.app-shell.app-shell .ahome-match .ahome-match__foot {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-match:hover {
+  filter: brightness(1.08);
+}
+
+/* 공연·공지 */
+.app-shell.app-shell.app-shell .ahome-mini .ahome-btn {
+  margin-top: 4px;
+}
+
+.app-shell.app-shell.app-shell .ahome-live,
+.app-shell.app-shell.app-shell .ahome-urgent {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.app-shell.app-shell.app-shell .ahome-live {
+  background: #e3f8ef;
+  color: var(--ah-green);
+}
+
+.app-shell.app-shell.app-shell .ahome-urgent {
+  background: #ffeeee;
+  color: var(--ah-red);
+}
+
+/* 아래 줄 */
+.app-shell.app-shell.app-shell .ahome-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.app-shell.app-shell.app-shell .ahome-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.app-shell.app-shell.app-shell .ahome-links button {
+  display: grid !important;
+  justify-items: center !important;
+  gap: 8px !important;
+  min-height: 0 !important;
+  padding: 14px 6px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #f7f8fa !important;
+  color: #4e5968 !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .ahome-links button:hover {
+  background: var(--ah-blue-soft) !important;
+  color: var(--ah-blue) !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-links i {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ah-blue);
+}
+
+.app-shell.app-shell.app-shell .ahome-textbtn {
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: none !important;
+  color: var(--ah-blue) !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .ahome-logs {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-shell.app-shell.app-shell .ahome-logs li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 0;
+  border-top: 1px solid #f2f4f6;
+}
+
+.app-shell.app-shell.app-shell .ahome-logs li:first-child {
+  border-top: 0;
+  padding-top: 2px;
+}
+
+.app-shell.app-shell.app-shell .ahome-logs span {
+  overflow: hidden;
+  color: var(--ah-text);
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell .ahome-logs small {
+  color: var(--ah-faint);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.app-shell.app-shell.app-shell .ahome-empty {
+  padding: 18px 0;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .app-shell.app-shell.app-shell .ahome-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .app-shell.app-shell.app-shell .ahome-bottom {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .app-shell.app-shell.app-shell .ahome-hello {
+    padding: 26px 28px;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-hello h2 {
+    font-size: 24px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .app-shell.app-shell.app-shell .ahome-grid {
+    grid-template-columns: 1.35fr 1fr 1fr;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-booth {
+    grid-row: span 2;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-match {
+    grid-column: span 2;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-match__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell.app-shell.app-shell .admin-console-main {
+    padding: 16px 16px 96px !important;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-top__who span {
+    display: none;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-hello {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .app-shell.app-shell.app-shell .ahome-card {
+    padding: 18px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell.app-shell.app-shell .is-spin {
+    animation: none;
+  }
+}
+
+/* 부스 관리: 총학 주점만 남기기 */
+.app-shell.app-shell.app-shell .ahome-cleanup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #fff8e6;
+}
+
+.app-shell.app-shell.app-shell .ahome-cleanup p {
+  flex: 1 1 16rem;
+  margin: 0 !important;
+  color: #8a5a00 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+}
+
+.app-shell.app-shell.app-shell .ahome-cleanup button {
+  min-height: 40px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #f04452 !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .ahome-cleanup button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

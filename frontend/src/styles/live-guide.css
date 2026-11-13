@@ -1,0 +1,766 @@
+/* 눌러 보는 운영 매뉴얼 (/guide/live). 앱 화면 밖의 안내 틀만 여기서 그린다. iframe 속 화면은 진짜 화면 그대로다. */
+
+html.lg-root,
+html.lg-root body,
+html.lg-root #root {
+  background: #f2f4f8 !important;
+}
+
+.lg-page {
+  --lg-ink: #121826;
+  --lg-sub: #5b6578;
+  --lg-line: #e1e6ee;
+  --lg-blue: #2f6bff;
+  --lg-point: #ff6a3d;
+  --lg-guest: #0f8f6b;
+  --lg-staff: #2f6bff;
+  min-height: 100dvh;
+  padding: 12px 12px 40px;
+  color: var(--lg-ink);
+  font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.lg-page *,
+.lg-page *::before,
+.lg-page *::after {
+  box-sizing: border-box;
+}
+
+.lg-page button {
+  min-height: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.lg-page--wide {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+  gap: 16px;
+}
+
+/* 폰 · 좁은 화면: 바깥 페이지는 스크롤하지 않고, 남는 높이를 전부 연습 화면에 준다. */
+.lg-page:not(.lg-page--wide) {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  padding: 8px 8px 10px;
+  gap: 8px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-top__title > div,
+.lg-page:not(.lg-page--wide) .lg-log,
+.lg-page:not(.lg-page--wide) .lg-ideas {
+  display: none;
+}
+
+.lg-page:not(.lg-page--wide) .lg-coach {
+  padding: 10px 12px;
+  gap: 8px;
+  border-radius: 16px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-now {
+  gap: 4px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-now h1 {
+  font-size: 16.5px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-now p {
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ---------- 머리 ---------- */
+.lg-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lg-top__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.lg-top__title strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.lg-top__title small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--lg-sub);
+}
+
+.lg-top__back {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--lg-line);
+  color: var(--lg-ink);
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.lg-top__side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.lg-flows {
+  position: relative;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: #e6eaf1;
+  /* 흐름이 많아 넘치면 이 줄만 옆으로 민다. */
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.lg-flows::-webkit-scrollbar {
+  display: none;
+}
+
+.lg-page .lg-flow {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--lg-sub);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.lg-page .lg-flow.is-on {
+  background: #fff;
+  color: var(--lg-ink);
+  box-shadow: 0 1px 3px rgba(18, 24, 38, 0.14);
+}
+
+.lg-page--wide .lg-flows {
+  margin-right: auto;
+  margin-left: 12px;
+}
+
+/* 폰: 흐름 이름을 짧게 쓰고, 그래도 넘치면 옆으로 민다. */
+.lg-page:not(.lg-page--wide) .lg-flows {
+  gap: 2px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-flow {
+  padding: 7px 7px;
+  font-size: 12.5px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-top {
+  gap: 6px;
+}
+
+.lg-page:not(.lg-page--wide) .lg-top__side .lg-btn {
+  padding: 9px 9px;
+  font-size: 13px;
+}
+
+.lg-badge {
+  display: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fff4e5;
+  color: #9a5200;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.lg-page--wide .lg-badge {
+  display: inline-block;
+}
+
+.lg-page .lg-btn {
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.lg-page .lg-btn--ghost {
+  background: #fff;
+  border-color: var(--lg-line);
+  color: var(--lg-ink);
+}
+
+.lg-page .lg-btn--primary {
+  background: var(--lg-blue);
+  color: #fff;
+}
+
+.lg-page .lg-btn--point {
+  background: var(--lg-point);
+  color: #fff;
+  padding: 11px 16px;
+  font-size: 15px;
+}
+
+/* ---------- 지금 할 일 ---------- */
+.lg-coach {
+  background: #fff;
+  border: 1px solid var(--lg-line);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lg-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4px;
+}
+
+.lg-steps li {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: #e6eaf1;
+}
+
+.lg-steps li.is-done {
+  background: var(--lg-guest);
+}
+
+.lg-steps li.is-current {
+  background: var(--lg-point);
+}
+
+.lg-coach__body {
+  display: grid;
+  gap: 12px;
+}
+
+.lg-page--wide .lg-coach {
+  padding: 18px 20px;
+}
+
+/* 폰 · 좁은 화면에서는 안내 → 화면 고르기 → 화면 → 지금까지 눌러 본 것 순서. */
+.lg-side {
+  display: contents;
+}
+
+.lg-log {
+  order: 5;
+}
+
+.lg-page--wide .lg-coach__body {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.lg-now {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.lg-now__label,
+.lg-result__label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--lg-point);
+}
+
+.lg-result__label {
+  color: var(--lg-sub);
+}
+
+.lg-now h1 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.lg-now p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--lg-sub);
+}
+
+.lg-now .lg-btn {
+  margin-top: 4px;
+}
+
+.lg-ideas {
+  margin: 2px 0 4px;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--lg-ink);
+}
+
+.lg-who {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.lg-who--guest {
+  background: #e3f6ee;
+  color: var(--lg-guest);
+}
+
+.lg-who--staff {
+  background: #e8efff;
+  color: var(--lg-staff);
+}
+
+.lg-who--coach {
+  background: #ffe9e1;
+  color: #c2410c;
+}
+
+.lg-result {
+  background: #f6f8fb;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: lg-pop 0.35s ease-out;
+}
+
+@keyframes lg-pop {
+  from {
+    transform: translateY(4px);
+    opacity: 0.4;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.lg-result strong {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.lg-result ul {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.lg-result li {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.lg-page .lg-chip {
+  padding: 3px 0;
+  border: 0;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.lg-page .lg-chip--guest {
+  background: #e3f6ee;
+  color: var(--lg-guest);
+}
+
+.lg-page .lg-chip--staff {
+  background: #e8efff;
+  color: var(--lg-staff);
+}
+
+/* ---------- 화면 고르기(폰) ---------- */
+.lg-tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+.lg-page .lg-tab {
+  position: relative;
+  padding: 7px 4px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--lg-line);
+  background: #fff;
+  color: var(--lg-sub);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.lg-tab small {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.lg-page .lg-tab.is-on {
+  background: var(--lg-ink);
+  border-color: var(--lg-ink);
+  color: #fff;
+}
+
+.lg-tab i {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--lg-point);
+  box-shadow: 0 0 0 0 rgba(255, 106, 61, 0.6);
+  animation: lg-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes lg-dot {
+  50% {
+    box-shadow: 0 0 0 7px rgba(255, 106, 61, 0);
+  }
+}
+
+/* ---------- 폰 화면들 ---------- */
+.lg-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 폰: 방금 일어난 일. 연습 화면 아래쪽에 얹는다. */
+.lg-sheet {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--lg-line);
+  box-shadow: 0 12px 32px rgba(18, 24, 38, 0.28);
+  animation: lg-pop 0.3s ease-out;
+}
+
+.lg-sheet strong {
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.lg-sheet ul {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lg-sheet li {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.lg-sheet__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.lg-sheet__actions .lg-btn--primary {
+  flex: 1;
+}
+
+.lg-phone {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lg-phone--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.lg-phone__head {
+  display: none;
+}
+
+.lg-phone__screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 18px;
+  border: 1px solid #cfd6e2;
+  background: #fff;
+  overflow: hidden;
+}
+
+.lg-phone__screen iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.lg-page--wide .lg-stage {
+  flex: none;
+  max-width: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.lg-page--wide .lg-phone {
+  position: static;
+  width: 100%;
+  max-width: 406px;
+  justify-self: center;
+  gap: 10px;
+}
+
+.lg-page--wide .lg-phone__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+}
+
+.lg-phone__head strong {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.lg-phone__head small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--lg-sub);
+}
+
+.lg-phone__flag {
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--lg-point);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 800;
+  font-style: normal;
+  white-space: nowrap;
+  animation: lg-pop 0.3s ease-out;
+}
+
+.lg-phone__flag--next {
+  background: #fff;
+  color: var(--lg-point);
+  box-shadow: inset 0 0 0 1.5px var(--lg-point);
+}
+
+.lg-page--wide .lg-phone__screen {
+  flex: none;
+  aspect-ratio: 390 / 700;
+  border: 8px solid #131a26;
+  border-radius: 34px;
+  box-shadow: 0 14px 34px rgba(18, 24, 38, 0.14);
+  transition: box-shadow 0.25s ease;
+}
+
+.lg-page--wide .lg-phone--changed .lg-phone__screen {
+  box-shadow:
+    0 0 0 4px rgba(255, 106, 61, 0.9),
+    0 14px 34px rgba(18, 24, 38, 0.14);
+}
+
+.lg-page--wide .lg-phone__screen iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 390px;
+  height: 700px;
+  transform-origin: 0 0;
+}
+
+/* 아주 넓은 화면: 안내는 왼쪽에 붙박이, 화면 셋은 오른쪽에서 창 높이에 맞춘다. */
+@media (min-width: 1280px) {
+  .lg-page--wide {
+    max-width: 1640px;
+    display: grid;
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .lg-page--wide .lg-top {
+    grid-column: 1 / -1;
+  }
+
+  .lg-page--wide .lg-side {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 16px;
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+  }
+
+  .lg-page--wide .lg-coach__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .lg-page--wide .lg-phone__screen {
+    aspect-ratio: auto;
+    height: min(716px, calc(100dvh - 150px));
+    min-height: 480px;
+  }
+}
+
+/* 노트북으로 쓰는 화면(총괄 화면): 폰 틀 대신 넓은 틀. 칸 폭은 LiveGuidePage 가 2.6 : 1 로 나눈다. */
+.lg-page--wide .lg-phone--desk {
+  max-width: none;
+}
+
+.lg-page--wide .lg-phone--desk .lg-phone__screen {
+  aspect-ratio: 1014 / 700;
+  border-width: 6px;
+  border-radius: 18px;
+}
+
+@media (min-width: 1280px) {
+  .lg-page--wide .lg-phone--desk .lg-phone__screen {
+    aspect-ratio: auto;
+  }
+}
+
+/* ---------- 지금까지 눌러 본 것 ---------- */
+.lg-log {
+  background: #fff;
+  border: 1px solid var(--lg-line);
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+
+.lg-log h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--lg-sub);
+}
+
+.lg-log ol {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.lg-log li strong {
+  display: block;
+  font-weight: 700;
+}
+
+.lg-log li span {
+  color: var(--lg-sub);
+}
+
+.lg-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 20;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(18, 24, 38, 0.92);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-result,
+  .lg-sheet,
+  .lg-phone__flag,
+  .lg-tab i {
+    animation: none;
+  }
+}

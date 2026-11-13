@@ -1,0 +1,1334 @@
+/* 소개팅 전용 관리자 밤 모드 — 손님용 사주 소개팅 메인(saju-night.css)과 같은 느낌:
+ * 아주대 밤 풍경을 화면에 고정하고, 그 위에 반투명 보랏빛 유리 카드 · 상아색 글자 · 금색 포인트.
+ * admin-aimatch-saju.css 뒤에 불러온다. 옛 밝은 규칙이 워낙 많아서 글자·버튼·입력 칸은 먼저 한꺼번에 뒤집고
+ * (:where 로 가중치를 낮춘 기본값), 그 아래에서 부품마다 다시 입힌다. 대상에 :not(#_) 를 붙여 옛 규칙을 모두 이긴다.
+ * 상태 색의 뜻: 금색 = 기다리는 중 / 초록 = 됐음 / 산호색 = 실패·노쇼·위험 / 보라 = 누르는 곳.
+ */
+
+.app-shell.festival-shell[data-aa-admin="true"] {
+  background: #14102e !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas {
+  --n-ivory: #fff4dc;
+  --n-ivory-2: rgba(255, 244, 220, 0.8);
+  --n-ivory-3: rgba(255, 244, 220, 0.56);
+  --n-line: rgba(196, 178, 255, 0.34);
+  --n-line-soft: rgba(255, 255, 255, 0.16);
+  --n-glass: linear-gradient(180deg, rgba(74, 56, 150, 0.46), rgba(38, 28, 92, 0.58));
+  --n-glass-2: rgba(255, 255, 255, 0.07);
+  --n-glass-3: rgba(255, 255, 255, 0.12);
+  --n-gold: #e6c878;
+  --n-ok: #8fe7b8;
+  --n-ok-bg: rgba(64, 200, 140, 0.18);
+  --n-wait: #f0d48a;
+  --n-wait-bg: rgba(230, 200, 120, 0.18);
+  --n-bad: #ffa79e;
+  --n-bad-bg: rgba(255, 110, 100, 0.18);
+  --n-violet: #cdbdff;
+  --n-violet-bg: rgba(139, 108, 240, 0.26);
+  --n-primary: linear-gradient(135deg, #8b6cf0 0%, #5a3fb0 100%);
+  --n-goldfill: linear-gradient(135deg, #ecd088 0%, #c99c3b 100%);
+  /* 옛 관리자 CSS 가 쓰는 변수도 밤 색으로 돌린다 */
+  --aa-ink: var(--n-ivory);
+  --aa-muted: var(--n-ivory-3);
+  --aa-line: var(--n-line-soft);
+  --aa-purple: var(--n-violet);
+  --aa-purple-soft: var(--n-violet-bg);
+  --aa-gold: var(--n-gold);
+  isolation: isolate;
+  background: transparent !important;
+  color-scheme: dark;
+}
+
+/* ---------- 고정 배경: 밤 풍경 + 꽃잎 ---------- */
+.app-shell .ai-match-admin-page.aas .aas-sky {
+  position: fixed !important;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-sky__img {
+  position: absolute;
+  inset: 0;
+  background: url("/images/saju/ajou-night-tall.webp") center top / cover no-repeat #14102e;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-sky__img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 16, 46, 0.2) 0%, rgba(20, 16, 46, 0.5) 30%, rgba(20, 16, 46, 0.66) 100%);
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .app-shell .ai-match-admin-page.aas .aas-sky__img {
+    background-image: url("/images/saju/ajou-night.webp");
+    background-position: center;
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-petal {
+  position: absolute;
+  top: -4vh;
+  left: var(--x, 50%);
+  width: calc(11px * var(--s, 1));
+  height: calc(8px * var(--s, 1));
+  border-radius: 60% 40% 60% 40%;
+  background: rgba(255, 196, 214, 0.72);
+  box-shadow: 0 0 6px rgba(255, 196, 214, 0.35);
+  opacity: 0;
+  animation: aas-fall var(--d, 16s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-petal--gold {
+  width: calc(9px * var(--s, 1));
+  height: calc(9px * var(--s, 1));
+  border-radius: 50% 0 50% 0;
+  background: rgba(240, 200, 90, 0.66);
+  box-shadow: 0 0 6px rgba(240, 200, 90, 0.35);
+}
+
+@keyframes aas-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(26px, 52vh, 0) rotate(210deg);
+  }
+  94% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(-18px, 108vh, 0) rotate(430deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- 사이드바 · 인사말: 같은 하늘 위의 유리 ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-side {
+  background: linear-gradient(180deg, rgba(20, 16, 46, 0.3), rgba(20, 16, 46, 0.55) 30%, rgba(20, 16, 46, 0.6));
+  box-shadow: inset -1px 0 0 var(--n-line-soft);
+}
+
+/* 흐림 효과는 데스크톱에서만: 폰에서는 이 안의 탭 바가 화면 아래에 고정돼야 하는데,
+   backdrop-filter 가 걸리면 고정 기준이 화면이 아니라 이 상자가 된다. */
+@media (min-width: 1024px) {
+  .app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-side {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-side__sky {
+  display: none;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-hero {
+  background: var(--n-glass);
+  box-shadow:
+    inset 0 0 0 1px var(--n-line),
+    0 18px 40px rgba(8, 6, 24, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-hero__hello {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-nav {
+  background: rgba(20, 16, 46, 0.82);
+}
+
+@media (min-width: 1024px) {
+  .app-shell.festival-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aas-nav {
+    background: transparent;
+  }
+}
+
+/* =====================================================================
+ * 본문 기본값 뒤집기
+ * ===================================================================== */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(h2, h3, h4, strong, b, dd):not(#_) {
+  color: var(--n-ivory) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(p, small, span, label, li, em, dt, i, a, time, textarea, input, select):not(#_) {
+  color: var(--n-ivory-2) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* 버튼 안 글자는 버튼 색을 따른다 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(button, a) :is(span, small, strong, b, em, i, svg):not(#_) {
+  color: inherit !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) button:not(#_) {
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: var(--n-glass-2) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory) !important;
+  filter: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) button:not(#_):hover:not(:disabled) {
+  background: var(--n-glass-3) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) button:not(#_):disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) button:not(#_)::before,
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) button:not(#_)::after {
+  content: none !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(input, select, textarea):not(#_) {
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: rgba(20, 16, 46, 0.45) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory) !important;
+  outline: none !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(input, textarea):not(#_)::placeholder {
+  color: var(--n-ivory-3) !important;
+  -webkit-text-fill-color: var(--n-ivory-3) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(input, select, textarea):not(#_):focus {
+  box-shadow: inset 0 0 0 1.5px var(--n-gold) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) select:not(#_) option {
+  background: #1d1740;
+  color: #fff4dc;
+}
+
+/* ---------- 큰 카드: 보랏빛 유리 ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :is(.admin-console-panel, .admin-ai-stat-panel, .admin-ai-phone-purge-card, .mu-admin):not(#_),
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .admin-ai-operations-strip article:not(#_) {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: var(--n-glass) !important;
+  box-shadow:
+    inset 0 0 0 1px var(--n-line),
+    0 14px 34px rgba(8, 6, 24, 0.28) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :is(.admin-console-panel, .admin-ai-stat-panel, .admin-ai-phone-purge-card, .mu-admin):not(#_)::before,
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :is(.admin-console-panel, .admin-ai-stat-panel, .admin-ai-phone-purge-card, .mu-admin):not(#_)::after {
+  content: none !important;
+}
+
+/* 카드 제목: 명조, 작은 머리말: 금색 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-console-panel__head h3, .mu-admin__head h2, .admin-ai-stat-panel__head strong, .admin-ai-phone-purge-card strong, .admin-ai-operations-strip strong, .mu-board__head > strong, .mu-now__cell strong):not(#_) {
+  color: var(--n-ivory) !important;
+  font-family: var(--aas-serif) !important;
+  letter-spacing: -0.01em !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-console-panel__head h3, .mu-admin__head h2):not(#_) {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-console-panel__head > div > span, .admin-ai-stat-panel__head span, .admin-ai-operations-strip span):not(#_) {
+  color: var(--n-gold) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* 카드 머리 오른쪽 배지(건수 · 성사율) */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-console-panel__head > strong, .admin-ai-stat-panel__head > em):not(#_) {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.45);
+  color: var(--n-gold) !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-style: normal;
+  font-weight: 800 !important;
+}
+
+/* ---------- 안쪽 상자: 옅은 유리 ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-match-card, .admin-ai-profile-card, .admin-ai-request-row, .aa-report, .mu-board, .mu-board__row, .mu-admin__row, .mu-now__cell, .admin-ai-search-field, .admin-ai-profile-filter-panel, .admin-ai-detail-panel, .admin-ai-match-note, .admin-ai-note-box, .admin-ai-profile-detail, .admin-ai-photo-disclosure, .aa-review__reject, .mu-admin__empty, .admin-console-hint):not(#_),
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-stat-grid > article, .admin-ai-match-photo-grid > div):not(#_) {
+  border: 0 !important;
+  background: var(--n-glass-2) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+}
+
+/* 속이 비어야 하는 묶음들 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-profile-card__head, .admin-ai-profile-card__stats, .admin-ai-profile-card__tags, .admin-ai-profile-card__compact-tags, .admin-ai-profile-card__phone, .aa-person__stats, .admin-ai-request-row__meta, .admin-ai-request-row__message, .admin-ai-request-person, .admin-ai-profile-filter-row, .aa-report__id, .aa-report__actions, .aa-review__actions, .admin-ai-status-filter, .admin-ai-interest-filter, .admin-ai-match-card__top, .admin-ai-stat-panel__head, .admin-ai-stat-grid, .admin-ai-match-photo-grid, .admin-ai-match-contact-grid, .admin-ai-compact-meta, .admin-ai-operations-strip, .admin-ai-request-table, .aa-csv-row, .mu-board__head, .mu-admin__pairs, .mu-admin__actions, .aa-match__copy, .aa-match__phones):not(#_) {
+  border-color: transparent !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* 작은 칩(태그 · 메타 · 숫자) */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-profile-card__tags, .admin-ai-profile-card__compact-tags, .admin-ai-compact-meta, .admin-ai-request-row__meta, .admin-ai-stat-grid article > div) > :is(span, small, em, i):not(#_),
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.aa-person__flag, .admin-ai-request-state, .mu-admin__pair em):not(#_) {
+  border: 0 !important;
+  background: var(--n-glass-3) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory-2) !important;
+}
+
+/* 아바타 · 사진 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-avatar:not(#_) {
+  background: rgba(20, 16, 46, 0.6) !important;
+  box-shadow:
+    0 0 0 2px rgba(20, 16, 46, 0.9),
+    0 0 0 3px rgba(230, 200, 120, 0.7) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-image-compare a:not(#_) {
+  border: 0 !important;
+  background: rgba(20, 16, 46, 0.5) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-image-compare a em:not(#_) {
+  background: rgba(20, 16, 46, 0.78) !important;
+  color: var(--n-ivory) !important;
+}
+
+/* ---------- 누르는 곳: 보라 · 금색 · 산호색 ---------- */
+/* 가장 중요한 다음 동작: 보라 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-esc__next, .admin-ai-note-save, .aa-csv:not(.aa-csv--stats)):not(#_) {
+  border-radius: 999px !important;
+  background: var(--n-primary) !important;
+  box-shadow: 0 6px 16px rgba(90, 63, 176, 0.45) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-esc__next, .admin-ai-note-save, .aa-csv:not(.aa-csv--stats)):not(#_):hover:not(:disabled) {
+  background: linear-gradient(135deg, #9c80f5 0%, #6a4fc2 100%) !important;
+  box-shadow: 0 8px 20px rgba(90, 63, 176, 0.6) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__next:not(#_) {
+  height: 32px;
+  padding: 0 14px !important;
+  font-size: 13px !important;
+}
+
+/* 승인 · 만남 완료(준비됨): 초록 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__btn--met.is-ready, .aa-review__actions .is-ok):not(#_) {
+  background: linear-gradient(135deg, #3fc48a, #1f8a5b) !important;
+  box-shadow: 0 6px 16px rgba(31, 138, 91, 0.4) !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+}
+
+/* 위험한 동작: 산호색 테두리, 확정 단계는 채움 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__btn--ghost, .admin-ai-danger-action, .aa-person__delete, .aa-review__actions .is-danger, .aa-report__actions .is-danger):not(#_) {
+  background: var(--n-bad-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 140, 130, 0.5) !important;
+  color: var(--n-bad) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__btn--ghost, .admin-ai-danger-action, .aa-person__delete, .aa-review__actions .is-danger, .aa-report__actions .is-danger):not(#_):hover:not(:disabled) {
+  background: rgba(255, 110, 100, 0.3) !important;
+  box-shadow: inset 0 0 0 1px var(--n-bad) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__btn--danger, .admin-ai-phone-purge-card form button):not(#_) {
+  background: linear-gradient(135deg, #e2564b, #b92e26) !important;
+  box-shadow: 0 6px 16px rgba(185, 46, 38, 0.4) !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+}
+
+/* ---------- 고르는 스위치(날짜 · 대기 장소 · 상태 필터 · 연결 상태) ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__tabs, .mu-board__tabs, .admin-ai-connection-controls):not(#_) {
+  gap: 3px !important;
+  padding: 4px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(20, 16, 46, 0.5) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__tabs, .mu-board__tabs, .admin-ai-connection-controls) button:not(#_) {
+  height: 34px;
+  padding: 0 14px !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--n-ivory-3) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__tabs, .mu-board__tabs, .admin-ai-connection-controls) button:not(#_):hover:not(:disabled) {
+  background: var(--n-glass-2) !important;
+  color: var(--n-ivory) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-admin__tabs, .mu-board__tabs) button.is-on:not(#_) {
+  background: var(--n-goldfill) !important;
+  box-shadow: 0 4px 12px rgba(201, 156, 59, 0.35) !important;
+  color: #2a1f4d !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-connection-controls:not(#_) {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  border-radius: 14px !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-connection-controls button:not(#_) {
+  height: 36px;
+  padding: 0 6px !important;
+  border-radius: 10px !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-connection-controls button.is-active.is-waiting:not(#_) {
+  background: var(--n-goldfill) !important;
+  box-shadow: 0 4px 12px rgba(201, 156, 59, 0.35) !important;
+  color: #2a1f4d !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-connection-controls button.is-active.is-completed:not(#_) {
+  background: linear-gradient(135deg, #3fc48a, #1f8a5b) !important;
+  box-shadow: 0 4px 12px rgba(31, 138, 91, 0.4) !important;
+  color: #fff !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-connection-controls button.is-active.is-failed:not(#_) {
+  background: linear-gradient(135deg, #e2564b, #b92e26) !important;
+  box-shadow: 0 4px 12px rgba(185, 46, 38, 0.4) !important;
+  color: #fff !important;
+}
+
+/* 필터 칩: 고르면 금색 테두리 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-status-filter, .admin-ai-interest-filter) button:not(#_) {
+  height: 32px;
+  padding: 0 13px !important;
+  border-radius: 999px !important;
+  color: var(--n-ivory-2) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-status-filter, .admin-ai-interest-filter) button.is-active:not(#_) {
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 0 0 0 1.5px var(--n-gold) !important;
+  color: var(--n-gold) !important;
+}
+
+/* =====================================================================
+ * 성사·연락: 부스 시간표
+ * ===================================================================== */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin:not(#_) {
+  gap: 14px;
+  padding: 20px !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-now__cell:not(#_) {
+  border-radius: 16px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-now__cell.is-live:not(#_) {
+  background: var(--n-ok-bg) !important;
+  box-shadow: inset 0 0 0 1.5px rgba(143, 231, 184, 0.6) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-now__cell.is-soon:not(#_) {
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 0 0 0 1.5px rgba(230, 200, 120, 0.65) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-now__cell small:not(#_) {
+  color: var(--n-gold) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board:not(#_) {
+  padding: 14px;
+  border-radius: 18px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__head > strong:not(#_) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__head > strong:not(#_)::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--n-gold);
+  transform: rotate(45deg);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__row:not(#_) {
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__row--arrived:not(#_) {
+  background: var(--n-ok-bg) !important;
+  box-shadow:
+    inset 4px 0 0 var(--n-ok),
+    inset 0 0 0 1px rgba(143, 231, 184, 0.4) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-board__row--departed, .mu-board__row--picked_up):not(#_) {
+  background: var(--n-wait-bg) !important;
+  box-shadow:
+    inset 4px 0 0 var(--n-gold),
+    inset 0 0 0 1px rgba(230, 200, 120, 0.4) !important;
+}
+
+/* 시각: 금빛 숫자 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__time:not(#_) {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  min-width: 66px;
+  padding: 7px 8px;
+  border-radius: 12px;
+  background: rgba(20, 16, 46, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.45);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__time b:not(#_) {
+  color: var(--n-gold) !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-board__time small:not(#_) {
+  color: var(--n-ivory-3) !important;
+  font-size: 11px !important;
+  white-space: nowrap;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-board__who b, .mu-admin__pair b):not(#_) {
+  color: var(--n-ivory) !important;
+  font-size: 15.5px !important;
+}
+
+/* 전화번호: 누르면 전화 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-board__who a, .mu-admin__pair a):not(#_) {
+  display: inline-flex !important;
+  align-items: center;
+  height: 26px !important;
+  min-height: 0 !important;
+  padding: 0 10px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--n-violet-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(196, 178, 255, 0.4) !important;
+  color: var(--n-violet) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+  line-height: 1 !important;
+  text-decoration: none;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.mu-board__who a, .mu-admin__pair a):not(#_):hover {
+  background: rgba(139, 108, 240, 0.42) !important;
+  color: #fff !important;
+}
+
+/* 도착 단계 칩 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__chip:not(#_) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--n-glass-3) !important;
+  color: var(--n-ivory-3) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__chip:not(#_)::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__chip--arrived:not(#_) {
+  background: var(--n-ok-bg) !important;
+  color: var(--n-ok) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__chip--departed:not(#_) {
+  background: var(--n-wait-bg) !important;
+  color: var(--n-wait) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__chip--picked_up:not(#_) {
+  background: var(--n-violet-bg) !important;
+  color: var(--n-violet) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__chip--at_booth:not(#_) {
+  background: var(--n-goldfill) !important;
+  color: #2a1f4d !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-esc__undo:not(#_) {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--n-ivory-3) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 약속 한 줄 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__list:not(#_) {
+  gap: 10px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__row:not(#_) {
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 16px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__row--next:not(#_) {
+  background: rgba(230, 200, 120, 0.1) !important;
+  box-shadow:
+    inset 0 0 0 1.5px var(--n-gold),
+    0 10px 26px rgba(201, 156, 59, 0.18) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__row--done:not(#_) {
+  opacity: 0.6;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__time:not(#_) {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  min-height: 72px;
+  border-radius: 12px;
+  background: rgba(20, 16, 46, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.45);
+  color: var(--n-gold) !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__row--next .mu-admin__time:not(#_)::before {
+  content: "다음";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--n-goldfill);
+  color: #2a1f4d;
+  font-size: 10.5px;
+  font-weight: 800;
+  transform: translateX(-50%);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__pairs:not(#_) {
+  gap: 8px;
+  align-content: center;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__state:not(#_) {
+  padding: 3px 10px;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__state--ok:not(#_) {
+  background: var(--n-ok-bg) !important;
+  color: var(--n-ok) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__state--hold:not(#_) {
+  background: var(--n-wait-bg) !important;
+  color: var(--n-wait) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__state--done:not(#_) {
+  background: var(--n-goldfill) !important;
+  color: #2a1f4d !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__pair:not(#_) {
+  align-items: center;
+  gap: 6px 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(20, 16, 46, 0.35);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__pair.is-arrived:not(#_) {
+  background: var(--n-ok-bg);
+  box-shadow: inset 3px 0 0 var(--n-ok);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__pair .mu-esc:not(#_) {
+  flex: 1 1 100%;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__btn:not(#_) {
+  height: 36px;
+  padding: 0 16px !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__noshow:not(#_) {
+  border-radius: 12px;
+  background: var(--n-bad-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 140, 130, 0.45);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-admin__noshow small:not(#_) {
+  color: var(--n-bad) !important;
+}
+
+/* 오늘 할 일 두 장: 왼쪽 금빛 띠 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .admin-ai-operations-strip article:not(#_) {
+  position: relative;
+  padding-left: 20px !important;
+  overflow: hidden;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .admin-ai-operations-strip article:not(#_)::before {
+  content: "" !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block !important;
+  width: 5px;
+  background: var(--n-goldfill);
+}
+
+/* =====================================================================
+ * 성사·연락: 성사된 매치 카드
+ * ===================================================================== */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-match-card.aa-match:not(#_) {
+  gap: 10px !important;
+  padding: 14px 14px 14px 18px !important;
+  border-radius: 18px !important;
+  box-shadow:
+    inset 5px 0 0 var(--n-gold),
+    inset 0 0 0 1px var(--n-line-soft) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match.is-completed:not(#_) {
+  background: rgba(64, 200, 140, 0.1) !important;
+  box-shadow:
+    inset 5px 0 0 var(--n-ok),
+    inset 0 0 0 1px rgba(143, 231, 184, 0.35) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match.is-failed:not(#_) {
+  background: rgba(255, 110, 100, 0.1) !important;
+  box-shadow:
+    inset 5px 0 0 var(--n-bad),
+    inset 0 0 0 1px rgba(255, 140, 130, 0.35) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__id strong:not(#_) {
+  color: var(--n-ivory) !important;
+  font-size: 16px !important;
+}
+
+/* 두 이름 사이: 붉은 실 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__id strong i:not(#_) {
+  position: relative;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 2px;
+  margin: 0 2px;
+  border-radius: 2px;
+  background: #ff8a80 !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  font-size: 0 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__id strong i:not(#_)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border: 2px solid #ff8a80;
+  border-radius: 50%;
+  background: #2b2160;
+  transform: translate(-50%, -50%);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.aa-match__state, .aa-person__flag--report):not(#_) {
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--n-wait-bg) !important;
+  box-shadow: none !important;
+  color: var(--n-wait) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__state.is-completed:not(#_) {
+  background: var(--n-ok-bg) !important;
+  color: var(--n-ok) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.aa-match__state.is-failed, .aa-person__flag--report):not(#_) {
+  background: var(--n-bad-bg) !important;
+  color: var(--n-bad) !important;
+}
+
+/* 부스 약속 한 줄 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__meetup:not(#_) {
+  padding: 8px 12px 8px 14px !important;
+  border-radius: 10px !important;
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 3px 0 0 var(--n-gold) !important;
+  color: #f7e3ac !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+}
+
+/* 문자 문구 복사 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__copy button:not(#_) {
+  height: 34px;
+  box-shadow: inset 0 0 0 1px rgba(196, 178, 255, 0.45) !important;
+  color: var(--n-violet) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__copy button:not(#_):hover {
+  background: var(--n-violet-bg) !important;
+  color: #fff !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__copy button.is-done:not(#_) {
+  background: var(--n-ok-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(143, 231, 184, 0.55) !important;
+  color: var(--n-ok) !important;
+}
+
+/* 전화번호 두 칸 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__phones a:not(#_) {
+  height: 38px;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: rgba(20, 16, 46, 0.45) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory) !important;
+  font-size: 14.5px !important;
+  font-weight: 800 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em !important;
+  text-decoration: none;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__phones a[href]:not(#_):hover {
+  box-shadow: inset 0 0 0 1.5px var(--n-violet) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__phones a:not(#_) small {
+  color: var(--n-gold) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__phones a.is-none:not(#_) {
+  color: var(--n-ivory-3) !important;
+  font-weight: 600 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-person__more:not(#_) {
+  height: 38px;
+  padding: 0 14px !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+}
+
+/* 위험 작업 카드 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-phone-purge-card:not(#_) {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 140, 130, 0.4),
+    0 14px 34px rgba(8, 6, 24, 0.28) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-phone-purge-card > div > span:not(#_) {
+  color: var(--n-bad) !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-phone-purge-card p b:not(#_) {
+  color: var(--n-gold) !important;
+}
+
+/* 올리면 살짝 뜬다 */
+@media (hover: hover) {
+  .app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-profile-card, .admin-ai-request-row):not(#_) {
+    transition: box-shadow 0.2s ease;
+  }
+
+  .app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-profile-card, .admin-ai-request-row):not(#_):hover {
+    box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.6) !important;
+  }
+}
+
+/* =====================================================================
+ * 나머지 탭의 밝은 조각들
+ * ===================================================================== */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) :is(button, a) svg:not(#_) *,
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas :where(.aas-content) svg:not(#_) {
+  color: inherit !important;
+}
+
+/* 사람 카드 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.aa-person__phone, .admin-ai-profile-card__phone):not(#_) {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(20, 16, 46, 0.45) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory) !important;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content a:is(.aa-person__phone, .admin-ai-profile-card__phone):not(#_):hover {
+  box-shadow: inset 0 0 0 1.5px var(--n-violet) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-person__stats li:not(#_) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-person__stats li.is-good:not(#_) {
+  border-radius: 999px;
+  background: var(--n-ok-bg) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-person__stats li.is-good:not(#_) :is(b, strong, span, small) {
+  color: var(--n-ok) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-person.is-deleted:not(#_) {
+  opacity: 0.55;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-person__flag--hidden:not(#_) {
+  background: var(--n-bad-bg) !important;
+  color: var(--n-bad) !important;
+}
+
+/* 필터 칩 안의 숫자 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content :is(.admin-ai-interest-filter, .admin-ai-status-filter) button:not(#_) :is(small, em, i, b) {
+  border-radius: 999px;
+  background: var(--n-glass-3) !important;
+  color: inherit !important;
+}
+
+/* 신청 기록 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-request-arrow:not(#_) {
+  border: 0 !important;
+  background: var(--n-violet-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(196, 178, 255, 0.4) !important;
+  color: var(--n-violet) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-request-row__message > span:not(#_) {
+  border: 0 !important;
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.4) !important;
+  color: var(--n-gold) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-request-row__message > :is(p, strong):not(#_) {
+  color: var(--n-ivory) !important;
+}
+
+/* 신청 상태에 따라 왼쪽 띠 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-request-row:not(#_) {
+  border-radius: 16px !important;
+}
+
+/* 신고 · 사진 검수 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-report__id i:not(#_) {
+  background: var(--n-bad-bg) !important;
+  color: var(--n-bad) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-report__id > p:not(#_) {
+  border: 0 !important;
+  background: rgba(20, 16, 46, 0.4) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-report.is-closed:not(#_) {
+  opacity: 0.7;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-report__blank:not(#_) {
+  background: var(--n-glass-3) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-review__who strong:not(#_) {
+  font-family: var(--aas-serif) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-review__reject:not(#_) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 통계 · 도구 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-csv:not(#_) {
+  height: 40px;
+  padding: 0 18px !important;
+  font-size: 13.5px !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-csv--stats:not(#_) {
+  border-radius: 999px !important;
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.55) !important;
+  color: var(--n-gold) !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-stat-grid > article > span:not(#_) {
+  color: var(--n-gold) !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .admin-ai-phone-purge-card form input:not(#_) {
+  box-shadow: inset 0 0 0 1px rgba(255, 140, 130, 0.4) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .ai-match-admin-page.aas .aas-petal {
+    display: none;
+  }
+}
+
+/* ---------- 한눈에 표(날짜 × 시간): 밤하늘 유리 위의 표 ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__head :is(strong, small):not(#_) {
+  color: var(--n-ivory) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__head small:not(#_) {
+  color: var(--n-ivory-3) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__scroll:not(#_) {
+  background: var(--n-glass-2) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__table:not(#_) {
+  color: var(--n-ivory-2) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__table :is(th, td):not(#_) {
+  border-bottom-color: var(--n-line-soft) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__table :is(thead th, tbody th):not(#_) {
+  background: #1d1740 !important;
+  color: var(--n-gold) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__table thead th small:not(#_) {
+  color: var(--n-ivory-3) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__table thead th.is-on:not(#_) {
+  box-shadow: inset 0 -2px 0 var(--n-gold);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__cell--closed:not(#_) {
+  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 4px, transparent 4px 10px) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__cell--ok:not(#_) {
+  background: var(--n-ok-bg) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__cell--hold:not(#_) {
+  background: var(--n-wait-bg) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__cell--done:not(#_) {
+  background: var(--n-glass-3) !important;
+  opacity: 0.6;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__cell.is-live:not(#_) {
+  box-shadow: inset 3px 0 0 var(--n-gold) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__muted:not(#_) {
+  color: var(--n-ivory-3) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__pair:not(#_) {
+  background: transparent !important;
+  color: var(--n-ivory) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .mu-grid__pair small:not(#_) {
+  background: var(--n-glass-3) !important;
+  box-shadow: inset 0 0 0 1px var(--n-line-soft) !important;
+  color: var(--n-ivory-2) !important;
+}
+
+/* ---------- 참가자 입장 QR (통계 · 도구) ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr__body:not(#_) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr__img:not(#_) {
+  flex: 0 0 auto;
+  width: 148px;
+  height: 148px;
+  padding: 8px;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(8, 6, 24, 0.35);
+  cursor: pointer;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr__img img:not(#_) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr__img--empty:not(#_) {
+  background: var(--n-glass-3);
+  box-shadow: inset 0 0 0 1px var(--n-line-soft);
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr__text:not(#_) {
+  flex: 1 1 220px;
+  display: grid;
+  gap: 12px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr__text p:not(#_) {
+  margin: 0;
+  color: var(--n-ivory-2);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-qr .aa-csv-row:not(#_) {
+  margin: 0;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content a.aa-csv:not(#_) {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content a.aa-csv[aria-disabled="true"]:not(#_) {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 크게 보기: 부스 앞에서 폰·태블릿 화면을 그대로 들어 보여 주는 용도라 흰 바탕 */
+.app-shell .ai-match-admin-page.aas .aa-qr-full {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  background: rgba(12, 9, 32, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.app-shell .ai-match-admin-page.aas .aa-qr-full__card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: min(100%, 420px);
+  padding: 26px 22px 22px;
+  border-radius: 26px;
+  background: #fff;
+  color: #1f1a3d;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+.app-shell .ai-match-admin-page.aas .aa-qr-full__card strong {
+  font-family: var(--aas-serif);
+  font-size: 24px;
+  letter-spacing: -0.01em;
+}
+
+.app-shell .ai-match-admin-page.aas .aa-qr-full__card img {
+  display: block;
+  width: min(100%, 320px);
+  aspect-ratio: 1;
+  image-rendering: pixelated;
+}
+
+.app-shell .ai-match-admin-page.aas .aa-qr-full__card small {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5b4fc4;
+  word-break: break-all;
+}
+
+.app-shell .ai-match-admin-page.aas .aa-qr-full__card p {
+  margin: 0;
+  font-size: 14px;
+  color: #5e5a78;
+}
+
+.app-shell .ai-match-admin-page.aas .aa-qr-full__close {
+  height: 44px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  color: #fff4dc;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---------- 성사 탭: 단계 필터와 제안 중 표시 ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__filter:not(#_) {
+  margin: 0 0 10px;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__meetup.is-proposed:not(#_) {
+  background: var(--n-violet-bg) !important;
+  box-shadow: inset 3px 0 0 var(--n-violet) !important;
+  color: var(--n-ivory) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__meetup.is-proposed b:not(#_) {
+  color: #d9ccff;
+  font-weight: 800;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__meetup.is-open:not(#_) {
+  background: var(--n-glass-3) !important;
+  box-shadow: inset 3px 0 0 var(--n-line) !important;
+  color: var(--n-ivory-3) !important;
+  font-weight: 600 !important;
+}
+
+/* 연락처 공유 동의 줄 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__contact:not(#_) {
+  padding: 8px 12px 8px 14px !important;
+  border-radius: 10px !important;
+  background: var(--n-violet-bg) !important;
+  box-shadow: inset 3px 0 0 var(--n-violet) !important;
+  color: var(--n-ivory) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__contact.is-shared:not(#_) {
+  background: rgba(60, 200, 130, 0.14) !important;
+  box-shadow: inset 3px 0 0 #5be0a0 !important;
+  color: #bff5d8 !important;
+  font-weight: 700 !important;
+}
+
+/* 답을 해야 하는 사람에게 보내는 확인 요청: 금색으로 띄운다 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__copy button.is-urgent:not(#_) {
+  background: var(--n-wait-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.7) !important;
+  color: var(--n-gold) !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-match__copy button.is-urgent.is-done:not(#_) {
+  background: var(--n-ok-bg) !important;
+  box-shadow: inset 0 0 0 1px rgba(143, 231, 184, 0.55) !important;
+  color: var(--n-ok) !important;
+}
+
+/* 새 가입 받기 / 막기 */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-reg__copy:not(#_) {
+  color: var(--n-ivory-3) !important;
+  font-size: 12.5px !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-reg.is-closed:not(#_) {
+  box-shadow: inset 0 0 0 1px rgba(255, 120, 110, 0.55), inset 3px 0 0 #ff7a6e !important;
+}
+
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.ai-match-admin-page.aas .aas-content .aa-reg.is-closed :is(.admin-ai-stat-panel__head strong, .aa-reg__state):not(#_) {
+  color: #ffb4bb !important;
+}

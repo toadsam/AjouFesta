@@ -1,0 +1,209 @@
+/*
+ * index.css 가 .app-shell button / input / a / h1 에 !important 로 색과 테두리를 강제한다.
+ * ver2 화면 안에서만 그 값을 되돌린다. 여기 있는 !important 는 그 규칙을 이기기 위한 것뿐이다.
+ * v2.css 다음에 불러와야 한다.
+ */
+.app-shell[data-v2="true"] .v2-page button,
+.app-shell[data-v2="true"] .v2-nav a,
+.app-shell[data-v2="true"] .v2-sheet button {
+  overflow: visible;
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  filter: none !important;
+  font-weight: inherit;
+  transition: transform 0.18s var(--v2-ease), background 0.18s, color 0.18s, box-shadow 0.18s !important;
+}
+
+.app-shell[data-v2="true"] .v2-page button:active,
+.app-shell[data-v2="true"] .v2-sheet button:active {
+  transform: scale(0.97) !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.app-shell[data-v2="true"] .v2-page button:focus-visible,
+.app-shell[data-v2="true"] .v2-sheet button:focus-visible {
+  outline: 2px solid var(--v2-blue) !important;
+  outline-offset: 2px;
+}
+
+.app-shell[data-v2="true"] .v2-page a,
+.app-shell[data-v2="true"] .v2-sheet a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.app-shell[data-v2="true"] .v2-page :is(h1, h2, h3),
+.app-shell[data-v2="true"] .v2-sheet :is(h1, h2, h3) {
+  color: var(--v2-text) !important;
+  text-shadow: none !important;
+  text-transform: none !important;
+  letter-spacing: -0.01em !important;
+}
+
+.app-shell[data-v2="true"] .v2-page,
+.app-shell[data-v2="true"] .v2-page section,
+.app-shell[data-v2="true"] .v2-sheet {
+  color: var(--v2-text) !important;
+}
+
+.app-shell[data-v2="true"] .v2-page :is(input, select, textarea),
+.app-shell[data-v2="true"] .v2-sheet :is(input, select, textarea) {
+  border: 0 !important;
+  background: var(--v2-gray) !important;
+  color: var(--v2-text) !important;
+  box-shadow: none !important;
+}
+
+.app-shell[data-v2="true"] .v2-page :is(input, select, textarea):focus,
+.app-shell[data-v2="true"] .v2-sheet :is(input, select, textarea):focus {
+  background: #fff !important;
+  box-shadow: 0 0 0 2px var(--v2-blue) !important;
+}
+
+.app-shell[data-v2="true"] .v2-page :is(input, textarea)::placeholder,
+.app-shell[data-v2="true"] .v2-sheet :is(input, textarea)::placeholder {
+  color: var(--v2-text-4) !important;
+}
+
+.app-shell[data-v2="true"] .v2-search input,
+.app-shell[data-v2="true"] .v2-search input:focus {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell[data-v2="true"] .v2-page select option,
+.app-shell[data-v2="true"] .v2-sheet select option {
+  background: #fff;
+  color: var(--v2-text);
+}
+
+/* 되돌린 뒤에 각 부품의 색을 다시 입힌다. */
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn { background: var(--v2-blue) !important; color: #fff !important; font-weight: 700; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn:active { background: var(--v2-blue-dark) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn:disabled { background: var(--v2-gray-2) !important; color: var(--v2-text-4) !important; transform: none !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn--gray { background: var(--v2-gray) !important; color: var(--v2-text) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn--gray:active { background: var(--v2-gray-2) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn--soft { background: var(--v2-blue-soft) !important; color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn--soft:active { background: #d6e8ff !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn--soft:disabled { background: var(--v2-gray) !important; color: var(--v2-text-4) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-btn--danger { background: var(--v2-red-soft) !important; color: var(--v2-red) !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-chip { background: var(--v2-gray) !important; color: var(--v2-text-2) !important; font-weight: 600; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-chip--active { background: var(--v2-blue) !important; color: #fff !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-table { border: 2px solid transparent !important; background: var(--v2-gray) !important; color: var(--v2-text) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-table--selected { border-color: var(--v2-blue) !important; background: var(--v2-blue-soft) !important; color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-table--selected small { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-table:disabled { opacity: 0.4; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-stepper button { background: #fff !important; color: var(--v2-text) !important; box-shadow: 0 1px 4px rgba(25, 31, 40, 0.08) !important; font-weight: 700; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-stepper button:active { transform: scale(0.9) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-stepper button:disabled { background: transparent !important; color: var(--v2-text-4) !important; box-shadow: none !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-info { background: var(--v2-gray) !important; color: var(--v2-text) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-info:active { background: var(--v2-gray-2) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-info svg { color: var(--v2-blue); }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-quick__item { color: var(--v2-text) !important; font-weight: 700; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-quick__item:active { background: var(--v2-gray-2) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-quick__item span { color: var(--v2-blue) !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-row:active { background: var(--v2-gray) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-card--press:active { background: var(--v2-gray-2) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-notice { background: var(--v2-blue-tint) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-notice:active { background: #e3efff !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-notice__tag { color: #fff !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-lost { background: var(--v2-gray) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-lost:active { background: var(--v2-gray-2) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-booth { background: #fff !important; box-shadow: 0 2px 10px rgba(25, 31, 40, 0.05), 0 0 0 1px var(--v2-line) !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-fab { position: fixed !important; background: var(--v2-blue) !important; color: #fff !important; box-shadow: 0 10px 24px rgba(49, 130, 246, 0.4) !important; font-weight: 700; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-fab:active { transform: scale(0.93) !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-search button { background: var(--v2-gray-2) !important; color: var(--v2-text-2) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-topbar > button:active,
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-topbar > a:active { background: var(--v2-gray) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-topbar--overlay > button,
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-topbar--overlay > a { background: rgba(255, 255, 255, 0.9) !important; box-shadow: 0 4px 12px rgba(25, 31, 40, 0.1) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-section__head button { color: var(--v2-text-3) !important; font-weight: 600; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-section__head button:active { color: var(--v2-blue) !important; transform: none !important; }
+
+.app-shell[data-v2="true"] .v2-nav .v2-nav__item { color: var(--v2-text-3) !important; }
+.app-shell[data-v2="true"] .v2-nav .v2-nav__item--active { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] .v2-nav .v2-nav__item span { color: inherit !important; }
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-hero h1 em { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-hero__eyebrow { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-badge--blue { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-badge--green { color: var(--v2-green) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-badge--red { color: var(--v2-red) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-badge--yellow { color: #b57a00 !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-badge { color: var(--v2-text-2); }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-timer { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-booth__meta em { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-booth__meta em.is-busy { color: var(--v2-red) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-booth__live { color: #8a5b00 !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-note--success { color: var(--v2-green) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-note--danger { color: var(--v2-red) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-note--blue { color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-toast { color: #fff !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-brand__mark { color: #fff !important; }
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-empty strong { color: var(--v2-text-2) !important; }
+
+/* 앱 바깥 캔버스도 흰색으로. index.css 가 html/body/#root 에 그라데이션과 initial 을 번갈아 강제한다. */
+html:has(.app-shell[data-v2="true"]),
+body:has(.app-shell[data-v2="true"]),
+#root:has(.app-shell[data-v2="true"]) {
+  background: #f2f4f6 !important;
+}
+
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-info strong { white-space: normal; font-size: 0.84rem; line-height: 1.3; }
+
+/* 전역 form/label 꾸밈 되돌리기 */
+.app-shell[data-v2="true"] .v2-page form,
+.app-shell[data-v2="true"] .v2-sheet form,
+.app-shell[data-v2="true"] .v2-page label,
+.app-shell[data-v2="true"] .v2-sheet label {
+  margin: 0;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+.app-shell[data-v2="true"] .v2-sheet .v2-field,
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-field { margin-bottom: 1rem; }
+.app-shell[data-v2="true"] .v2-sheet .v2-field > span,
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-field > span { color: var(--v2-text-3) !important; }
+.app-shell[data-v2="true"] .v2-sheet .v2-file,
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-file { border: 1.5px dashed var(--v2-gray-2) !important; }
+.app-shell[data-v2="true"] .v2-sheet .v2-file--filled,
+.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-file--filled { border-color: var(--v2-blue) !important; background: var(--v2-blue-tint) !important; color: var(--v2-blue) !important; }
+.app-shell[data-v2="true"] .v2-sheet h2 { color: var(--v2-text) !important; }
+.app-shell[data-v2="true"] .v2-sheet > p { color: var(--v2-text-3) !important; }
+.app-shell[data-v2="true"] .v2-sheet .v2-kv span { color: var(--v2-text-3) !important; }
+.app-shell[data-v2="true"] .v2-sheet .v2-kv strong { color: var(--v2-text) !important; }
+
+.app-shell[data-v2="true"] .v2-toast { color: #fff !important; }
+
+/* 옛 전역 button:hover(흰 배경)가 폰에서 탭 뒤에 남아 선택 칩을 덮지 않게 */
+.app-shell.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-chip:is(:hover, :focus, :active) {
+  background: var(--v2-gray) !important;
+  color: var(--v2-text-2) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.app-shell.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-chip.v2-chip--active,
+.app-shell.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-chip.v2-chip--active:is(:hover, :focus, :active) {
+  background: var(--v2-blue) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell[data-v2="true"] :is(.v2-page, .v2-sheet) .v2-chip:focus:not(:focus-visible) {
+  outline: none !important;
+}

@@ -1,0 +1,31 @@
+{
+  "name": "바람 · 2026 아주대학교 가을축제",
+  "short_name": "바람",
+  "description": "10월 7일~8일 노천극장 · 공연 시간표, 총학 주점, 사주 소개팅, 분실물을 한 곳에서",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#13203d",
+  "theme_color": "#13203d",
+  "icons": [
+    {
+      "src": "/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

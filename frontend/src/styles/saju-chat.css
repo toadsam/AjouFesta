@@ -1,0 +1,500 @@
+/*
+ * 소개팅 부스 블라인드 채팅방(mchat-*). body 에 포털로 뜨므로 .app-shell 전역 규칙의 영향을 받지 않는다.
+ * 소개팅 밤 테마와 같은 남보라 + 금색.
+ */
+.mchat {
+  --mc-bg: #171232;
+  --mc-panel: #221a4a;
+  --mc-line: rgba(196, 178, 255, 0.22);
+  --mc-ivory: #fff4dc;
+  --mc-ivory-2: rgba(255, 244, 220, 0.72);
+  --mc-gold: #e6c878;
+  --mc-mine: #e6c878;
+  --mc-theirs: #322768;
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: flex;
+  justify-content: center;
+  background: rgba(8, 6, 22, 0.78);
+  color: var(--mc-ivory);
+  font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", system-ui, sans-serif;
+}
+
+.mchat *,
+.mchat *::before,
+.mchat *::after {
+  box-sizing: border-box;
+}
+
+.mchat__frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  height: 100dvh;
+  background:
+    radial-gradient(120% 60% at 80% 0%, rgba(120, 96, 220, 0.28), transparent 60%),
+    var(--mc-bg);
+}
+
+.mchat button {
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mchat button:disabled {
+  cursor: default;
+}
+
+/* ---------- 머리 ---------- */
+.mchat__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(10px + env(safe-area-inset-top, 0px)) 14px 10px;
+  border-bottom: 1px solid var(--mc-line);
+  background: rgba(23, 18, 50, 0.92);
+}
+
+.mchat__close {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--mc-ivory);
+  font-size: 18px;
+}
+
+.mchat__title {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.mchat__title strong {
+  color: var(--mc-ivory);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.mchat__title small {
+  overflow: hidden;
+  color: var(--mc-ivory-2);
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mchat__timer {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(230, 200, 120, 0.16);
+  color: var(--mc-gold);
+  font-size: 15px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mchat__timer.is-soon {
+  background: rgba(240, 68, 82, 0.2);
+  color: #ff9aa2;
+  animation: mchat-blink 1s ease-in-out infinite;
+}
+
+@keyframes mchat-blink {
+  50% { opacity: 0.55; }
+}
+
+.mchat__report {
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 154, 162, 0.45);
+  border-radius: 10px;
+  background: transparent;
+  color: #ff9aa2;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mchat__report:disabled {
+  opacity: 0.7;
+}
+
+/* ---------- 알림 띠 ---------- */
+.mchat__banner {
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.mchat__banner--warn { background: rgba(240, 180, 60, 0.18); color: #f4d58d; }
+.mchat__banner--error { background: rgba(240, 68, 82, 0.2); color: #ffb3b9; }
+.mchat__banner--soon { background: rgba(240, 68, 82, 0.16); color: #ffb3b9; }
+
+/* ---------- 기다리는 화면 ---------- */
+.mchat__center {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  flex: 1;
+  padding: 24px 28px;
+  text-align: center;
+}
+
+.mchat__moon {
+  font-size: 44px;
+  animation: mchat-float 3s ease-in-out infinite;
+}
+
+@keyframes mchat-float {
+  50% { transform: translateY(-6px); }
+}
+
+.mchat__center strong {
+  color: var(--mc-ivory);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.mchat__center p {
+  margin: 0;
+  color: var(--mc-ivory-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mchat__center ul {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 16px;
+  border: 1px solid var(--mc-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  list-style: none;
+  text-align: left;
+}
+
+.mchat__center li {
+  color: var(--mc-ivory-2);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.mchat__center li b {
+  color: var(--mc-gold);
+  font-weight: 800;
+}
+
+/* ---------- 대화 ---------- */
+.mchat__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding: 14px 14px 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mchat__notice {
+  margin: 0 0 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--mc-ivory-2);
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.mchat__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.mchat__row.is-mine {
+  flex-direction: row-reverse;
+}
+
+.mchat__bubble {
+  max-width: 76%;
+  margin: 0;
+  padding: 10px 13px;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--mc-theirs);
+  color: var(--mc-ivory);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.mchat__row.is-mine .mchat__bubble {
+  border-radius: 18px 18px 6px 18px;
+  background: var(--mc-mine);
+  color: #1d1740;
+  font-weight: 600;
+}
+
+.mchat__row.is-pending .mchat__bubble {
+  opacity: 0.6;
+}
+
+.mchat__row time {
+  flex-shrink: 0;
+  color: rgba(255, 244, 220, 0.45);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mchat__retry {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(240, 68, 82, 0.22);
+  color: #ffb3b9;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mchat__topic-card {
+  display: grid;
+  gap: 4px;
+  align-self: center;
+  max-width: 88%;
+  margin: 4px 0;
+  padding: 12px 16px;
+  border: 1px solid rgba(230, 200, 120, 0.45);
+  border-radius: 16px;
+  background: rgba(230, 200, 120, 0.1);
+  text-align: center;
+}
+
+.mchat__topic-card small {
+  color: var(--mc-gold);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.mchat__topic-card b {
+  color: var(--mc-ivory);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* ---------- 아래: 추천 주제 + 입력 ---------- */
+.mchat__bottom {
+  display: grid;
+  gap: 8px;
+  padding: 8px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--mc-line);
+  background: rgba(23, 18, 50, 0.96);
+}
+
+.mchat__topics {
+  display: grid;
+  gap: 8px;
+}
+
+.mchat__topics-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mchat__topics-toggle,
+.mchat__topics-more {
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  color: var(--mc-gold);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.mchat__topics-more {
+  color: var(--mc-ivory-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.mchat__chips {
+  display: grid;
+  gap: 6px;
+}
+
+.mchat__chip {
+  padding: 10px 12px;
+  border: 1px solid var(--mc-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--mc-ivory);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.mchat__chip:active:not(:disabled) {
+  background: rgba(230, 200, 120, 0.18);
+}
+
+.mchat__composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.mchat__composer input {
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid var(--mc-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--mc-ivory);
+  /* 16px 미만이면 iOS 가 입력할 때 화면을 확대한다 */
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+}
+
+.mchat__composer input::placeholder {
+  color: rgba(255, 244, 220, 0.4);
+}
+
+.mchat__composer input:focus {
+  border-color: var(--mc-gold);
+}
+
+.mchat__composer button {
+  min-width: 72px;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f1d88f, #d9b45a);
+  color: #1d1740;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.mchat__composer button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 244, 220, 0.4);
+}
+
+/* ---------- 선택 · 결과 ---------- */
+.mchat__panel {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--mc-line);
+  background: var(--mc-panel);
+  text-align: center;
+}
+
+.mchat__panel > span {
+  font-size: 36px;
+}
+
+.mchat__panel strong {
+  color: var(--mc-ivory);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.mchat__panel p {
+  margin: 0;
+  color: var(--mc-ivory-2);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.mchat__panel small {
+  color: rgba(255, 244, 220, 0.55);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mchat__panel--match {
+  background: linear-gradient(160deg, #3a2a78, #221a4a);
+}
+
+.mchat__choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.mchat__yes,
+.mchat__no,
+.mchat__done {
+  min-height: 50px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 15.5px;
+  font-weight: 800;
+}
+
+.mchat__yes {
+  background: linear-gradient(135deg, #f1d88f, #d9b45a);
+  color: #1d1740;
+}
+
+.mchat__no {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--mc-ivory);
+}
+
+.mchat__done {
+  width: 100%;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--mc-ivory);
+}
+
+.mchat :is(.mchat__yes, .mchat__no):disabled {
+  opacity: 0.6;
+}
+
+@media (min-width: 520px) {
+  .mchat__frame {
+    box-shadow: 0 0 0 1px var(--mc-line);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mchat__timer.is-soon,
+  .mchat__moon {
+    animation: none;
+  }
+}

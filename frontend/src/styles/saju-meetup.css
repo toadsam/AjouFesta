@@ -1,0 +1,921 @@
+/*
+ * 소개팅 부스 시간 잡기(components/MeetupScheduler.jsx). 접두사 mu-.
+ * 버튼은 index.css 전역 button 규칙(그라데이션·min-height 44px)을 이겨야 해서 .app-shell 을 세 번 겹친다.
+ */
+.app-shell .mu {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 14px;
+  border-radius: 18px;
+  background: #f8f5ff;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.14);
+}
+
+.app-shell .mu--confirmed {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.app-shell .mu-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.app-shell .mu-head__badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #efe9fb;
+  color: #55389f !important;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.app-shell .mu-head__badge--gold {
+  background: #fbf3dc;
+  color: #8a5f10 !important;
+}
+
+.app-shell .mu-head__timer {
+  font-size: 12.5px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #55389f !important;
+}
+
+.app-shell .mu-title,
+.app-shell .mu-time {
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
+  color: #2a1f4d !important;
+}
+
+.app-shell .mu-time {
+  font-size: 24px !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell .mu-copy {
+  margin: 0;
+  font-size: 13px !important;
+  line-height: 1.55;
+  color: #4e5968 !important;
+}
+
+.app-shell .mu-actions {
+  display: grid;
+  gap: 8px;
+}
+
+/* ---- 버튼 ---- */
+.app-shell.app-shell.app-shell .mu-primary,
+.app-shell.app-shell.app-shell .mu-ghost,
+.app-shell.app-shell.app-shell .mu-link,
+.app-shell.app-shell.app-shell .mu-date,
+.app-shell.app-shell.app-shell .mu-slot {
+  min-height: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.15s, color 0.15s;
+}
+
+.app-shell.app-shell.app-shell .mu-primary::before,
+.app-shell.app-shell.app-shell .mu-primary::after,
+.app-shell.app-shell.app-shell .mu-ghost::before,
+.app-shell.app-shell.app-shell .mu-ghost::after,
+.app-shell.app-shell.app-shell .mu-link::before,
+.app-shell.app-shell.app-shell .mu-link::after,
+.app-shell.app-shell.app-shell .mu-date::before,
+.app-shell.app-shell.app-shell .mu-date::after,
+.app-shell.app-shell.app-shell .mu-slot::before,
+.app-shell.app-shell.app-shell .mu-slot::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell .mu-primary {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #7457dc 0%, #5b3fb0 100%) !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.app-shell.app-shell .mu-primary:disabled {
+  background: #e5e8eb !important;
+  color: #b0b8c1 !important;
+}
+
+.app-shell.app-shell.app-shell .mu-primary:not(:disabled):active,
+.app-shell.app-shell.app-shell .mu-ghost:active {
+  transform: scale(0.98);
+}
+
+.app-shell.app-shell.app-shell .mu-ghost {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px !important;
+  border-radius: 14px !important;
+  background: #efe9fb !important;
+  color: #55389f !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.app-shell.app-shell .mu-link {
+  justify-self: center;
+  height: 32px;
+  padding: 0 8px !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #6b7684 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-decoration: underline;
+}
+
+.app-shell.app-shell.app-shell .mu-link--danger {
+  color: #f04452 !important;
+}
+
+/* ---- 시간표 ---- */
+.app-shell .mu-picker {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(109, 79, 210, 0.14);
+  animation: mu-in 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes mu-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-shell .mu-picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-shell .mu-picker__head strong {
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 16px !important;
+  color: #2a1f4d !important;
+}
+
+/* 날짜가 둘이면 반씩 채우고, 많으면(리허설 날짜 포함) 옆으로 넘긴다. */
+.app-shell .mu-dates {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(96px, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgba(109, 79, 210, 0.08);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.app-shell .mu-dates::-webkit-scrollbar {
+  display: none;
+}
+
+.app-shell.app-shell.app-shell .mu-date {
+  height: 38px;
+  padding: 0 !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  color: #4e5968 !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.app-shell.app-shell .mu-date.is-on {
+  background: #fff !important;
+  color: #55389f !important;
+  box-shadow: 0 2px 8px rgba(42, 31, 77, 0.12) !important;
+}
+
+.app-shell .mu-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 11.5px;
+  color: #6b7684;
+}
+
+.app-shell .mu-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #6b7684 !important;
+}
+
+.app-shell .mu-legend span::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.app-shell .mu-legend__free::before { background: #efe9fb; box-shadow: inset 0 0 0 1px #6d4fd2; }
+.app-shell .mu-legend__taken::before { background: #2a1f4d; }
+.app-shell .mu-legend__past::before { background: #f2f4f6; }
+
+.app-shell .mu-legend .mu-legend__count {
+  margin-left: auto;
+  font-weight: 800;
+  color: #55389f !important;
+}
+
+.app-shell .mu-hours {
+  display: grid;
+  gap: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 2px;
+  overscroll-behavior: contain;
+}
+
+.app-shell .mu-hour {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.app-shell .mu-hour__label {
+  font-size: 12.5px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #4e5968 !important;
+}
+
+.app-shell .mu-hour__slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.app-shell.app-shell.app-shell .mu-slot {
+  height: 38px;
+  padding: 0 !important;
+  border-radius: 10px !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell.app-shell.app-shell .mu-slot--free,
+.app-shell.app-shell.app-shell .mu-slot--mine {
+  background: #efe9fb !important;
+  color: #55389f !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.35) !important;
+}
+
+.app-shell.app-shell.app-shell .mu-slot--free:active {
+  transform: scale(0.93);
+}
+
+.app-shell.app-shell.app-shell .mu-slot--mine {
+  box-shadow: inset 0 0 0 2px #d9b45a !important;
+}
+
+.app-shell.app-shell.app-shell .mu-slot.is-on {
+  background: linear-gradient(135deg, #7457dc 0%, #5b3fb0 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 14px rgba(91, 63, 176, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.app-shell.app-shell.app-shell .mu-slot--taken:not(.mu-slot--mine),
+.app-shell.app-shell.app-shell .mu-slot--held:not(.mu-slot--mine) {
+  background: #2a1f4d !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  text-decoration: line-through;
+  opacity: 1;
+}
+
+.app-shell.app-shell.app-shell .mu-slot--past {
+  background: #f2f4f6 !important;
+  color: #b0b8c1 !important;
+  opacity: 1;
+}
+
+.app-shell .mu-error {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fdecee;
+  color: #f04452 !important;
+  font-size: 13px !important;
+  font-weight: 700;
+}
+
+.app-shell .mu-picker__foot {
+  display: grid;
+  gap: 8px;
+}
+
+.app-shell .mu-picker__foot p {
+  margin: 0;
+  font-size: 12.5px !important;
+  line-height: 1.5;
+  color: #6b7684 !important;
+}
+
+.app-shell .mu-picker__foot b {
+  color: #55389f !important;
+}
+
+/* ---- 확정 티켓 ---- */
+.app-shell .mu-ticket {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 18px 16px 14px;
+  border-radius: 20px;
+  background:
+    linear-gradient(90deg, rgba(29, 23, 64, 0.94) 0%, rgba(29, 23, 64, 0.72) 60%, rgba(29, 23, 64, 0.45) 100%),
+    url("/images/saju/hero.webp") 80% 50% / cover no-repeat, #1d1740;
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(42, 31, 77, 0.3), 0 0 0 1px rgba(217, 180, 90, 0.4);
+  overflow: hidden;
+}
+
+.app-shell .mu-ticket__eyebrow {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffe9b8 !important;
+}
+
+.app-shell .mu-ticket__time {
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  color: #fff4dc !important;
+}
+
+.app-shell .mu-ticket__rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.app-shell .mu-ticket__rows > div {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.app-shell .mu-ticket__rows small {
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.app-shell .mu-ticket__rows b {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #fff !important;
+}
+
+.app-shell .mu-ticket__rules {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0 0 0 16px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.app-shell .mu-ticket__rules li {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.app-shell .mu-ticket__rules b {
+  color: #ffe9b8 !important;
+}
+
+.app-shell .mu-ticket__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.app-shell.app-shell.app-shell .mu-ticket .mu-ghost {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell .mu-ticket .mu-link--danger {
+  color: #ffb4bb !important;
+}
+
+/* ---- 운영진 시간표(AiMatchAdminPage) ---- */
+.mu-admin {
+  display: grid;
+  /* 날짜 탭이 많아도 탭 줄의 본래 폭이 시간표 전체를 밀어 넓히지 않게 칸 최소 폭을 0 으로 둔다. */
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+  color: #191f28;
+  box-shadow: 0 2px 14px rgba(25, 31, 40, 0.08);
+}
+
+.mu-admin__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mu-admin__head h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #191f28;
+}
+
+.mu-admin__head small {
+  color: #6b7684;
+  font-size: 12.5px;
+}
+
+.mu-admin__tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #f2f4f6;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.mu-admin__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.mu-admin__tabs > button {
+  flex: none;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell .mu-admin__tab {
+  min-height: 0 !important;
+  height: 34px;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: #4e5968 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.app-shell.app-shell.app-shell .mu-admin__tab::before,
+.app-shell.app-shell.app-shell .mu-admin__tab::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell .mu-admin__tab.is-on {
+  background: #fff !important;
+  color: #3182f6 !important;
+  box-shadow: 0 1px 6px rgba(25, 31, 40, 0.12) !important;
+}
+
+.mu-admin__list {
+  display: grid;
+  gap: 8px;
+}
+
+.mu-admin__row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f9fafb;
+  box-shadow: inset 0 0 0 1px #f2f4f6;
+}
+
+.mu-admin__row--next {
+  background: #e8f3ff;
+  box-shadow: inset 0 0 0 1.5px #3182f6;
+}
+
+.mu-admin__time {
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #191f28;
+}
+
+.mu-admin__pairs {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.mu-admin__pair {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13.5px;
+  color: #191f28;
+}
+
+.mu-admin__pair b {
+  font-weight: 800;
+}
+
+.mu-admin__pair em {
+  font-style: normal;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #e5e8eb;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4e5968;
+}
+
+.mu-admin__pair a {
+  color: #3182f6;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mu-admin__state {
+  justify-self: start;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.mu-admin__state--ok { background: #e6f6ee; color: #1fa06c; }
+.mu-admin__state--hold { background: #fff5d6; color: #8a5f10; }
+
+.mu-admin__empty {
+  margin: 0;
+  padding: 18px;
+  border-radius: 14px;
+  background: #f9fafb;
+  color: #6b7684;
+  font-size: 13.5px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .mu-admin__row {
+    grid-template-columns: 54px minmax(0, 1fr);
+    padding: 10px 12px;
+  }
+}
+
+/*
+ * 소개팅 페이지 안에서는 v2-aimatch.css 의 `.ai-match-page strong|p|small { color … !important }`(특이도 0,4,1)가
+ * 티켓의 밝은 글자를 어둡게 덮는다. 같은 접두사로 (0,5,0) 을 만들어 되돌린다.
+ */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-ticket__time {
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-ticket__eyebrow {
+  color: #ffe9b8 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-ticket__rows small {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-ticket__rows b,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-ticket .mu-ticket__rules li {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-ticket .mu-ticket__rules b {
+  color: #ffe9b8 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-error {
+  color: #f04452 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-title,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-time,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu-picker__head strong {
+  color: #2a1f4d !important;
+}
+
+/* 신청 카드의 span·em 공통 규칙이 시간표 안쪽까지 들어오지 않게 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu span,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu b {
+  font-size: inherit;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-head__badge { font-size: 11.5px; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-head__timer { font-size: 12.5px; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-hour__label { font-size: 12.5px; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-legend span,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-legend__count { font-size: 11.5px; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-ticket__eyebrow { font-size: 11.5px; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu .mu-ticket__rows b { font-size: 14.5px; }
+
+/* 데스크톱에서 마우스를 올리면 index.css 의 전역 button:hover(흰 배경)가 이기던 것. 원래 모양을 유지한다. */
+.app-shell.app-shell.app-shell.app-shell .mu-slot--free:hover,
+.app-shell.app-shell.app-shell.app-shell .mu-slot--mine:hover {
+  background: #e4dafa !important;
+  color: #55389f !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.55) !important;
+  transform: none !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .mu-slot.is-on:hover,
+.app-shell.app-shell.app-shell.app-shell .mu-primary:not(:disabled):hover {
+  background: linear-gradient(135deg, #7457dc 0%, #5b3fb0 100%) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .mu-ghost:hover {
+  background: #e4dafa !important;
+  color: #55389f !important;
+  transform: none !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .mu-ticket .mu-ghost:hover {
+  background: rgba(255, 255, 255, 0.24) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .mu-link:hover,
+.app-shell.app-shell.app-shell.app-shell .mu-date:not(.is-on):hover,
+.app-shell.app-shell.app-shell.app-shell .mu-admin__tab:not(.is-on):hover {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .mu-link:hover { color: #6b7684 !important; }
+.app-shell.app-shell.app-shell.app-shell .mu-link--danger:hover { color: #f04452 !important; }
+.app-shell.app-shell.app-shell.app-shell .mu-ticket .mu-link--danger:hover { color: #ffb4bb !important; }
+.app-shell.app-shell.app-shell.app-shell .mu-date:not(.is-on):hover,
+.app-shell.app-shell.app-shell.app-shell .mu-admin__tab:not(.is-on):hover { color: #4e5968 !important; }
+
+.app-shell.app-shell.app-shell.app-shell .mu-date.is-on:hover {
+  background: #fff !important;
+  color: #55389f !important;
+}
+
+.app-shell.app-shell.app-shell.app-shell .mu-admin__tab.is-on:hover {
+  background: #fff !important;
+  color: #3182f6 !important;
+}
+
+/* 두 사람 중 누군가의 다른 약속과 30분 안: 빗금 */
+.app-shell .mu-legend__busy::before {
+  background: repeating-linear-gradient(135deg, rgba(230, 200, 120, 0.55) 0 2px, transparent 2px 5px);
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.6);
+}
+
+.app-shell.app-shell.app-shell.app-shell.app-shell .mu-slot--busy {
+  background: repeating-linear-gradient(135deg, rgba(230, 200, 120, 0.16) 0 4px, transparent 4px 10px) !important;
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.35) !important;
+  color: rgba(255, 244, 220, 0.45) !important;
+  cursor: not-allowed;
+}
+
+/* ---------- 한눈에 표(날짜 × 시간) ---------- */
+.mu-grid {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mu-grid__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.mu-grid__head strong {
+  font-size: 14px;
+  font-weight: 800;
+  color: #191f28;
+}
+
+.mu-grid__head small {
+  color: #6b7684;
+  font-size: 12px;
+}
+
+.mu-grid__scroll {
+  overflow: auto;
+  max-height: 520px;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px #f2f4f6;
+  overscroll-behavior: contain;
+}
+
+.mu-grid__table {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  color: #191f28;
+}
+
+.mu-grid__table th,
+.mu-grid__table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #f2f4f6;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.mu-grid__table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f9fafb;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.mu-grid__table thead th small {
+  display: block;
+  font-weight: 600;
+  font-size: 11px;
+  color: #6b7684;
+}
+
+.mu-grid__table thead th.is-on {
+  color: #3182f6;
+}
+
+.mu-grid__table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 56px;
+  background: #fff;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mu-grid__cell--closed {
+  background: #f2f4f6;
+}
+
+.mu-grid__cell--ok {
+  background: #e8f3ff;
+}
+
+.mu-grid__cell--hold {
+  background: #fff7e6;
+}
+
+.mu-grid__cell--done {
+  background: #f2f4f6;
+  color: #8b95a1;
+}
+
+.mu-grid__cell.is-live {
+  box-shadow: inset 3px 0 0 #3182f6;
+}
+
+.mu-grid__muted {
+  color: #b0b8c1;
+  font-size: 12px;
+}
+
+.app-shell.app-shell.app-shell .mu-grid__pair {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  font: inherit !important;
+  text-align: left;
+  box-shadow: none !important;
+  filter: none !important;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .mu-grid__pair::before,
+.app-shell.app-shell.app-shell .mu-grid__pair::after {
+  content: none !important;
+}
+
+.mu-grid__pair b {
+  font-weight: 800;
+}
+
+.mu-grid__pair i {
+  font-style: normal;
+  color: #b0b8c1;
+}
+
+.mu-grid__pair small {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 11px;
+  color: #4e5968;
+  box-shadow: inset 0 0 0 1px #e5e8eb;
+}
+
+/* ---- 연락처 주고받기(부스 시간을 못 잡은 커플) ---- */
+.app-shell .mu-contact {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f6f3ff;
+  box-shadow: inset 0 0 0 1px rgba(123, 97, 255, 0.18);
+}
+
+.app-shell .mu-contact--asked {
+  background: #fff6dc;
+  box-shadow: inset 0 0 0 1px rgba(214, 160, 40, 0.35);
+}
+
+.app-shell .mu-contact--shared {
+  background: #e8f8ef;
+  box-shadow: inset 0 0 0 1px rgba(20, 150, 90, 0.3);
+}
+
+.app-shell .mu-contact__eyebrow {
+  font-size: 12px !important;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #55389f !important;
+}
+
+.app-shell .mu-contact--asked .mu-contact__eyebrow { color: #8a5a00 !important; }
+.app-shell .mu-contact--shared .mu-contact__eyebrow { color: #0f7a4a !important; }
+
+.app-shell .mu-contact__copy {
+  margin: 0;
+  font-size: 12.5px !important;
+  line-height: 1.5;
+  color: #4e5968 !important;
+  word-break: keep-all;
+}
+
+.app-shell .mu-contact__phone,
+.app-shell .mu-contact__phone:visited {
+  font-family: "Gowun Batang", "Noto Serif KR", serif !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: #0f5d3a !important;
+  text-decoration: none;
+}
+
+.app-shell.app-shell.app-shell .mu-contact__button {
+  margin-top: 4px;
+}

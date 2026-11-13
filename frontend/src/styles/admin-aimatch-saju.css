@@ -1,0 +1,1241 @@
+/* 소개팅 전용 관리자(/ai-match/admin) 사주풍 틀.
+ * 데스크톱(1024px~): 왼쪽에 밤하늘 사이드바를 고정하고 오른쪽 본문이 남은 폭을 다 쓴다.
+ * 폰: 위에 밤하늘 머리글, 아래에 고정 탭 바.
+ * 전역 버튼 규칙(index.css 의 :not() 줄줄이)을 이기려고 새 버튼에는 :not(#_) 로 id 가중치를 붙인다.
+ * admin-aimatch.css 뒤에 불러온다(페이지에서 import).
+ */
+
+.app-shell[data-aa-admin="true"] {
+  --aas-night: #1a1438;
+  --aas-night-2: #2b2160;
+  --aas-ink: #2a1f4d;
+  --aas-muted: #6f6a86;
+  --aas-gold: #d9b45a;
+  --aas-gold-soft: #f6e8bf;
+  --aas-cream: #fff4dc;
+  --aas-paper: #f5f0e4;
+  --aas-card: #fffdf8;
+  --aas-line: #e7dcc3;
+  --aas-purple: #6d4fd2;
+  --aas-purple-dark: #55389f;
+  --aas-seal: #c8362d;
+  --aas-serif: "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", serif;
+  --aas-side: 272px;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  background: var(--aas-paper) !important;
+}
+
+.app-shell[data-aa-admin="true"] .festival-main {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* ---------- 페이지 바탕: 한지 ---------- */
+.app-shell.festival-shell[data-aa-admin="true"] .cyber-page.admin-console-page.ai-match-admin-page.aas {
+  --aa-ink: var(--aas-ink);
+  --aa-muted: var(--aas-muted);
+  --aa-line: var(--aas-line);
+  --aa-gold: var(--aas-gold);
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100dvh;
+  margin: 0 !important;
+  padding: 0 0 88px !important;
+  overflow: visible !important;
+  /* 전역 규칙의 contain: paint 가 남으면 고정 사이드바·탭 바가 화면이 아니라 페이지에 붙는다 */
+  contain: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background:
+    radial-gradient(1200px 500px at 85% -10%, rgba(217, 180, 90, 0.16), transparent 60%),
+    radial-gradient(900px 600px at 0% 100%, rgba(109, 79, 210, 0.07), transparent 60%),
+    var(--aas-paper) !important;
+  box-shadow: none !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-page.aas::before,
+.app-shell[data-aa-admin="true"] .ai-match-admin-page.aas::after {
+  content: none !important;
+}
+
+/* ---------- 사이드바(폰에서는 머리글) ---------- */
+.app-shell .ai-match-admin-page.aas .aas-side {
+  position: relative;
+  z-index: 30;
+  display: grid;
+  gap: 14px;
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px 18px;
+  overflow: hidden;
+  border-radius: 0 0 26px 26px;
+  background: var(--aas-night);
+  color: var(--aas-cream);
+  box-shadow: 0 14px 34px rgba(26, 20, 56, 0.28);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__sky {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(26, 20, 56, 0.35) 0%, rgba(26, 20, 56, 0.86) 34%, rgba(26, 20, 56, 0.9) 70%, rgba(26, 20, 56, 0.55) 100%),
+    url("/images/saju/ajou-night-tall.webp") center top / cover no-repeat;
+  pointer-events: none;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side > *:not(.aas-side__sky) {
+  position: relative;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-brand__eyebrow {
+  display: block;
+  color: var(--aas-gold) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-brand h1 {
+  margin: 4px 0 0 !important;
+  color: var(--aas-cream) !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-brand h1 em {
+  color: var(--aas-gold) !important;
+  font-family: inherit !important;
+  font-style: normal;
+}
+
+/* 치토 도사 + 말풍선 */
+.app-shell .ai-match-admin-page.aas .aas-chito {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__face:not(#_) {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__halo {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 232, 191, 0.55) 0%, rgba(217, 180, 90, 0.22) 45%, transparent 70%);
+  animation: aas-halo 3.6s ease-in-out infinite;
+}
+
+@keyframes aas-halo {
+  50% {
+    transform: scale(1.12);
+    opacity: 0.7;
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__face img {
+  position: relative;
+  width: 84px;
+  max-width: none;
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  animation: aas-float 4.2s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__face:hover img {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__face img.is-hop {
+  animation:
+    aas-hop 0.6s cubic-bezier(0.2, 1.5, 0.4, 1),
+    aas-float 4.2s ease-in-out 0.6s infinite;
+}
+
+@keyframes aas-float {
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+@keyframes aas-hop {
+  0% {
+    transform: scale(0.86) rotate(-10deg);
+  }
+  45% {
+    transform: translateY(-10px) rotate(8deg) scale(1.08);
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__bubble {
+  position: relative;
+  padding: 10px 12px;
+  border: 1px solid rgba(217, 180, 90, 0.45);
+  border-radius: 14px;
+  background: rgba(255, 244, 220, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: aas-bubble 0.35s cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+
+@keyframes aas-bubble {
+  from {
+    opacity: 0;
+    transform: translateX(-6px) scale(0.97);
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__bubble::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid rgba(217, 180, 90, 0.45);
+  border-left: 1px solid rgba(217, 180, 90, 0.45);
+  background: #2a2252;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__bubble p {
+  margin: 0 !important;
+  color: var(--aas-cream) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  word-break: keep-all;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito--alert .aas-chito__bubble {
+  border-color: rgba(240, 120, 110, 0.7);
+  background: rgba(200, 54, 45, 0.18);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito--fortune .aas-chito__bubble {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  border-color: var(--aas-gold);
+  background: rgba(217, 180, 90, 0.16);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__seal {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--aas-seal);
+  color: #fff4dc !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 0 0 2px rgba(255, 244, 220, 0.35);
+  transform: rotate(-6deg);
+  animation: aas-seal 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes aas-seal {
+  from {
+    opacity: 0;
+    transform: rotate(-6deg) scale(2);
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-chito__go:not(#_) {
+  display: inline-flex;
+  min-height: 0 !important;
+  margin-top: 6px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--aas-gold) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+}
+
+/* 탭: 폰은 아래 고정 바 */
+.app-shell .ai-match-admin-page.aas .aas-nav {
+  position: fixed !important;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2px;
+  padding: 6px 8px calc(env(safe-area-inset-bottom, 0px) + 6px);
+  border-top: 1px solid rgba(217, 180, 90, 0.35);
+  background: rgba(26, 20, 56, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav button:not(#_) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 52px !important;
+  padding: 4px 2px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(255, 244, 220, 0.62) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav button::before,
+.app-shell .ai-match-admin-page.aas .aas-nav button::after {
+  content: none !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav__icon:not(#_) {
+  display: grid;
+  place-items: center;
+  color: inherit !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav__icon svg:not(#_) {
+  width: 20px;
+  height: 20px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav__label:not(#_) {
+  color: inherit !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav button em:not(#_) {
+  position: absolute;
+  top: 3px;
+  left: calc(50% + 6px);
+  display: grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--aas-gold);
+  color: #2a1f4d !important;
+  font-size: 10px !important;
+  font-style: normal;
+  font-weight: 800 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav kbd:not(#_) {
+  display: none;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav button.is-active:not(#_) {
+  background: rgba(217, 180, 90, 0.16) !important;
+  color: var(--aas-gold-soft) !important;
+}
+
+/* 아래: 계정 · 동작 */
+.app-shell .ai-match-admin-page.aas .aas-side__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__who i {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(217, 180, 90, 0.6);
+  border-radius: 50%;
+  color: var(--aas-gold) !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 700 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__who span {
+  display: grid;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__who b {
+  color: var(--aas-cream) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__who small {
+  color: rgba(255, 244, 220, 0.55) !important;
+  font-size: 11px !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__actions a:not(#_),
+.app-shell .ai-match-admin-page.aas .aas-side__actions button:not(#_) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 0 !important;
+  height: 34px;
+  padding: 0 11px !important;
+  border: 1px solid rgba(255, 244, 220, 0.28) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 244, 220, 0.08) !important;
+  box-shadow: none !important;
+  color: var(--aas-cream) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__actions a:not(#_):hover,
+.app-shell .ai-match-admin-page.aas .aas-side__actions button:not(#_):hover {
+  border-color: var(--aas-gold) !important;
+  background: rgba(217, 180, 90, 0.18) !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__actions span:not(#_),
+.app-shell .ai-match-admin-page.aas .aas-side__actions svg:not(#_) {
+  color: inherit !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-side__actions .is-spinning svg:not(#_) {
+  animation: aas-spin 0.8s linear infinite;
+}
+
+@keyframes aas-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- 본문 ---------- */
+.app-shell .ai-match-admin-page.aas .aas-main {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  padding: 14px 12px 0;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-content {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  animation: aas-in 0.32s ease;
+}
+
+@keyframes aas-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* 인사말 + 숫자 네 장 */
+.app-shell .ai-match-admin-page.aas .aas-hero {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #2f2468 0%, #1d1740 62%, #241a4f 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(217, 180, 90, 0.34),
+    0 16px 34px rgba(29, 23, 64, 0.2);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero::after {
+  content: "";
+  position: absolute;
+  top: -70px;
+  right: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 232, 191, 0.3) 0%, rgba(217, 180, 90, 0.1) 40%, transparent 68%);
+  pointer-events: none;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__hello {
+  margin: 0 !important;
+  color: var(--aas-cream) !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  word-break: keep-all;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__hello b {
+  color: var(--aas-gold) !important;
+  font-family: inherit !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 6px 0 0 !important;
+  color: rgba(255, 244, 220, 0.72) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__status i {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7ff0c3;
+  box-shadow: 0 0 0 0 rgba(127, 240, 195, 0.6);
+  animation: aas-ping 2s ease-out infinite;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__status.is-loading i {
+  background: var(--aas-gold);
+  animation: aas-blink 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes aas-ping {
+  to {
+    box-shadow: 0 0 0 8px rgba(127, 240, 195, 0);
+  }
+}
+
+@keyframes aas-blink {
+  to {
+    opacity: 0.3;
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__chips {
+  display: flex;
+  gap: 6px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__chip {
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 244, 220, 0.22);
+  border-radius: 999px;
+  color: rgba(255, 244, 220, 0.82) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-hero__chip--gold {
+  border-color: var(--aas-gold);
+  background: rgba(217, 180, 90, 0.16);
+  color: var(--aas-gold-soft) !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpis {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi:not(#_) {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "icon label"
+    "icon value"
+    "icon note";
+  align-items: center;
+  column-gap: 12px;
+  min-height: 0 !important;
+  padding: 12px 14px !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 244, 220, 0.14) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 244, 220, 0.06) !important;
+  box-shadow: none !important;
+  text-align: left;
+  cursor: pointer;
+  animation: aas-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+@keyframes aas-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi:not(#_):hover {
+  border-color: rgba(217, 180, 90, 0.7) !important;
+  background: rgba(217, 180, 90, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi__icon:not(#_) {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(217, 180, 90, 0.16);
+  color: var(--aas-gold) !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi__icon svg:not(#_) {
+  color: inherit !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi__label:not(#_) {
+  grid-area: label;
+  color: rgba(255, 244, 220, 0.7) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi strong:not(#_) {
+  grid-area: value;
+  color: #fff !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi small:not(#_) {
+  grid-area: note;
+  color: rgba(255, 244, 220, 0.55) !important;
+  font-size: 11.5px !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi--matched strong:not(#_) {
+  color: var(--aas-gold-soft) !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi__hanja:not(#_) {
+  position: absolute;
+  right: 8px;
+  bottom: -14px;
+  color: rgba(255, 244, 220, 0.07) !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 64px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-kpi:hover .aas-kpi__hanja:not(#_) {
+  color: rgba(217, 180, 90, 0.2) !important;
+}
+
+/* ---------- 새 매치 알림: 낙관 도장 ---------- */
+.app-shell .ai-match-admin-page.aas .aas-celebrate {
+  position: fixed !important;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+  left: 16px;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  max-width: 420px;
+  margin-left: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--aas-gold);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #2f2468, #1d1740);
+  box-shadow: 0 18px 40px rgba(26, 20, 56, 0.4);
+  cursor: pointer;
+  animation: aas-toast 0.5s cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+
+@keyframes aas-toast {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+}
+
+.app-shell .ai-match-admin-page.aas .aas-celebrate img {
+  width: 56px;
+  height: auto;
+  animation: aas-hop 0.7s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.app-shell .ai-match-admin-page.aas .aas-celebrate strong {
+  display: block;
+  color: var(--aas-gold-soft) !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 16px !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-celebrate p {
+  margin: 2px 0 0 !important;
+  color: rgba(255, 244, 220, 0.8) !important;
+  font-size: 12.5px !important;
+  line-height: 1.45 !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-celebrate__seal {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--aas-seal);
+  color: #fff4dc !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 24px !important;
+  box-shadow: inset 0 0 0 2px rgba(255, 244, 220, 0.35);
+  transform: rotate(-8deg);
+  animation: aas-seal 0.45s 0.25s cubic-bezier(0.3, 1.6, 0.5, 1) backwards;
+}
+
+/* ---------- 넓은 화면: 사이드바 고정, 본문이 남은 폭을 다 쓴다 ---------- */
+@media (min-width: 1024px) {
+  .app-shell.festival-shell[data-aa-admin="true"] .cyber-page.admin-console-page.ai-match-admin-page.aas {
+    padding: 0 0 40px var(--aas-side) !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--aas-side);
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    gap: 22px;
+    padding: 28px 18px 20px;
+    overflow-y: auto;
+    border-radius: 0;
+    box-shadow: 10px 0 40px rgba(26, 20, 56, 0.18);
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side__sky {
+    background:
+      linear-gradient(180deg, rgba(26, 20, 56, 0.2) 0%, rgba(26, 20, 56, 0.82) 22%, rgba(26, 20, 56, 0.9) 62%, rgba(26, 20, 56, 0.3) 100%),
+      url("/images/saju/ajou-night-tall.webp") center / cover no-repeat;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-brand {
+    padding-top: 56px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-brand h1 {
+    font-size: 27px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-brand h1 em {
+    display: block;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 8px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito__face:not(#_) {
+    width: 116px;
+    height: 116px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito__face img {
+    width: 128px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito__bubble {
+    width: 100%;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito__bubble::before {
+    top: -6px;
+    left: 50%;
+    border: 0;
+    border-top: 1px solid rgba(217, 180, 90, 0.45);
+    border-left: 1px solid rgba(217, 180, 90, 0.45);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav {
+    position: static !important;
+    align-content: start;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav button:not(#_) {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 46px !important;
+    padding: 0 12px !important;
+    font-size: 14.5px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav__label:not(#_) {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav button em:not(#_) {
+    position: static;
+    min-width: 22px;
+    height: 20px;
+    padding: 0 6px;
+    background: rgba(255, 244, 220, 0.12);
+    color: var(--aas-cream) !important;
+    font-size: 11px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav kbd:not(#_) {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 244, 220, 0.2);
+    border-radius: 6px;
+    color: rgba(255, 244, 220, 0.45) !important;
+    font-family: inherit !important;
+    font-size: 10.5px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav button:not(#_):hover {
+    background: rgba(255, 244, 220, 0.08) !important;
+    color: var(--aas-cream) !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav button.is-active:not(#_) {
+    background: linear-gradient(90deg, rgba(217, 180, 90, 0.26), rgba(217, 180, 90, 0.06)) !important;
+    box-shadow: inset 3px 0 0 var(--aas-gold) !important;
+    color: var(--aas-gold-soft) !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav button.is-active em:not(#_) {
+    background: var(--aas-gold);
+    color: #2a1f4d !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side__foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 244, 220, 0.14);
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side__actions .aas-side__logout:not(#_) {
+    grid-column: 1 / -1;
+    border-color: transparent !important;
+    background: transparent !important;
+    color: rgba(255, 244, 220, 0.6) !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-main {
+    gap: 18px;
+    width: 100%;
+    max-width: 1640px;
+    margin: 0 auto;
+    padding: 24px 28px 0;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-content {
+    gap: 18px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-hero {
+    padding: 22px 24px;
+    border-radius: 26px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-hero__hello {
+    font-size: 25px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-kpi:not(#_) {
+    padding: 16px 18px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-kpi strong:not(#_) {
+    font-size: 34px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-celebrate {
+    right: 28px;
+    bottom: 28px;
+    left: auto;
+    width: 400px;
+  }
+}
+
+/* ---------- 로그인 화면 ---------- */
+.app-shell[data-aa-admin="true"] .auth-entry-screen.ai-match-admin-auth:not(#_) {
+  display: grid !important;
+  place-items: center;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 24px 16px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background:
+    linear-gradient(180deg, rgba(26, 20, 56, 0.25), rgba(26, 20, 56, 0.72) 45%, rgba(26, 20, 56, 0.45)),
+    url("/images/saju/ajou-night.webp") center / cover no-repeat,
+    var(--aas-night) !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-card:not(#_) {
+  position: relative;
+  width: min(100%, 400px) !important;
+  margin: 0 !important;
+  padding: 64px 24px 24px !important;
+  border: 1px solid rgba(217, 180, 90, 0.55) !important;
+  border-radius: 26px !important;
+  background: rgba(29, 23, 64, 0.78) !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  text-align: center;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .aas-login__chito:not(#_) {
+  position: absolute;
+  top: -72px;
+  left: 50%;
+  width: 128px;
+  height: auto;
+  margin-left: -64px;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.45));
+  animation: aas-float 4.2s ease-in-out infinite;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-brand:not(#_) {
+  color: var(--aas-gold) !important;
+  -webkit-text-fill-color: var(--aas-gold) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-copy h1:not(#_) {
+  color: var(--aas-cream) !important;
+  -webkit-text-fill-color: var(--aas-cream) !important;
+  font-family: var(--aas-serif) !important;
+  font-size: 26px !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-copy p:not(#_) {
+  color: rgba(255, 244, 220, 0.7) !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-input:not(#_) {
+  border: 1px solid rgba(255, 244, 220, 0.25) !important;
+  border-radius: 14px !important;
+  background: rgba(255, 244, 220, 0.08) !important;
+  color: #fff !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-input:not(#_)::placeholder {
+  color: rgba(255, 244, 220, 0.5) !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-input:not(#_):focus {
+  border-color: var(--aas-gold) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(217, 180, 90, 0.25) !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-visibility:not(#_) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: rgba(255, 244, 220, 0.7) !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-submit:not(#_) {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #e6c571, #c99c3b) !important;
+  box-shadow: 0 10px 24px rgba(217, 180, 90, 0.3) !important;
+  color: #2a1f4d !important;
+  font-weight: 800 !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-auth .auth-entry-message:not(#_) {
+  color: #ffd2cc !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .ai-match-admin-page.aas *,
+  .app-shell .ai-match-admin-auth * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 버튼 안 아이콘: 전역 'button *' 색 규칙을 이긴다 */
+.app-shell .ai-match-admin-page.aas .aas-nav__icon svg:not(#_),
+.app-shell .ai-match-admin-page.aas .aas-kpi__icon svg:not(#_),
+.app-shell .ai-match-admin-page.aas .aas-side__actions svg:not(#_) {
+  color: inherit !important;
+}
+
+.app-shell .ai-match-admin-page.aas .aas-nav__icon svg:not(#_) *,
+.app-shell .ai-match-admin-page.aas .aas-kpi__icon svg:not(#_) *,
+.app-shell .ai-match-admin-page.aas .aas-side__actions svg:not(#_) * {
+  color: inherit !important;
+}
+
+/* 시간표: 본문 카드 안에서는 바깥 여백 없이 */
+.app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .mu-admin {
+  margin: 0 !important;
+}
+
+/* ---------- 넓은 화면의 탭별 배치 ---------- */
+@media (min-width: 1024px) {
+  /* 사람 카드: 폭에 맞춰 3~5줄 */
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .admin-ai-profile-grid {
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1360px) {
+  /* 성사·연락: 왼쪽에 부스 시간표(따라 내려옴), 오른쪽에 성사된 매치 */
+  .app-shell .ai-match-admin-page.aas[data-tab="matches"] .aas-content {
+    grid-template-columns: minmax(440px, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+
+  .app-shell .ai-match-admin-page.aas[data-tab="matches"] .aas-content > .admin-ai-operations-strip {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+
+  .app-shell .ai-match-admin-page.aas[data-tab="matches"] .aas-content > .mu-admin {
+    position: sticky !important;
+    top: 24px;
+    max-height: calc(100dvh - 48px);
+    overflow-y: auto;
+  }
+
+  .app-shell .ai-match-admin-page.aas[data-tab="matches"] .admin-ai-match-list {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)) !important;
+  }
+}
+
+/* 검색 칸: 상자 안 상자가 되지 않게 */
+.app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .admin-ai-search-field input {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .admin-ai-search-field:focus-within {
+  box-shadow: 0 0 0 2px rgba(109, 79, 210, 0.35) !important;
+}
+
+/* 치토 말풍선의 '보러 가기' 자리: 탭을 바꿔도 아래 메뉴가 밀리지 않게 늘 한 줄을 둔다 */
+.app-shell .ai-match-admin-page.aas .aas-chito__here {
+  display: block;
+  margin-top: 6px;
+  color: rgba(255, 244, 220, 0.5) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+}
+
+@media (min-width: 1100px) {
+  /* 신청 기록 · 신고: 두 줄 */
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .admin-ai-request-table,
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-reports {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start;
+    gap: 10px !important;
+  }
+
+  /* 사진 검수: 왼쪽에 사진 두 장, 오른쪽에 사람 정보와 승인·반려 */
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-review {
+    display: grid !important;
+    grid-template-columns: minmax(0, 640px) minmax(280px, 1fr);
+    grid-template-areas:
+      "photos who"
+      "photos actions"
+      "photos hint";
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+    column-gap: 28px;
+    row-gap: 14px;
+  }
+
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-review .admin-ai-image-compare {
+    grid-area: photos;
+  }
+
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-review__who {
+    grid-area: who;
+    padding-top: 6px;
+  }
+
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-review__who strong {
+    font-family: var(--aas-serif) !important;
+    font-size: 24px !important;
+  }
+
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-review__actions {
+    grid-area: actions;
+  }
+
+  .app-shell[data-aa-admin="true"] .ai-match-admin-page.aas .aa-review__hint {
+    grid-area: hint;
+  }
+}
+
+/* 앱 틀의 둥근 모서리·그림자를 없애 화면 끝까지 쓴다 */
+.app-shell.festival-shell[data-aa-admin="true"]:not(#_) {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 사이드바: 세로로 쌓고, 화면이 낮으면 간격을 줄이고 그래도 넘치면 사이드바 안에서 스크롤 */
+@media (min-width: 1024px) {
+  .app-shell .ai-match-admin-page.aas .aas-side {
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side > * {
+    flex: 0 0 auto;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side__foot {
+    margin-top: auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 880px) {
+  .app-shell .ai-match-admin-page.aas .aas-side {
+    gap: 14px;
+    padding-top: 18px;
+    padding-bottom: 14px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-brand {
+    padding-top: 34px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-brand h1 {
+    font-size: 23px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito__face:not(#_) {
+    width: 84px;
+    height: 84px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-chito__face img {
+    width: 94px;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-nav button:not(#_) {
+    min-height: 40px !important;
+  }
+
+  .app-shell .ai-match-admin-page.aas .aas-side__foot {
+    gap: 8px;
+    padding-top: 10px;
+  }
+}

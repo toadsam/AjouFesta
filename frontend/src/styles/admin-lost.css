@@ -1,0 +1,651 @@
+/*
+ * 관리자 분실물 관리(alost-*). 대시보드(admin-home.css)와 같은 흰 카드 톤.
+ * index.css 의 input·button 전역 규칙이 !important 라서 .app-shell 을 세 번 겹쳐 올린다.
+ */
+.app-shell.app-shell.app-shell .alost {
+  --al-card: #ffffff;
+  --al-line: #e8ecf1;
+  --al-soft: #f7f8fa;
+  --al-text: #191f28;
+  --al-sub: #6b7684;
+  --al-faint: #8b95a1;
+  --al-blue: #3182f6;
+  --al-blue-soft: #e8f3ff;
+  --al-amber: #f2a100;
+  --al-amber-soft: #fff5d6;
+  --al-red: #f04452;
+  display: grid;
+  gap: 16px;
+  align-items: start;
+  min-width: 0;
+}
+
+/* ---------- 공통 입력 ---------- */
+.app-shell.app-shell.app-shell .alost :is(input:not([type="file"]), textarea) {
+  width: 100% !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+  border: 1px solid var(--al-line) !important;
+  border-radius: 10px !important;
+  background: var(--al-soft) !important;
+  color: var(--al-text) !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+}
+
+.app-shell.app-shell.app-shell .alost textarea {
+  resize: vertical;
+}
+
+.app-shell.app-shell.app-shell .alost :is(input:not([type="file"]), textarea)::placeholder {
+  color: #b0b8c1 !important;
+  font-weight: 500 !important;
+}
+
+.app-shell.app-shell.app-shell .alost :is(input:not([type="file"]), textarea):focus {
+  outline: none !important;
+  border-color: var(--al-blue) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.14) !important;
+}
+
+.app-shell.app-shell.app-shell .alost button {
+  box-shadow: none !important;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .alost button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* ---------- 등록 폼 ---------- */
+.app-shell.app-shell.app-shell .alost-form {
+  display: grid;
+  border: 1px solid var(--al-line);
+  border-radius: 18px;
+  background: var(--al-card);
+  overflow: hidden;
+}
+
+.app-shell.app-shell.app-shell .alost-form__toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  padding: 16px 18px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--al-text) !important;
+  text-align: left !important;
+}
+
+.app-shell.app-shell.app-shell .alost-form__toggle i {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--al-blue);
+  color: #fff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.app-shell.app-shell.app-shell :is(.alost-form__toggle, .alost-form__head) span,
+.app-shell.app-shell.app-shell .alost-form__head {
+  display: grid;
+  gap: 2px;
+}
+
+.app-shell.app-shell.app-shell :is(.alost-form__toggle, .alost-form__head) b {
+  color: var(--al-text);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.app-shell.app-shell.app-shell :is(.alost-form__toggle, .alost-form__head) small {
+  color: var(--al-faint);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.app-shell.app-shell.app-shell .alost-form__head {
+  display: none;
+  padding: 20px 20px 0;
+}
+
+.app-shell.app-shell.app-shell .alost-form__body {
+  display: none;
+  gap: 14px;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 4px 18px 18px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell .alost-form.is-open .alost-form__body {
+  display: grid;
+}
+
+.app-shell.app-shell.app-shell .alost-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.app-shell.app-shell.app-shell .alost-field > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4e5968;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .alost-field > span em {
+  color: var(--al-blue);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .alost-field > span small {
+  color: var(--al-faint);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.app-shell.app-shell.app-shell .alost-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.app-shell.app-shell.app-shell .alost-cats button {
+  min-height: 34px !important;
+  padding: 0 12px !important;
+  border: 1px solid var(--al-line) !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #4e5968 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.app-shell.app-shell.app-shell .alost-cats button.is-on {
+  border-color: var(--al-blue) !important;
+  background: var(--al-blue-soft) !important;
+  color: var(--al-blue) !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.app-shell.app-shell .alost-photo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px dashed #d1d6db;
+  border-radius: 12px;
+  background: var(--al-soft);
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .alost-photo:hover {
+  border-color: var(--al-blue);
+}
+
+.app-shell.app-shell.app-shell .alost-photo input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app-shell.app-shell.app-shell .alost-photo i,
+.app-shell.app-shell.app-shell .alost-photo img {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+}
+
+.app-shell.app-shell.app-shell .alost-photo i {
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: var(--al-blue);
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .alost-photo img {
+  object-fit: cover;
+}
+
+.app-shell.app-shell.app-shell .alost-photo span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.app-shell.app-shell.app-shell .alost-photo b {
+  color: var(--al-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .alost-photo small {
+  overflow: hidden;
+  color: var(--al-faint);
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell .alost-submit {
+  width: 100% !important;
+  min-height: 48px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: var(--al-blue) !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell.app-shell.app-shell .alost-submit:hover:not(:disabled) {
+  background: #1b64da !important;
+}
+
+/* ---------- 목록 ---------- */
+.app-shell.app-shell.app-shell .alost-list {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.app-shell.app-shell.app-shell .alost-list__top {
+  display: grid;
+  gap: 10px;
+}
+
+.app-shell.app-shell.app-shell .alost-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #eceff3;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.app-shell.app-shell.app-shell .alost-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.app-shell.app-shell.app-shell .alost-tabs button {
+  display: inline-flex !important;
+  flex: 1 0 auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  min-height: 36px !important;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--al-sub) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell .alost-tabs button b {
+  color: var(--al-faint);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.app-shell.app-shell.app-shell .alost-tabs button.is-on {
+  background: #fff !important;
+  color: var(--al-text) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.app-shell.app-shell.app-shell .alost-tabs button.is-on b {
+  color: var(--al-blue);
+}
+
+.app-shell.app-shell.app-shell .alost .alost-search {
+  background: #fff !important;
+}
+
+.app-shell.app-shell.app-shell .alost-empty {
+  margin: 0 !important;
+  padding: 40px 16px !important;
+  border: 1px dashed #d1d6db;
+  border-radius: 16px;
+  color: var(--al-faint) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-align: center;
+}
+
+.app-shell.app-shell.app-shell .alost-items {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-shell.app-shell.app-shell .alost-item {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--al-line);
+  border-radius: 16px;
+  background: var(--al-card);
+}
+
+.app-shell.app-shell.app-shell .alost-item--amber {
+  border-color: #f7d77a;
+  box-shadow: 0 0 0 3px rgba(242, 161, 0, 0.08);
+}
+
+.app-shell.app-shell.app-shell .alost-item--gray {
+  background: #fafbfc;
+}
+
+.app-shell.app-shell.app-shell .alost-item--gray .alost-item__main {
+  opacity: 0.7;
+}
+
+.app-shell.app-shell.app-shell .alost-item__main {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.app-shell.app-shell.app-shell .alost-item__thumb {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: var(--al-soft);
+  overflow: hidden;
+}
+
+.app-shell.app-shell.app-shell .alost-item__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.app-shell.app-shell.app-shell .alost-item__thumb span {
+  color: var(--al-faint);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .alost-item__info {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.app-shell.app-shell.app-shell .alost-item__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.app-shell.app-shell.app-shell .alost-item__title strong {
+  color: var(--al-text);
+  font-size: 16px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.app-shell.app-shell.app-shell .alost-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell .alost-badge--blue { background: var(--al-blue-soft); color: var(--al-blue); }
+.app-shell.app-shell.app-shell .alost-badge--amber { background: var(--al-amber-soft); color: #b7820c; }
+.app-shell.app-shell.app-shell .alost-badge--gray { background: #e5e8eb; color: #4e5968; }
+
+.app-shell.app-shell.app-shell .alost-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  margin: 0 !important;
+  color: var(--al-sub) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.app-shell.app-shell.app-shell .alost-item__meta span + span::before {
+  content: "·";
+  margin: 0 6px;
+  color: #c9ced4;
+}
+
+.app-shell.app-shell.app-shell .alost-item__desc,
+.app-shell.app-shell.app-shell .alost-item__finder {
+  margin: 0 !important;
+  color: #4e5968 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere;
+}
+
+.app-shell.app-shell.app-shell .alost-item__finder {
+  color: var(--al-faint) !important;
+  font-size: 12px !important;
+}
+
+.app-shell.app-shell.app-shell .alost-claim {
+  display: grid;
+  gap: 3px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--al-amber-soft);
+}
+
+.app-shell.app-shell.app-shell .alost-claim b {
+  color: #8a5a00;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.app-shell.app-shell.app-shell .alost-claim span {
+  color: var(--al-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .alost-claim em {
+  color: #6b5a33;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.app-shell.app-shell.app-shell .alost-item__foot {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #f2f4f6;
+}
+
+.app-shell.app-shell.app-shell .alost .alost-note {
+  min-height: 40px !important;
+  font-size: 13px !important;
+}
+
+.app-shell.app-shell.app-shell .alost-item__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.app-shell.app-shell.app-shell .alost-btn {
+  min-height: 38px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #f2f4f6 !important;
+  color: #4e5968 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell .alost-btn:hover:not(:disabled) {
+  background: #e5e8eb !important;
+}
+
+.app-shell.app-shell.app-shell .alost-btn--primary {
+  background: var(--al-blue) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell .alost-btn--primary:hover:not(:disabled) {
+  background: #1b64da !important;
+}
+
+.app-shell.app-shell.app-shell .alost-btn--danger {
+  margin-left: auto;
+  background: transparent !important;
+  color: var(--al-red) !important;
+}
+
+.app-shell.app-shell.app-shell .alost-btn--danger:hover:not(:disabled) {
+  background: #ffeeee !important;
+}
+
+/* ---------- PC: 왼쪽 등록 폼(항상 펼침) + 오른쪽 목록 ---------- */
+@media (min-width: 1024px) {
+  .app-shell.app-shell.app-shell .alost {
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .app-shell.app-shell.app-shell .alost-form {
+    position: sticky;
+    top: 16px;
+  }
+
+  .app-shell.app-shell.app-shell .alost-form__toggle {
+    display: none !important;
+  }
+
+  .app-shell.app-shell.app-shell .alost-form__head {
+    display: grid;
+  }
+
+  .app-shell.app-shell.app-shell .alost-form__body {
+    display: grid;
+    padding: 16px 20px 20px !important;
+  }
+
+  .app-shell.app-shell.app-shell .alost-btn--danger {
+    margin-left: 0;
+  }
+}
+
+/* 목록 칸이 충분히 넓을 때만 한 줄로 놓는다. 그보다 좁은 노트북(1024 ~ 1279)에서는 상태 탭이 잘리고 처리 메모 칸이 몇 글자만 남아서, 폰처럼 두 줄로 쌓는다. */
+@media (min-width: 1280px) {
+  .app-shell.app-shell.app-shell .alost-list__top {
+    grid-template-columns: auto minmax(180px, 280px);
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .app-shell.app-shell.app-shell .alost-item__foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+/* ---------- 등록 방식(물건 하나 · 학생증 · 카드 · 잡화 모음) ---------- */
+.app-shell.app-shell.app-shell .alost-kinds button {
+  min-height: 38px !important;
+  font-size: 13.5px !important;
+}
+
+.app-shell.app-shell.app-shell .alost-hint {
+  margin: 2px 0 0;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: var(--al-blue-soft);
+  color: #33507a;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.app-shell.app-shell.app-shell .alost-preview {
+  color: var(--al-sub);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.app-shell.app-shell.app-shell .alost-preview b {
+  color: var(--al-text);
+  font-weight: 800;
+}
+
+/* 잡화 모음의 '사진 다시 찍기': 버튼처럼 보이는 파일 고르기. */
+.app-shell.app-shell.app-shell .alost-btn--file {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: #f2f4f6;
+  color: #4e5968;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app-shell.app-shell.app-shell .alost-btn--file.is-busy {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.app-shell.app-shell.app-shell .alost-btn--file input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}

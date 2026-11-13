@@ -1,0 +1,346 @@
+/*
+ * 포스터 컨셉 히어로: 캠코더 뷰파인더 + 하늘·별 + 갈대 + 종이비행기.
+ * v2.css 뒤에 불러온다. 포스터 파일이 있으면 그 위에 덮고, 없으면 CSS 로 그린다.
+ */
+.app-shell[data-v2="true"] .v2-page,
+.app-shell[data-v2="true"] .v2-booth,
+.app-shell[data-v2="true"] .v2-lost {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.app-shell[data-v2="true"] .v2-hero {
+  min-height: 24rem;
+  padding-bottom: 1.25rem;
+  background: linear-gradient(180deg, #7fb2e4 0%, #a9cbea 38%, #d9e5ee 68%, #ece0c9 100%);
+  color: #fff;
+}
+
+.app-shell[data-v2="true"] .v2-hero__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  pointer-events: none;
+}
+
+.app-shell[data-v2="true"] .v2-hero__sky {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 62% 8%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 80% 22%, rgba(255, 255, 255, 0.85) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.7) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 90% 6%, rgba(255, 255, 255, 0.8) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 28% 30%, rgba(255, 255, 255, 0.6) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 70% 34%, rgba(255, 255, 255, 0.7) 0 0.8px, transparent 1.4px),
+    radial-gradient(ellipse 60% 24% at 30% 40%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(ellipse 70% 30% at 70% 100%, rgba(255, 200, 150, 0.35), rgba(255, 200, 150, 0) 70%);
+}
+
+.app-shell[data-v2="true"] .v2-hero__reeds {
+  opacity: 0.9;
+  bottom: -0.25rem;
+}
+
+.app-shell[data-v2="true"] .v2-hero__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.92) 100%);
+  pointer-events: none;
+}
+
+/* 뷰파인더 네 귀퉁이 */
+.app-shell[data-v2="true"] .v2-hero__frame {
+  position: absolute;
+  inset: 0.85rem 0.85rem 3.25rem;
+  pointer-events: none;
+}
+
+.app-shell[data-v2="true"] .v2-hero__frame::before,
+.app-shell[data-v2="true"] .v2-hero__frame::after,
+.app-shell[data-v2="true"] .v2-hero__frame span::before,
+.app-shell[data-v2="true"] .v2-hero__frame span::after {
+  content: "";
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+.app-shell[data-v2="true"] .v2-hero__frame::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.app-shell[data-v2="true"] .v2-hero__frame::after { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.app-shell[data-v2="true"] .v2-hero__frame span::before { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.app-shell[data-v2="true"] .v2-hero__frame span::after { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+.app-shell[data-v2="true"] .v2-hero__rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 6px rgba(20, 60, 110, 0.35) !important;
+}
+
+.app-shell[data-v2="true"] .v2-hero__rec::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #ff3b30;
+  animation: v2-blink 1.4s ease-in-out infinite;
+}
+
+.app-shell[data-v2="true"] .v2-hero__top {
+  align-items: flex-start;
+}
+
+.app-shell[data-v2="true"] .v2-hero__meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 6px rgba(20, 60, 110, 0.35) !important;
+  text-align: right;
+}
+
+.app-shell[data-v2="true"] .v2-hero__meta span {
+  color: inherit !important;
+}
+
+.app-shell[data-v2="true"] .v2-hero__plane {
+  position: absolute;
+  right: 1.25rem;
+  top: 5.6rem;
+  width: 8.5rem;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(20, 60, 110, 0.25));
+  animation: v2-float 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.app-shell[data-v2="true"] .v2-hero__plane--small {
+  right: 3.4rem;
+  top: 2.9rem;
+  width: 2.6rem;
+  opacity: 0.9;
+  animation-delay: -2s;
+  animation-duration: 6s;
+}
+
+@keyframes v2-float {
+  0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+  50% { transform: translate(-6px, -10px) rotate(-3deg); }
+}
+
+.app-shell[data-v2="true"] .v2-hero__body {
+  padding-top: 3.2rem;
+}
+
+.app-shell[data-v2="true"] .v2-hero__eyebrow {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff !important;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.app-shell[data-v2="true"] .v2-hero h1 {
+  color: #fff !important;
+  font-size: 3.4rem;
+  line-height: 1;
+  text-shadow: 0 2px 14px rgba(20, 60, 110, 0.35) !important;
+}
+
+.app-shell[data-v2="true"] .v2-hero h1 small {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-shell[data-v2="true"] .v2-hero p {
+  color: #fff !important;
+  font-weight: 600;
+  text-shadow: 0 1px 8px rgba(20, 60, 110, 0.35) !important;
+}
+
+.app-shell[data-v2="true"] .v2-hero__stats {
+  margin-top: 1.5rem;
+}
+
+.app-shell[data-v2="true"] .v2-stat {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.app-shell[data-v2="true"] .v2-stat small { color: var(--v2-text-3) !important; }
+.app-shell[data-v2="true"] .v2-stat strong { color: var(--v2-text) !important; }
+
+/* 총학 주점 큰 카드 */
+.app-shell[data-v2="true"] .v2-main-booth {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 11rem;
+  padding: 1.15rem;
+  border: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--v2-gray);
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  transition: transform 0.18s var(--v2-ease);
+}
+
+.app-shell[data-v2="true"] .v2-main-booth:active { transform: scale(0.98); }
+
+.app-shell[data-v2="true"] .v2-main-booth img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.app-shell[data-v2="true"] .v2-main-booth::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* 밝은 사진(벚꽃) 위에서도 흰 글자가 읽히게 아래쪽을 넉넉히 어둡게 */
+  background: linear-gradient(180deg, rgba(25, 31, 40, 0.05) 0%, rgba(25, 31, 40, 0.5) 45%, rgba(25, 31, 40, 0.86) 100%);
+}
+
+.app-shell[data-v2="true"] .v2-main-booth > div {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 5rem;
+}
+
+.app-shell[data-v2="true"] .v2-main-booth strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff !important;
+}
+
+.app-shell[data-v2="true"] .v2-main-booth p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.app-shell[data-v2="true"] .v2-main-booth .v2-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+}
+
+/* 판매가 미정 메뉴 */
+.app-shell[data-v2="true"] .v2-menu__item span.is-tbd {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--v2-text-4) !important;
+}
+
+/* 치토 */
+.app-shell[data-v2="true"] .v2-mascot {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.app-shell[data-v2="true"] .v2-hero__mascot {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 6.9rem;
+  width: 4.6rem;
+  height: auto;
+  filter: drop-shadow(0 8px 14px rgba(20, 60, 110, 0.25));
+  animation: v2-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes v2-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.app-shell[data-v2="true"] .v2-empty__mascot {
+  width: 4.2rem;
+  height: auto;
+  margin-bottom: 0.25rem;
+  opacity: 0.9;
+}
+
+/* ---------- 접기/펼치기 ---------- */
+.app-shell[data-v2="true"] .v2-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--v2-ease);
+}
+
+.app-shell[data-v2="true"] .v2-collapse > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.app-shell[data-v2="true"] .v2-collapse--open {
+  grid-template-rows: 1fr;
+}
+
+.app-shell[data-v2="true"] .v2-timeline__more {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 0.35rem;
+  padding: 0.55rem 0.25rem;
+  border: 0;
+  background: transparent !important;
+  color: var(--v2-text-3) !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.app-shell[data-v2="true"] .v2-timeline__more::before {
+  content: "";
+  position: absolute;
+  left: -1.4rem;
+  top: 50%;
+  width: 0.78rem;
+  height: 0.78rem;
+  border: 2.5px solid #fff;
+  border-radius: 999px;
+  background: var(--v2-gray-2);
+  box-shadow: 0 0 0 2px var(--v2-line-strong);
+  transform: translateY(-50%);
+}
+
+.app-shell[data-v2="true"] .v2-toggle {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.app-shell[data-v2="true"] .v2-toggle__chev {
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(90deg);
+  transition: transform 0.3s var(--v2-spring);
+}
+
+.app-shell[data-v2="true"] .v2-toggle--open .v2-toggle__chev {
+  transform: rotate(-90deg);
+}

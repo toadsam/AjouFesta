@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#13203d" />
+    <meta name="description" content="10월 7일~8일 노천극장 · 공연 시간표, 총학 주점, 사주 소개팅, 분실물을 한 곳에서" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="바람" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- 카카오톡·인스타 등 링크 미리보기. 카카오는 이미지 주소를 절대 경로로 줘야 하고, 한 번 읽은 미리보기를 캐시하므로
+         이미지를 바꿀 땐 파일 이름도 바꾼다(og-baram.png). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="바람 · 아주대 축제" />
+    <meta property="og:url" content="https://www.ajoufesta.com/" />
+    <meta property="og:title" content="바람 · 2026 아주대학교 가을축제" />
+    <meta property="og:description" content="10월 7일~8일 노천극장 · 공연 시간표, 총학 주점, 사주 소개팅, 분실물을 한 곳에서" />
+    <meta property="og:image" content="https://www.ajoufesta.com/images/og-baram.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="바람 · 2026 아주대학교 가을축제, 10월 7일~8일 노천극장" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="바람 · 2026 아주대학교 가을축제" />
+    <meta name="twitter:description" content="10월 7일~8일 노천극장 · 공연 시간표, 총학 주점, 사주 소개팅, 분실물을 한 곳에서" />
+    <meta name="twitter:image" content="https://www.ajoufesta.com/images/og-baram.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Jua&display=swap" />
+    <link rel="manifest" href="/manifest.json" />
+    <!-- 아이콘은 아주대 마스코트 치토(images/CHITO_README.txt). -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>바람 · 2026 아주대 축제</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if (["localhost", "127.0.0.1", "::1"].includes(window.location.hostname)) {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .getRegistrations()
+            .then((registrations) => registrations.forEach((registration) => registration.unregister()))
+            .catch(() => {});
+        }
+
+        if ("caches" in window) {
+          caches
+            .keys()
+            .then((keys) => keys.forEach((key) => caches.delete(key)))
+            .catch(() => {});
+        }
+      }
+    </script>
+    <script type="module" src="/src/main.jsx?v=route-static-1"></script>
+  </body>
+</html>
+

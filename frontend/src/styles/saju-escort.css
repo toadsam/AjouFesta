@@ -1,0 +1,218 @@
+/*
+ * 확정 티켓의 '오늘의 동선'(esc-*). 소개팅 밤 테마(saju-night.css)가 .mu 안 글자색을 !important 로 덮으니
+ * 같은 무게 이상으로 .mu.mu--confirmed 까지 붙여 쓴다.
+ */
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(230, 200, 120, 0.35);
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-head {
+  display: grid;
+  gap: 4px;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-head small {
+  color: #e6c878 !important;
+  font-size: 12px !important;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-head strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff4dc !important;
+  font-size: 20px !important;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-head p {
+  margin: 0;
+  color: rgba(255, 244, 220, 0.75) !important;
+  font-size: 13.5px !important;
+  line-height: 1.5;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-walker {
+  display: inline-block;
+  font-size: 20px;
+  animation: esc-walk 1s ease-in-out infinite alternate;
+}
+
+@keyframes esc-walk {
+  from { transform: translateX(-3px) rotate(-4deg); }
+  to { transform: translateX(3px) rotate(4deg); }
+}
+
+/* 단계 바 */
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* 점과 점 사이 선: 각 칸 왼쪽 절반에 앞 칸과 이어지는 선을 그린다 */
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li + li::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  right: 50%;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li.is-done::before {
+  background: #e6c878;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li.is-now::before {
+  background: linear-gradient(90deg, #e6c878, #e6c878 40%, rgba(255, 255, 255, 0.16) 40%);
+  background-size: 250% 100%;
+  animation: esc-flow 1.6s linear infinite;
+}
+
+@keyframes esc-flow {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar i {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 999px;
+  background: #2b2160;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+  color: #1d1740;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li.is-done i {
+  background: #e6c878;
+  box-shadow: none;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li.is-now i {
+  background: #fff4dc;
+  box-shadow: 0 0 0 5px rgba(230, 200, 120, 0.3);
+  animation: esc-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes esc-pulse {
+  50% { box-shadow: 0 0 0 9px rgba(230, 200, 120, 0.12); }
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar span {
+  color: rgba(255, 244, 220, 0.55) !important;
+  font-size: 11.5px !important;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-bar li:is(.is-done, .is-now) span {
+  color: #fff4dc !important;
+}
+
+/* 도착했어요 버튼 · 장소 사진 */
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-arrived {
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f1d88f, #d9b45a) !important;
+  color: #1d1740 !important;
+  font-size: 16px !important;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(217, 180, 90, 0.3);
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-arrived:disabled {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 244, 220, 0.6) !important;
+  box-shadow: none;
+  cursor: default;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo figcaption {
+  color: rgba(255, 244, 220, 0.75) !important;
+  font-size: 12.5px !important;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed :is(.esc-walker, .esc-bar li.is-now i, .esc-bar li.is-now::before) {
+    animation: none;
+  }
+}
+
+/* 사진: 누르면 원본을 연다 */
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo a {
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo a img {
+  display: block;
+  border-radius: 0;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo a span {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(20, 16, 48, 0.72);
+  color: #fff4dc !important;
+  font-size: 11.5px !important;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .mu.mu--confirmed .esc-photo figcaption b {
+  color: #fff4dc !important;
+  font-weight: 800;
+}

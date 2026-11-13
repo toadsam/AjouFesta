@@ -1,0 +1,194 @@
+/*
+ * 관리자 페이지 보강: 로그인 화면(auth-entry-*)을 토스풍 흰 카드로. 분실물 관리는 admin-lost.css.
+ * index.css 의 auth-entry 규칙을 이겨야 해서 .app-shell 을 세 번 겹쳐 (0,4,0) 이상으로 올린다.
+ */
+
+/* ---------- 로그인 ---------- */
+.app-shell.app-shell.app-shell .auth-entry-screen {
+  min-height: 100dvh !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 24px 16px !important;
+  background: linear-gradient(180deg, #e8f3ff 0%, #f6f9fc 55%, #fff 100%) !important;
+  overflow: hidden;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-screen::before,
+.app-shell.app-shell.app-shell .auth-entry-screen::after,
+.app-shell.app-shell.app-shell .auth-entry-orb {
+  display: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-card {
+  width: 100% !important;
+  max-width: 400px !important;
+  margin: 0 !important;
+  padding: 32px 24px 24px !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+  background: #fff !important;
+  box-shadow: 0 16px 48px rgba(25, 31, 40, 0.08) !important;
+  backdrop-filter: none !important;
+  display: grid !important;
+  gap: 14px !important;
+  text-align: center;
+  color: #191f28 !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-card::before,
+.app-shell.app-shell.app-shell .auth-entry-card::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-mascot {
+  width: 96px !important;
+  height: 96px !important;
+  object-fit: contain;
+  margin: 0 auto 2px;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-brand {
+  margin: 0 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  color: #3182f6 !important;
+  background: none !important;
+  -webkit-text-fill-color: #3182f6 !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-copy h1 {
+  margin: 0 !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #191f28 !important;
+  background: none !important;
+  -webkit-text-fill-color: #191f28 !important;
+  text-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-copy p {
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: #8b95a1 !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-field {
+  position: relative;
+  margin: 0 !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-input {
+  width: 100% !important;
+  box-sizing: border-box;
+  min-height: 52px !important;
+  padding: 0 14px !important;
+  border: 1.5px solid transparent !important;
+  border-radius: 14px !important;
+  background: #f2f4f6 !important;
+  color: #191f28 !important;
+  font-size: 15px !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-field--password .auth-entry-input {
+  padding-right: 48px !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-input:focus {
+  border-color: #3182f6 !important;
+  background: #fff !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-input::placeholder {
+  color: #b0b8c1 !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-visibility {
+  position: absolute !important;
+  right: 6px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: #8b95a1 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  display: grid;
+  place-items: center;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-visibility::before {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-submit {
+  width: 100% !important;
+  height: 52px !important;
+  margin-top: 4px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #3182f6 !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 8px 20px rgba(49, 130, 246, 0.28) !important;
+  filter: none !important;
+  text-shadow: none !important;
+  letter-spacing: 0;
+  transition: transform 0.15s, background 0.15s !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-submit::before {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-submit:hover {
+  background: #1b64da !important;
+  transform: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-submit:active {
+  transform: scale(0.98) !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-submit:disabled {
+  opacity: 0.5;
+  box-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-message {
+  margin: 0 !important;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fdecee;
+  color: #f04452 !important;
+  font-size: 13px !important;
+  font-weight: 700;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-helper {
+  margin: 4px 0 0 !important;
+  font-size: 12.5px !important;
+  color: #8b95a1 !important;
+}
+
+.app-shell.app-shell.app-shell .auth-entry-helper strong {
+  color: #4e5968 !important;
+  font-weight: 700;
+}

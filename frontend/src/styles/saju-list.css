@@ -1,0 +1,415 @@
+/* 목록 화면의 사주풍 요소(sl-*): 궁합 TOP 3 부적 카드(뒤집기), 카드 안 궁합 블록의 오행 관계 표시.
+   .ai-match-page 안에서만 효과가 있다. */
+
+/* ---------- TOP 3: 밤하늘 위 부적 세 장 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 16px 14px 14px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(109, 79, 210, 0.55), rgba(29, 23, 64, 0) 70%),
+    #1d1740;
+  box-shadow: inset 0 0 0 1px rgba(217, 180, 90, 0.35), 0 10px 30px rgba(29, 23, 64, 0.22);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top__head strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top__head span {
+  font-size: 11.5px;
+  color: rgba(255, 244, 220, 0.6) !important;
+  white-space: nowrap;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  perspective: 1000px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top__row--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0 14%;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-top__row--1 {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 32%;
+}
+
+@keyframes sl-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda {
+  position: relative;
+  aspect-ratio: 5 / 8;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: sl-rise 0.6s var(--v2-ease) backwards;
+  animation-delay: calc(var(--i, 0) * 110ms + 0.1s);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda.is-flip {
+  transform: rotateY(180deg);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 앞면: 자주색 부적. 금테 두 줄 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__front,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__front:hover {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  min-height: 0 !important;
+  padding: 14px 6px 10px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #2d2263 0%, #1f1848 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(217, 180, 90, 0.6),
+    inset 0 0 0 4px #251d54,
+    inset 0 0 0 5px rgba(217, 180, 90, 0.4),
+    0 8px 18px rgba(0, 0, 0, 0.3) !important;
+  color: #fff4dc !important;
+  filter: none !important;
+  text-shadow: none !important;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.16s var(--v2-ease);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__front::before {
+  content: "緣";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  text-align: center;
+  font-family: var(--saju-serif);
+  font-size: 58px;
+  line-height: 1;
+  color: rgba(217, 180, 90, 0.08) !important;
+  pointer-events: none;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__front::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__front:active {
+  transform: scale(0.97);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__rank {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff4dc !important;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda--1 .sl-fuda__rank {
+  background: var(--saju-gold);
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__el {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  display: grid;
+  place-items: center;
+  font-family: var(--saju-serif);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff !important;
+  background: var(--saju-purple);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__el--목 { background: #2f9e6b; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__el--화 { background: #df5540; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__el--토 { background: #c9962b; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__el--금 { background: #8d97a8; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__el--수 { background: #2f63d6; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__photo {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin-top: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px #1f1848, 0 0 0 3.5px var(--saju-gold);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda--mid .sl-fuda__photo { box-shadow: 0 0 0 2px #1f1848, 0 0 0 3.5px #b9a7ee; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda--low .sl-fuda__photo { box-shadow: 0 0 0 2px #1f1848, 0 0 0 3.5px #8f88ad; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__photo svg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px;
+  height: 26px;
+  color: rgba(255, 244, 220, 0.5);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__score {
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  transform: translateX(-50%);
+  min-width: 30px;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--saju-gold);
+  color: var(--saju-ink) !important;
+  font-size: 11.5px;
+  font-style: normal;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda--mid .sl-fuda__score { background: #c9b8f5; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda--low .sl-fuda__score { background: #b9b3cc; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__name {
+  margin-top: 13px;
+  max-width: 100%;
+  font-family: var(--saju-serif) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #fff4dc !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__grade {
+  font-size: 10.5px !important;
+  color: rgba(255, 244, 220, 0.65) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__tap {
+  margin-top: auto;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 244, 220, 0.4) !important;
+}
+
+/* 뒷면: 누런 종이 부적. 붉은 낙관 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__back {
+  transform: rotateY(180deg);
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 5px;
+  padding: 12px 8px 10px;
+  background: linear-gradient(180deg, #fff8e6, #f5ead0);
+  box-shadow:
+    inset 0 0 0 1px #c9a24a,
+    inset 0 0 0 4px #fbf3dc,
+    inset 0 0 0 5px rgba(201, 162, 74, 0.5),
+    0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__seal {
+  margin-top: 8px;
+  padding: 2px 5px;
+  border: 1.5px solid #c93d30;
+  border-radius: 4px;
+  font-family: var(--saju-serif);
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 700;
+  color: #c93d30 !important;
+  transform: rotate(-8deg);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__pair {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+  font-family: var(--saju-serif);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__pair i {
+  font-style: normal;
+  font-size: 12px;
+  color: #b8860b !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__pair--clash i {
+  color: #c93d30 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__rel {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: #8a5f10 !important;
+  text-align: center;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda__why {
+  margin: 0;
+  font-size: 10.5px !important;
+  line-height: 1.4;
+  color: #5a4a2e !important;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__go,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__go:hover {
+  margin-top: auto;
+  min-height: 0 !important;
+  height: 28px;
+  padding: 0 11px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-ink) !important;
+  color: #ffe9b8 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  white-space: nowrap;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  transition: transform 0.15s var(--v2-ease);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__undo,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__undo:hover {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 22px;
+  height: 22px;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(42, 31, 77, 0.08) !important;
+  color: var(--saju-ink) !important;
+  font-size: 12px !important;
+  line-height: 1;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__go::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__go::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__undo::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__undo::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__go:active,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sl-fuda__undo:active {
+  transform: scale(0.94);
+}
+
+/* ---------- 카드 안 궁합 블록: 등급 옆에 오행 관계 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-card__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-card__rel {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.18);
+  color: var(--saju-purple-dark) !important;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-card__rel i {
+  font-family: var(--saju-serif);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-card__rel--clash {
+  color: #c93d30 !important;
+  box-shadow: inset 0 0 0 1px rgba(201, 61, 48, 0.25);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.sm-card__rel--give, .sm-card__rel--take) {
+  color: #237a4f !important;
+  box-shadow: inset 0 0 0 1px rgba(47, 158, 107, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sl-fuda {
+    animation: none !important;
+    transition: none;
+  }
+}

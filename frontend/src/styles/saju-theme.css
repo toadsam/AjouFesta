@@ -1,0 +1,2103 @@
+/*
+ * 사주 소개팅 탭만 '사주풍'으로. 밤하늘 보라·금색·명조 제목.
+ * 다른 탭(축제·주점·분실물)은 토스 파랑 그대로. 이 파일은 .ai-match-page 안에서만 효과가 있다.
+ * v2-aimatch.css / saju.css 가 var(--v2-blue), var(--sm-blue) 를 쓰므로 변수만 바꿔도 대부분 보라가 된다.
+ * 하드코딩된 파랑만 아래에서 따로 덮는다. main.jsx 에서 맨 마지막에 불러온다.
+ */
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page {
+  --saju-ink: #2a1f4d;
+  --saju-night: #1d1740;
+  --saju-purple: #6d4fd2;
+  --saju-purple-dark: #55389f;
+  --saju-purple-soft: #efe9fb;
+  --saju-purple-tint: #f8f5ff;
+  --saju-gold: #d9b45a;
+  --saju-gold-soft: #fbf3dc;
+  --saju-pink: #e9a9c9;
+  --saju-serif: "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", serif;
+
+  --v2-blue: var(--saju-purple);
+  --v2-blue-dark: var(--saju-purple-dark);
+  --v2-blue-soft: var(--saju-purple-soft);
+  --v2-blue-tint: var(--saju-purple-tint);
+  --sm-blue: var(--saju-purple);
+  --sm-blue-soft: var(--saju-purple-soft);
+  --sm-ink: var(--saju-ink);
+
+  background: linear-gradient(180deg, #f1ebfa 0%, #f8f5fd 38%, #fff 100%) !important;
+}
+
+/* 제목은 명조. 본문은 그대로 고딕. */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-hero-copy h2,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-step-card h3,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-step-row strong,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-section-head h2,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-section-head h3,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-topbar h1,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-reg__title,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-summary strong,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-top__head strong,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-report__title strong,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-section h4,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-card h2,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-name,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-sheet-head strong {
+  font-family: var(--saju-serif) !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* ---------- 히어로: 달·오행 원 그림 위에 제목 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 16rem !important;
+  padding: 1.35rem 1.25rem 1.3rem !important;
+  border-radius: 22px !important;
+  background: var(--saju-night) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 34px rgba(42, 31, 77, 0.28) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero::before,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero::after {
+  display: none !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 12% 50%;
+  z-index: 0;
+  animation: saju-hero-drift 14s ease-in-out infinite alternate;
+}
+
+@keyframes saju-hero-drift {
+  from { transform: scale(1.02) translateX(0); }
+  to { transform: scale(1.06) translateX(-8px); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(29, 23, 64, 0.82) 0%, rgba(29, 23, 64, 0.42) 50%, rgba(29, 23, 64, 0) 100%),
+    linear-gradient(180deg, rgba(29, 23, 64, 0.25) 0%, rgba(29, 23, 64, 0) 30%, rgba(29, 23, 64, 0.45) 100%);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero .ai-match-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 78%;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero .ai-match-hero-copy p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero .ai-match-hero-copy h2 {
+  margin: 0 0 10px;
+  font-size: 30px !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
+  background: linear-gradient(90deg, #fff4dc 0%, #f4e2ff 55%, #c9b3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero .ai-match-hero-copy span {
+  display: block;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__quote {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--saju-serif);
+  font-style: normal;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: rgba(255, 233, 200, 0.85);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__seal {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(255, 120, 120, 0.85);
+  border-radius: 5px;
+  font-family: var(--saju-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 130, 130, 0.95);
+  transform: rotate(-6deg);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero .ai-match-float-heart {
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- 4단계 카드: 보라 원형 번호 + 금색 점 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-step-card {
+  background: #fff !important;
+  box-shadow: 0 2px 14px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.08) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-step-card h3::after {
+  content: " ✦";
+  font-size: 12px;
+  color: var(--saju-gold);
+  vertical-align: 2px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-step-row {
+  background: var(--saju-purple-tint) !important;
+  box-shadow: 0 0 0 1px rgba(109, 79, 210, 0.08) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-step-row > span {
+  border-radius: 50% !important;
+  background: linear-gradient(160deg, #6f52d6, #4a2f93) !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px rgba(109, 79, 210, 0.35), 0 6px 14px rgba(74, 47, 147, 0.28) !important;
+  font-family: var(--saju-serif);
+  font-weight: 700 !important;
+}
+
+/* ---------- 버튼: 보라 그라데이션 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-primary-button {
+  background: linear-gradient(135deg, #7457dc 0%, #5b3fb0 100%) !important;
+  box-shadow: 0 10px 22px rgba(91, 63, 176, 0.28) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-primary-button:active {
+  background: linear-gradient(135deg, #5f43c0 0%, #4a2f93 100%) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-primary-button:disabled {
+  background: var(--v2-gray-2) !important;
+  box-shadow: none !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-secondary-button {
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-secondary-button--danger {
+  background: var(--v2-red-soft) !important;
+  color: var(--v2-red) !important;
+}
+
+/* 화면 전환 세그먼트(처음·신청함·MY·문의) 활성 탭 */
+.app-shell.app-shell[data-v2="true"] .ai-match-page .ai-match-bottom-nav {
+  background: rgba(109, 79, 210, 0.08) !important;
+}
+
+.app-shell.app-shell[data-v2="true"] .ai-match-page .ai-match-bottom-tab.is-active {
+  color: var(--saju-purple-dark) !important;
+  box-shadow: 0 2px 10px rgba(42, 31, 77, 0.1) !important;
+}
+
+/* ---------- 하드코딩된 파랑 덮기 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-float-heart {
+  box-shadow: 0 6px 16px rgba(109, 79, 210, 0.2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-input.is-ok :is(input, select, textarea) {
+  border-color: rgba(109, 79, 210, 0.45) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-spinner {
+  border-color: rgba(109, 79, 210, 0.2);
+  border-top-color: var(--saju-purple);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-converting__bar {
+  background: rgba(109, 79, 210, 0.18);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-banner {
+  background: linear-gradient(135deg, #7457dc, #4a2f93) !important;
+  box-shadow: 0 10px 24px rgba(91, 63, 176, 0.3) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-report {
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(217, 180, 90, 0.2), rgba(255, 255, 255, 0) 55%),
+    radial-gradient(120% 80% at 0% 0%, rgba(109, 79, 210, 0.14), rgba(255, 255, 255, 0) 55%),
+    #fffdf8;
+  border-color: #eadfc9 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-tip {
+  background: var(--saju-purple-soft);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-tip strong {
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-quota {
+  background: var(--saju-purple-soft);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-quota__text strong {
+  color: var(--saju-purple-dark);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-quota__dots i {
+  box-shadow: inset 0 0 0 2px var(--saju-purple);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-quota__dots i.is-used {
+  background: var(--saju-purple);
+}
+
+/* 개인정보 안내 줄 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-note {
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ---------- 스플래시 ---------- */
+.saju-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #1d1740;
+  color: #fff;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.saju-splash--out {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+.saju-splash__art {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 62%;
+  overflow: hidden;
+}
+
+.saju-splash__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  animation: saju-splash-zoom 2.6s ease-out both;
+}
+
+@keyframes saju-splash-zoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+/* 그림 아래를 밤하늘색으로 녹여서 제목 영역과 잇는다 */
+.saju-splash__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44%;
+  height: 22%;
+  background: linear-gradient(180deg, rgba(29, 23, 64, 0) 0%, rgba(29, 23, 64, 0.75) 60%, #1d1740 100%);
+}
+
+.saju-splash__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 62%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 28px calc(env(safe-area-inset-bottom, 0px) + 16px);
+  text-align: center;
+  animation: saju-splash-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes saju-splash-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.saju-splash__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: rgba(255, 233, 200, 0.8);
+}
+
+.saju-splash__eyebrow i {
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 233, 200, 0), rgba(255, 233, 200, 0.7));
+}
+
+.saju-splash__eyebrow i:last-child {
+  transform: scaleX(-1);
+}
+
+.saju-splash__title {
+  font-family: "Gowun Batang", "Noto Serif KR", serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, #fff4dc 0%, #f6e6ff 50%, #c9b3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
+}
+
+.saju-splash__sub {
+  margin: 0;
+  font-family: "Gowun Batang", "Noto Serif KR", serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.saju-splash__knot {
+  margin-top: 4px;
+  font-size: 16px;
+  color: #d9b45a;
+}
+
+.saju-splash__bar {
+  width: 62%;
+  max-width: 280px;
+  height: 4px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.saju-splash__bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #c9b3ff, #fff4dc);
+  transform-origin: left center;
+  animation: saju-splash-bar 2s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+}
+
+@keyframes saju-splash-bar {
+  from { transform: scaleX(0.05); }
+  to { transform: scaleX(1); }
+}
+
+.saju-splash__caption {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+@media (min-width: 720px) {
+  .saju-splash__art {
+    height: 60%;
+  }
+
+  .saju-splash__title {
+    font-size: 46px;
+  }
+}
+
+/* ---------- 2차: 사람 카드 사진이 글 높이만큼 늘어난다 ---------- */
+/* 사람 카드: 흰 바탕에 아주 옅은 연보라 빛 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card {
+  background:
+    radial-gradient(120% 70% at 100% 0%, rgba(233, 169, 201, 0.14), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(90% 60% at 0% 100%, rgba(109, 79, 210, 0.08), rgba(255, 255, 255, 0) 60%),
+    #fff !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+/* 사진이 오른쪽 글 높이만큼 늘어나서 아래 빈 자리가 안 생긴다. */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-main {
+  align-items: stretch !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo {
+  aspect-ratio: auto !important;
+  align-self: stretch;
+  height: 100%;
+  min-height: 8.6rem;
+  border-radius: 16px !important;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.16) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo img {
+  object-position: 50% 22%;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-footer {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* 카드 안 궁합 블록은 위아래 여백을 줄인다(사진 높이를 덜 늘리려고) */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy .sm-card {
+  margin: 6px 0 0;
+}
+
+/* ---------- 로그인 시트 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-modal {
+  /* index.css 의 `.ai-match-redesigned > * { position: relative }` 가 fixed 를 덮어서 시트가 화면을 못 덮던 문제 */
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2500 !important;
+  align-items: end;
+  padding: 0 0 calc(var(--v2-nav-height) + env(safe-area-inset-bottom, 0px)) !important;
+  background: rgba(29, 23, 64, 0.55) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login {
+  position: relative;
+  gap: 12px !important;
+  max-width: 100% !important;
+  padding: 10px 20px calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+  border-radius: 26px 26px 0 0 !important;
+  background:
+    radial-gradient(120% 60% at 100% 0%, rgba(109, 79, 210, 0.1), rgba(255, 255, 255, 0) 55%),
+    #fff !important;
+  box-shadow: 0 -16px 48px rgba(29, 23, 64, 0.35) !important;
+  animation: am-login-up 0.32s var(--v2-ease) both;
+}
+
+@keyframes am-login-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__handle {
+  justify-self: center;
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--v2-gray-2);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__close {
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: var(--v2-gray) !important;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__head {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__moon {
+  font-size: 20px;
+  line-height: 1;
+  color: var(--saju-gold);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__head h2 {
+  margin: 2px 0 0;
+  font-family: var(--saju-serif) !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__head p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login .ai-match-field input {
+  min-height: 52px;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: var(--v2-gray) !important;
+  box-shadow: none !important;
+  font-size: 16px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login .ai-match-field input:focus {
+  background: #fff !important;
+  box-shadow: 0 0 0 2px var(--saju-purple) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login .ai-match-primary-button--sheet {
+  min-height: 54px !important;
+  margin-top: 4px;
+  font-size: 16px !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__foot svg {
+  width: 14px;
+  height: 14px;
+  color: var(--saju-purple);
+}
+
+@media (min-width: 720px) {
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-modal {
+    align-items: center;
+    padding: 24px !important;
+  }
+
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login {
+    max-width: 420px !important;
+    border-radius: 26px !important;
+    padding-top: 14px !important;
+  }
+
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .am-login__handle {
+    display: none;
+  }
+}
+
+/* 데스크톱에서 마우스를 올리면 index.css 의 분홍 :hover 규칙(특이도 0,5,1)이 이기던 문제 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-primary-button:hover,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-primary-button:focus-visible {
+  background: linear-gradient(135deg, #7457dc 0%, #5b3fb0 100%) !important;
+  box-shadow: 0 10px 22px rgba(91, 63, 176, 0.32) !important;
+  color: #fff !important;
+}
+
+/* ---------- 사람 카드: 사진은 정사각형에 가깝게, 궁합 블록은 아래 전체 폭 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-main {
+  align-items: start !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo {
+  aspect-ratio: 1 / 1.06 !important;
+  align-self: start;
+  height: auto;
+  min-height: 0;
+  max-height: 9.6rem;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo img {
+  object-position: 50% 30%;
+  transition: transform 0.5s var(--v2-ease);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo:active img {
+  transform: scale(1.06);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card {
+  margin: 10px 0 0 !important;
+}
+
+/* ---------- 움직임: 카드 등장, 누름, 하트 팝 ---------- */
+@keyframes am-card-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card {
+  animation: am-card-in 0.5s var(--v2-ease) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+  transition: transform 0.18s var(--v2-ease), box-shadow 0.18s var(--v2-ease);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card:active {
+  transform: scale(0.988);
+  box-shadow: 0 1px 6px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.16) !important;
+}
+
+@keyframes am-heart-pop {
+  0% { transform: scale(0.6); }
+  55% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-favorite-button--active svg {
+  animation: am-heart-pop 0.45s var(--v2-spring) both;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-favorite-button:active {
+  transform: scale(0.9);
+}
+
+/* 태그 = 누르면 관심사 필터 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  transition: transform 0.15s var(--v2-ease), background 0.15s;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag.is-on {
+  background: var(--saju-purple) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag:active {
+  transform: scale(0.92);
+}
+
+/* 데이트 신청 버튼: 누르면 하트가 콩 뛴다 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-button--card {
+  transition: transform 0.16s var(--v2-ease), background 0.16s;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-button--card:active {
+  transform: scale(0.97);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-button--card:active .ai-match-request-button__icon {
+  animation: am-heart-pop 0.4s var(--v2-spring) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card,
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-favorite-button--active svg {
+    animation: none !important;
+  }
+}
+
+/* ---------- 신청함 · MY · 문의: 요약 카드는 밤하늘, 나머지는 흰 카드에 보라·금 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-summary {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 6px;
+  min-height: 7.5rem;
+  padding: 18px 18px 16px !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background:
+    linear-gradient(90deg, rgba(29, 23, 64, 0.92) 0%, rgba(29, 23, 64, 0.7) 55%, rgba(29, 23, 64, 0.3) 100%),
+    url("/images/saju/hero.webp") 78% 50% / cover no-repeat, var(--saju-night) !important;
+  color: #fff !important;
+  box-shadow: 0 12px 30px rgba(42, 31, 77, 0.26) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-summary strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #fff4dc 0%, #f4e2ff 60%, #c9b3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-summary p {
+  margin: 0;
+  max-width: 82%;
+  font-size: 13px !important;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-summary span {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 5px 11px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(217, 180, 90, 0.18) !important;
+  color: #ffe9b8 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 0 0 1px rgba(217, 180, 90, 0.55) !important;
+}
+
+/* 받은/보낸 탭 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-filter-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 16px;
+  background: rgba(109, 79, 210, 0.08);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-filter-bar .ai-match-filter-chip {
+  height: 40px;
+  justify-content: center;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  color: var(--v2-text-2) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-filter-bar .ai-match-filter-chip.is-active {
+  background: #fff !important;
+  color: var(--saju-purple-dark) !important;
+  box-shadow: 0 2px 10px rgba(42, 31, 77, 0.12) !important;
+}
+
+/* 신청 카드 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-card {
+  gap: 8px;
+  padding: 16px !important;
+  border: 0 !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-head strong,
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-person strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-head small {
+  color: var(--v2-text-3) !important;
+  font-size: 12px !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-card p {
+  margin: 0;
+  color: var(--v2-text-2) !important;
+  font-size: 13.5px !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-card > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--saju-purple-dark) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-history-card em {
+  display: block;
+  margin: 2px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border-left: 3px solid var(--saju-gold);
+  background: var(--saju-purple-tint);
+  color: var(--v2-text) !important;
+  font-family: var(--saju-serif);
+  font-style: normal;
+  font-size: 13.5px !important;
+  line-height: 1.55;
+}
+
+/* 상태 알약 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-status {
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: 4px 10px !important;
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-status--pending {
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-status--success {
+  background: var(--saju-gold-soft) !important;
+  color: #8a5f10 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-status--danger {
+  background: var(--v2-red-soft) !important;
+  color: var(--v2-red) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-status--muted {
+  background: var(--v2-gray) !important;
+  color: var(--v2-text-3) !important;
+}
+
+/* 수락·거절·취소·프로필 수정 줄: 첫 버튼은 보라 채움 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-actions {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-actions .ai-match-secondary-button {
+  min-height: 44px;
+  border-radius: 14px !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-actions .ai-match-secondary-button:first-child:not(.ai-match-secondary-button--danger) {
+  background: linear-gradient(135deg, #7457dc 0%, #5b3fb0 100%) !important;
+  color: #fff !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-actions .ai-match-secondary-button:first-child:not(.ai-match-secondary-button--danger) * {
+  color: #fff !important;
+}
+
+/* 만남 제안 박스 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-meetup-box {
+  border-radius: 14px !important;
+  background: var(--saju-purple-tint) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.14) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-meetup-box__head strong {
+  color: var(--saju-purple-dark) !important;
+}
+
+/* 비어 있을 때 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-empty-card {
+  position: relative;
+  padding: 26px 18px 20px !important;
+  text-align: center;
+  background: #fff !important;
+  box-shadow: 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-empty-card::before {
+  content: "☾";
+  display: block;
+  margin-bottom: 6px;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--saju-gold);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-empty-card strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 17px !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-empty-card .ai-match-secondary-button {
+  justify-self: center;
+  margin: 6px auto 0;
+}
+
+/* ---------- MY ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-card {
+  gap: 14px;
+  padding: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-profile {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-photo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50% !important;
+  overflow: hidden;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple) !important;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--saju-purple), 0 0 0 7px rgba(217, 180, 90, 0.5) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-copy em {
+  width: fit-content;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  font-style: normal;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-copy strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-copy p {
+  margin: 0;
+  font-size: 13px !important;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-copy .ai-match-inline-tags span {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-tint) !important;
+  color: var(--saju-purple-dark) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.14) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-stats span {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  padding: 12px 8px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: var(--saju-purple-tint) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.12) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-stats strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 1;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-stats small {
+  font-size: 12px !important;
+  color: var(--v2-text-2) !important;
+}
+
+/* MY 버튼 줄: 수정(보라) · 삭제(빨강 연함) · 로그아웃(회색) */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-card .ai-match-request-actions {
+  grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-my-card .ai-match-request-actions .ai-match-secondary-button:last-child {
+  grid-column: 1 / -1;
+  background: var(--v2-gray) !important;
+  color: var(--v2-text-2) !important;
+}
+
+/* 내 사주 패널 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-panel {
+  border: 0 !important;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(217, 180, 90, 0.22), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(120% 90% at 0% 0%, rgba(109, 79, 210, 0.12), rgba(255, 255, 255, 0) 55%),
+    #fffdf8 !important;
+  box-shadow: 0 0 0 1px rgba(217, 180, 90, 0.35) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-panel__head strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 18px !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-zodiac {
+  background: var(--saju-gold-soft) !important;
+  border-color: rgba(217, 180, 90, 0.6) !important;
+  color: #8a5f10 !important;
+}
+
+/* 문의: 확인 목록 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-contact-list article {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--saju-purple-tint);
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.1);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-contact-list article strong {
+  font-family: var(--saju-serif) !important;
+  color: var(--saju-ink) !important;
+}
+
+/* ---------- 상세 · 문의 · 사주 패널 사주풍 + 인터랙션 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page {
+  --saju-blue: var(--saju-purple);
+  --saju-blue-deep: #2a1f4d;
+  --saju-blue-soft: var(--saju-purple-soft);
+  --saju-yellow: var(--saju-gold);
+  --saju-yellow-soft: var(--saju-gold-soft);
+  --saju-line: rgba(109, 79, 210, 0.16);
+  --saju-muted: #6b6a80;
+}
+
+/* 상세 사진 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-hero {
+  border-radius: 22px !important;
+  background: radial-gradient(120% 80% at 50% 100%, #3b2a7a 0%, #1d1740 70%) !important;
+  box-shadow: 0 14px 34px rgba(42, 31, 77, 0.28), 0 0 0 1px rgba(217, 180, 90, 0.35) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-hero img {
+  transition: transform 0.6s var(--v2-ease);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-hero:active img {
+  transform: scale(1.04);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-badge {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(6px);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-card {
+  padding: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-card > strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 23px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-card > em {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+  font-style: normal;
+  font-weight: 800 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-card small {
+  color: var(--saju-purple-dark) !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-detail-card .ai-match-inline-tags span {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-tint) !important;
+  color: var(--saju-purple-dark) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.14) !important;
+  font-weight: 700 !important;
+}
+
+/* 안전 안내 · 노트 · 신청 시트 · 문의 카드 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-safety-card {
+  background: var(--saju-purple-tint) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.12) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-safety-card svg {
+  color: var(--saju-gold);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-note {
+  background: var(--saju-purple-tint) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-request-sheet {
+  background: #fff !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-section-card {
+  background: #fff !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-section-head span {
+  color: var(--saju-purple-dark) !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- 사주 패널: 기둥 누르기 · 막대 차오르기 · 풀이 접기 ---------- */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #3b2a7a 0%, #241a52 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 14px rgba(36, 26, 82, 0.25) !important;
+  filter: none !important;
+  text-shadow: none !important;
+  padding: 12px 4px !important;
+  cursor: pointer;
+  transition: transform 0.18s var(--v2-spring), box-shadow 0.18s;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-element::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-element::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-more::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-more::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sm-pillars__row::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sm-pillars__row::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar .saju-pillar__value {
+  font-family: var(--saju-serif);
+  color: #fff4dc !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar .saju-pillar__label {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar:active {
+  transform: scale(0.94);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar.is-on {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--saju-gold), 0 10px 20px rgba(36, 26, 82, 0.3) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar--unknown {
+  background: #f3f0fa !important;
+  color: var(--v2-text-4) !important;
+  box-shadow: inset 0 0 0 1px var(--saju-line) !important;
+  cursor: default;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar--unknown .saju-pillar__value,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-pillar--unknown .saju-pillar__label {
+  color: var(--v2-text-4) !important;
+}
+
+@keyframes saju-pop-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-pillar-detail {
+  display: grid;
+  gap: 3px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border-left: 3px solid var(--saju-gold);
+  background: var(--saju-purple-tint);
+  animation: saju-pop-in 0.25s var(--v2-ease) both;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-pillar-detail strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 16px !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-pillar-detail span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-pillar-detail small {
+  font-size: 12px;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-note--hint {
+  color: var(--v2-text-3) !important;
+  font-size: 12px !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-note--tip {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--saju-purple-tint);
+  color: var(--v2-text) !important;
+  font-size: 13px !important;
+  line-height: 1.55;
+  animation: saju-pop-in 0.25s var(--v2-ease) both;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-note--tip b {
+  color: var(--saju-purple-dark) !important;
+}
+
+/* 일간 줄 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: var(--saju-purple-soft) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  cursor: pointer;
+  transition: transform 0.16s var(--v2-ease);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster:active {
+  transform: scale(0.985);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster.is-on {
+  box-shadow: inset 0 0 0 2px var(--saju-purple) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster > span {
+  color: var(--v2-text-2) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster > span::after {
+  content: " · 뭔가요?";
+  font-weight: 500;
+  color: var(--v2-text-3);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 20px !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-daymaster em {
+  color: var(--saju-gold) !important;
+  font-style: normal;
+}
+
+/* 오행 막대 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 2px !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  cursor: pointer;
+  transition: transform 0.16s var(--v2-spring), background 0.16s;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-element:active {
+  transform: scale(0.92);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-element.is-on {
+  background: var(--saju-purple-tint) !important;
+  transform: translateY(-2px);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-element__bar i {
+  transition: height 0.8s var(--v2-ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-element.is-on .saju-element__bar i {
+  box-shadow: 0 0 0 3px rgba(217, 180, 90, 0.35);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-elements {
+  background: #fff !important;
+  border-color: var(--saju-line) !important;
+}
+
+/* 풀이 접기 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-reading-wrap {
+  display: grid;
+  gap: 6px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-reading {
+  transition: max-height 0.3s;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-reading.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.saju-more {
+  justify-self: center;
+  height: 34px;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* ---------- 궁합 리포트 인터랙션 ---------- */
+@keyframes sm-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 180, 90, 0); }
+  50% { box-shadow: 0 0 0 8px rgba(217, 180, 90, 0.18); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-el b {
+  animation: sm-pulse 2.6s ease-in-out infinite;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-el:last-child b {
+  animation-delay: 1.3s;
+}
+
+@keyframes sm-flow {
+  from { background-position: 0 0; }
+  to { background-position: 24px 0; }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-elements__link i {
+  background: repeating-linear-gradient(90deg, var(--saju-purple) 0 10px, rgba(109, 79, 210, 0.25) 10px 24px) !important;
+  animation: sm-flow 1.2s linear infinite;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sm-pillars__row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  cursor: pointer;
+  transition: transform 0.16s var(--v2-ease), background 0.16s;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sm-pillars__row--none {
+  cursor: default;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sm-pillars__row:not(.sm-pillars__row--none):active {
+  transform: scale(0.98);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.sm-pillars__row.is-on .sm-pillar {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--saju-gold) !important;
+  transform: translateY(-2px);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-pillar {
+  transition: transform 0.18s var(--v2-spring), box-shadow 0.18s;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-pillar:not(.sm-pillar--theirs):not(.sm-pillar--none) {
+  background: linear-gradient(180deg, #3b2a7a 0%, #241a52 100%) !important;
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-pillars__note {
+  display: grid;
+  gap: 3px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border-left: 3px solid var(--saju-gold);
+  background: var(--saju-purple-tint);
+  animation: saju-pop-in 0.25s var(--v2-ease) both;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-pillars__note strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 14px !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-pillars__note span {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--v2-text-2) !important;
+}
+
+@keyframes sm-reason-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-reasons li {
+  animation: sm-reason-in 0.45s var(--v2-ease) both;
+  animation-delay: calc(var(--i, 0) * 120ms + 0.2s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-el b,
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-elements__link i,
+  .app-shell.festival-shell[data-v2="true"] .ai-match-page .sm-reasons li {
+    animation: none !important;
+  }
+}
+
+/* index.css 의 `button, input, select { min-height: 44px }` 때문에 칩·세그먼트 버튼이 트랙 밖으로 삐져나오던 것 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page :is(.am-chip, .am-seg__btn, .ai-match-inline-tag, .ai-match-inline-tags__toggle, .saju-more, .sm-card__go) {
+  min-height: 0 !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-chip {
+  height: 36px !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-seg--sort .am-seg__btn {
+  height: 34px !important;
+}
+
+/* ---------- 필터 카드 정리: 검색 + 필터 버튼 / 칩 한 줄 / 열면 MBTI·관심사 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc {
+  gap: 10px;
+  padding: 12px !important;
+  background: #fff !important;
+  border: 0 !important;
+  box-shadow: 0 2px 12px rgba(42, 31, 77, 0.06), 0 0 0 1px rgba(109, 79, 210, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 8px;
+  align-items: center;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__search {
+  height: 44px;
+  border-radius: 14px;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: var(--v2-gray) !important;
+  color: var(--v2-text-2) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transition: transform 0.16s var(--v2-ease), background 0.16s;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter::after,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-sort::before,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-sort::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter svg {
+  width: 20px;
+  height: 20px;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter:active {
+  transform: scale(0.92);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter.is-on {
+  background: var(--saju-purple) !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter em {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--saju-gold);
+  color: #2a1f4d !important;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__chips {
+  margin: 0 -12px;
+  padding: 0 12px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__panel {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--v2-line);
+  animation: saju-pop-in 0.22s var(--v2-ease) both;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__panel-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc > .am-chips {
+  margin-top: -4px;
+}
+
+/* 목록 위 줄: N명 · 정렬 토글 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 4px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-meta strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 16px !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  min-height: 0 !important;
+  padding: 0 12px 0 10px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-soft) !important;
+  color: var(--saju-purple-dark) !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transition: transform 0.16s var(--v2-ease);
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-sort svg {
+  width: 15px;
+  height: 15px;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-sort:active {
+  transform: scale(0.94);
+}
+
+/* ---------- 살아 있는 히어로: 손가락·기울기를 따라 그림이 움직이고 치토가 손을 흔든다 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live {
+  --tx: 0;
+  --ty: 0;
+  min-height: 17rem !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live .saju-hero__bg {
+  animation: none;
+  transform: scale(1.12) translate(calc(var(--tx) * -12px), calc(var(--ty) * -9px));
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live .ai-match-hero-copy {
+  max-width: 72%;
+  transform: translate(calc(var(--tx) * 3px), calc(var(--ty) * 2px));
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live .ai-match-hero-copy p {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em;
+  color: #ffe9b8 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live .saju-hero__seal {
+  top: 16px;
+  right: 16px;
+  bottom: auto;
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito,
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito:hover {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: translate(calc(var(--tx) * 6px), calc(var(--ty) * 4px));
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito::before,
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito::after {
+  content: none !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito img {
+  width: 70px;
+  height: auto;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45));
+  animation: sf-bob 3.2s ease-in-out infinite;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito span {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(217, 180, 90, 0.92);
+  color: #2a1f4d !important;
+  font-size: 11px !important;
+  font-weight: 800;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero__chito:active img {
+  transform: scale(0.94);
+}
+
+/* 아주대 밤 풍경(ajou-night.webp): 달이 오른쪽 위 3분의 1에 오도록, 글자 아래 은행나무는 조금 더 어둡게 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live .saju-hero__bg {
+  object-position: 88% 42%;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .saju-hero--live .saju-hero__shade {
+  background:
+    linear-gradient(90deg, rgba(29, 23, 64, 0.86) 0%, rgba(29, 23, 64, 0.5) 52%, rgba(29, 23, 64, 0.04) 100%),
+    linear-gradient(180deg, rgba(29, 23, 64, 0.1) 0%, rgba(29, 23, 64, 0) 35%, rgba(29, 23, 64, 0.62) 100%);
+}
+
+/* ---------- 사람 카드 3차: 옅은 회색·연보라 틴트에 기대지 않는다. 테두리·밤하늘 궁합 패널·채운 신청 버튼 ---------- */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-profile-list {
+  gap: 14px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card {
+  overflow: hidden;
+  padding: 14px !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 1px rgba(109, 79, 210, 0.22), 0 8px 24px rgba(42, 31, 77, 0.08) !important;
+}
+
+/* 위쪽 가는 보라→금 띠 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--saju-purple) 0%, var(--saju-gold) 100%);
+  pointer-events: none;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card--pink::before {
+  background: linear-gradient(90deg, #d97aa8 0%, var(--saju-gold) 100%);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-main {
+  grid-template-columns: 7.4rem minmax(0, 1fr);
+  gap: 12px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-photo {
+  aspect-ratio: 1 / 1.08 !important;
+  max-height: 9rem;
+  border-radius: 14px !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.22) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy-link {
+  gap: 5px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy em {
+  padding: 3px 9px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy strong {
+  font-family: var(--saju-serif) !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: var(--saju-ink) !important;
+  line-height: 1.2;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy small::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--saju-gold);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-copy p {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.5;
+  color: var(--v2-text-2) !important;
+  -webkit-line-clamp: 2;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-favorite-button {
+  width: 34px;
+  height: 34px;
+  background: #fff !important;
+  color: var(--saju-purple) !important;
+  box-shadow: 0 0 0 1px rgba(109, 79, 210, 0.22), 0 2px 8px rgba(42, 31, 77, 0.1) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-favorite-button--active {
+  color: #e0483d !important;
+  box-shadow: 0 0 0 1px rgba(224, 72, 61, 0.35), 0 2px 8px rgba(224, 72, 61, 0.18) !important;
+}
+
+/* 궁합 패널: 카드 안의 밤하늘. 링은 금색, 글자는 상아색 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > button.sm-card--tap {
+  margin: 12px 0 0 !important;
+  padding: 10px 12px 10px 10px !important;
+  border-radius: 14px !important;
+  background:
+    radial-gradient(80% 90% at 0% 0%, rgba(109, 79, 210, 0.55), rgba(29, 23, 64, 0) 70%),
+    #1d1740 !important;
+  box-shadow: inset 0 0 0 1px rgba(217, 180, 90, 0.35) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card--mid,
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card--low {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-ring__track {
+  stroke: rgba(255, 255, 255, 0.16);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-ring--high .sm-ring__fill { stroke: var(--saju-gold); }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-ring--mid .sm-ring__fill { stroke: #b9a7ee; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-ring--low .sm-ring__fill { stroke: #9a93b8; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-ring strong {
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-grade {
+  height: 22px;
+  background: var(--saju-gold) !important;
+  color: var(--saju-ink) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card--mid .sm-grade { background: #c9b8f5 !important; }
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card--low .sm-grade { background: #b9b3cc !important; }
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-card__rel {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-card__rel--clash {
+  color: #ff9d94 !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 157, 148, 0.45);
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-card__body p {
+  font-family: var(--saju-serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: #fff4dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card .sm-card__go {
+  color: var(--saju-gold) !important;
+}
+
+/* 사주 없는 경우: 흰 바탕에 점선 테두리 */
+.app-shell.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card--empty {
+  background: #fff !important;
+  box-shadow: none !important;
+  outline: 1.5px dashed rgba(109, 79, 210, 0.4);
+  outline-offset: -1.5px;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-person-card > .sm-card--empty .sm-card__q {
+  background: var(--saju-purple-soft);
+  color: var(--saju-purple) !important;
+}
+
+/* 태그: 흰 바탕 + 보이는 테두리 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag {
+  height: 30px;
+  background: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.35) !important;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tag.is-on {
+  background: var(--saju-purple) !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-inline-tags__toggle {
+  height: 30px;
+  padding: 0 10px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--saju-purple-soft) !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.2) !important;
+  color: var(--saju-purple-dark) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+/* 데이트 신청: 채운 보라 버튼 */
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card,
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card:hover {
+  height: 46px;
+  min-height: 46px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #7457dc 0%, #55389f 100%) !important;
+  color: #fff !important;
+  font-size: 14.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 18px rgba(85, 56, 159, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card * {
+  color: #fff !important;
+}
+
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card::before,
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card::after {
+  content: none !important;
+}
+
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card .ai-match-request-button__icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page button.ai-match-request-button--card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(85, 56, 159, 0.24) !important;
+}
+
+/* 목록 위 줄과 필터 카드도 테두리로 잡아 준다 */
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-sort {
+  height: 34px;
+  background: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.35) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc {
+  box-shadow: 0 0 0 1px rgba(109, 79, 210, 0.22), 0 8px 24px rgba(42, 31, 77, 0.06) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__search {
+  background: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.28) !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__search input {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter {
+  background: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.28) !important;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-disc__filter.is-on {
+  background: var(--saju-purple) !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-chip {
+  background: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(109, 79, 210, 0.3) !important;
+  color: var(--saju-purple-dark) !important;
+}
+
+.app-shell.app-shell.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-chip.is-on {
+  background: var(--saju-purple) !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+
+/* 스플래시의 치토 도사: 그림 오른쪽 아래에서 떠오른다 */
+.saju-splash__art img.saju-splash__chito {
+  position: absolute;
+  right: 6%;
+  bottom: -6%;
+  width: min(50vw, 200px);
+  animation: none;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.5));
+  animation: saju-splash-chito 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s both, sf-bob 3.2s ease-in-out 1.15s infinite !important;
+}
+
+@keyframes saju-splash-chito {
+  from { opacity: 0; transform: translateY(26px) rotate(-4deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saju-splash__art img.saju-splash__chito { animation: none !important; }
+}
+
+/* 새 가입을 안 받는 동안 첫 화면에 뜨는 안내 */
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-closed .am-login__head p {
+  word-break: keep-all;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-closed .am-closed__ok {
+  width: 100%;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-closed-card {
+  border: 1px solid rgba(214, 160, 40, 0.4) !important;
+  background: #fff6dc !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .am-closed-card strong {
+  color: #8a5a00 !important;
+}
+
+.app-shell.festival-shell[data-v2="true"] .ai-match-page .ai-match-primary-button--hero:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

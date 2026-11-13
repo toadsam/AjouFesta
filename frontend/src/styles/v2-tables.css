@@ -1,0 +1,760 @@
+/*
+ * 자리 현황(손님용 카드 + 스태프용 현황판)과 사진 메뉴판. v2.css 뒤에 불러온다.
+ */
+
+/* ---------- 손님용: 지금 빈 자리 카드 ---------- */
+.app-shell[data-v2="true"] .v2-seats {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: var(--v2-blue-soft);
+}
+
+.app-shell[data-v2="true"] .v2-seats--full {
+  background: var(--v2-red-soft);
+}
+
+.app-shell[data-v2="true"] .v2-seats--none {
+  background: var(--v2-gray);
+}
+
+.app-shell[data-v2="true"] .v2-seats__label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell[data-v2="true"] .v2-seats__label small {
+  color: var(--v2-text-3) !important;
+  font-weight: 500;
+}
+
+.app-shell[data-v2="true"] .v2-seats strong {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--v2-text) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell[data-v2="true"] .v2-seats--full strong {
+  color: var(--v2-red) !important;
+}
+
+.app-shell[data-v2="true"] .v2-seats p {
+  margin: 0.25rem 0 0;
+  font-size: 0.82rem;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell[data-v2="true"] .v2-seats__ring {
+  position: relative;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 999px;
+  background: conic-gradient(var(--v2-blue) calc(var(--ratio, 0) * 1%), rgba(49, 130, 246, 0.15) 0);
+  display: grid;
+  place-items: center;
+  transition: background 0.6s var(--v2-ease);
+}
+
+.app-shell[data-v2="true"] .v2-seats--full .v2-seats__ring {
+  background: conic-gradient(var(--v2-red) 100%, transparent 0);
+}
+
+.app-shell[data-v2="true"] .v2-seats__ring::before {
+  content: "";
+  position: absolute;
+  inset: 0.38rem;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.app-shell[data-v2="true"] .v2-seats__ring span {
+  position: relative;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--v2-text) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 첫 화면 카드의 자리 줄 */
+.app-shell[data-v2="true"] .v2-main-booth__seats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--v2-text) !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.app-shell[data-v2="true"] .v2-main-booth__seats::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--v2-blue);
+  animation: v2-blink 1.4s ease-in-out infinite;
+}
+
+.app-shell[data-v2="true"] .v2-main-booth__seats.is-full::before {
+  background: var(--v2-red);
+  animation: none;
+}
+
+/* ---------- 사진 메뉴판 ---------- */
+.app-shell[data-v2="true"] .v2-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+/* 폰에서는 2열이 맞지만, 데스크톱 브라우저로 열면 한 칸이 500px 넘게 커진다. 넓은 화면에선 칸을 늘린다. */
+@media (min-width: 720px) {
+  .app-shell[data-v2="true"] .v2-menu-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .app-shell[data-v2="true"] .v2-menu-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.app-shell[data-v2="true"] .v2-dish {
+  display: grid;
+  gap: 0.45rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  transition: transform 0.18s var(--v2-ease);
+}
+
+.app-shell[data-v2="true"] .v2-dish:active {
+  transform: scale(0.97);
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--v2-gray);
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo--empty {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(150deg, #dbeafe, #eef2ff 60%, #fff7ed);
+  color: var(--v2-blue) !important;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo .v2-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish--soldout .v2-dish__photo img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.app-shell[data-v2="true"] .v2-dish__soldout {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(25, 31, 40, 0.35);
+  color: #fff !important;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.app-shell[data-v2="true"] .v2-dish strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--v2-text) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-shell[data-v2="true"] .v2-dish small {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--v2-text-3) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-shell[data-v2="true"] .v2-dish em {
+  display: block;
+  font-style: normal;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--v2-text) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell[data-v2="true"] .v2-dish em.is-tbd {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--v2-text-4) !important;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--v2-gray);
+  margin-bottom: 1rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--v2-text) !important;
+  margin: 0.25rem 0 0.75rem;
+}
+
+/* ---------- 스태프용 자리 현황판 ---------- */
+.app-shell[data-v2="true"] .tb-page {
+  padding-bottom: 2rem;
+}
+
+.app-shell[data-v2="true"] .tb-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.app-shell[data-v2="true"] .tb-summary > div {
+  padding: 0.85rem 0.9rem;
+  border-radius: 16px;
+  background: var(--v2-gray);
+}
+
+.app-shell[data-v2="true"] .tb-summary small {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell[data-v2="true"] .tb-summary strong {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--v2-text) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell[data-v2="true"] .tb-summary strong span {
+  font-size: 0.9rem;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell[data-v2="true"] .tb-summary strong.is-zero {
+  color: var(--v2-red) !important;
+}
+
+.app-shell[data-v2="true"] .tb-summary__time {
+  font-size: 1rem !important;
+}
+
+.app-shell[data-v2="true"] .tb-hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell[data-v2="true"] .tb-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.app-shell[data-v2="true"] .tb-table {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: center;
+  min-height: 7.5rem;
+  padding: 1rem 0.5rem;
+  border: 3px solid transparent !important;
+  border-radius: 22px;
+  background: var(--v2-green-soft) !important;
+  color: var(--v2-text) !important;
+  transition: transform 0.15s var(--v2-ease), background 0.2s;
+}
+
+.app-shell[data-v2="true"] .tb-table:active {
+  transform: scale(0.95) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table strong {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--v2-text) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table em {
+  margin-top: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: #fff;
+  font-style: normal;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--v2-green) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table--in_use,
+.app-shell[data-v2="true"] .tb-table--full {
+  background: var(--v2-red-soft) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table--in_use em,
+.app-shell[data-v2="true"] .tb-table--full em {
+  color: var(--v2-red) !important;
+}
+
+/* 카드 바탕색: `.v2-page button { background: transparent !important }` 보다 무게가 커야 색이 보인다.
+   전역 `button:hover` 규칙(누른 직후 폰에서도 걸린다)에도 흰색으로 덮이지 않게 :not(#_) 로 우선순위를 올린다. */
+.app-shell[data-v2="true"] .tb-page .tb-table:not(#_) {
+  background: var(--v2-green-soft) !important;
+}
+
+.app-shell[data-v2="true"] .tb-page .tb-table--in_use:not(#_),
+.app-shell[data-v2="true"] .tb-page .tb-table--full:not(#_) {
+  background: var(--v2-red-soft) !important;
+}
+
+.app-shell[data-v2="true"] .tb-page .tb-table--reserved:not(#_) {
+  background: var(--v2-yellow-soft) !important;
+}
+
+/* 앉은 지 몇 분 */
+.app-shell[data-v2="true"] .tb-table .tb-table__since {
+  font-style: normal;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--v2-text-2) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table--reserved {
+  background: var(--v2-yellow-soft) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table--reserved em {
+  color: #b57a00 !important;
+}
+
+.app-shell[data-v2="true"] .tb-table--confirm {
+  border-color: var(--v2-red) !important;
+}
+
+.app-shell[data-v2="true"] .tb-table:disabled {
+  opacity: 0.6;
+}
+
+/* 빈 자리로 바꾸기 전 확인 창 */
+.app-shell[data-v2="true"] .tb-confirm__now {
+  margin: -0.5rem 0 1.1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 14px;
+  background: var(--v2-red-soft);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--v2-text) !important;
+}
+
+.app-shell[data-v2="true"] .tb-confirm__now b {
+  color: var(--v2-red) !important;
+}
+
+.app-shell[data-v2="true"] .tb-confirm__btns {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 0.6rem;
+}
+
+.app-shell[data-v2="true"] .tb-confirm__btns .v2-btn {
+  width: 100%;
+  min-height: 3.4rem;
+  font-size: 1.02rem;
+}
+
+/* ---------- 일러스트 메뉴 타일 ---------- */
+.app-shell[data-v2="true"] .v2-dish__photo--illust {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo--illust::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -45% -20%;
+  height: 90%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.app-shell[data-v2="true"] .v2-dish__emoji {
+  position: relative;
+  font-size: 3.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 8px 10px rgba(25, 31, 40, 0.18));
+  transition: transform 0.25s var(--v2-spring);
+}
+
+.app-shell[data-v2="true"] .v2-dish:active .v2-dish__emoji {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo--large {
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
+  margin-bottom: 1rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo--large .v2-dish__emoji {
+  font-size: 5.5rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish__photo--rose { background: linear-gradient(160deg, #ffe4e6, #fecdd3); }
+.app-shell[data-v2="true"] .v2-dish__photo--amber { background: linear-gradient(160deg, #fff3d6, #fde68a); }
+.app-shell[data-v2="true"] .v2-dish__photo--brown { background: linear-gradient(160deg, #f3e8d9, #e2c9a6); }
+.app-shell[data-v2="true"] .v2-dish__photo--yellow { background: linear-gradient(160deg, #fef9c3, #fde047); }
+.app-shell[data-v2="true"] .v2-dish__photo--sky { background: linear-gradient(160deg, #e0f2fe, #bae6fd); }
+.app-shell[data-v2="true"] .v2-dish__photo--green { background: linear-gradient(160deg, #dcfce7, #bbf7d0); }
+
+.app-shell[data-v2="true"] .v2-dish {
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(25, 31, 40, 0.05), 0 0 0 1px var(--v2-line);
+  overflow: hidden;
+  gap: 0;
+}
+
+.app-shell[data-v2="true"] .v2-dish .v2-dish__photo {
+  border-radius: 0;
+}
+
+.app-shell[data-v2="true"] .v2-dish__body {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.7rem 0.8rem 0.85rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish__tags {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  min-height: 1.45rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish__tags:empty {
+  display: none;
+}
+
+.app-shell[data-v2="true"] .v2-dish strong {
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.app-shell[data-v2="true"] .v2-dish em {
+  margin-top: 0.2rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__row .v2-dish-sheet__price {
+  margin: 0;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__ingredients {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.9rem 0 1.1rem;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__ingredients small {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--v2-text-3) !important;
+}
+
+.app-shell[data-v2="true"] .v2-dish-sheet__ingredients .v2-chip {
+  color: var(--v2-text) !important;
+  background: var(--v2-gray) !important;
+}
+
+/* ---------- 테이블 그림(TableMap): 손님 화면·첫 화면·운영 콘솔 공용 ---------- */
+.app-shell .v2-tmap {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.app-shell .v2-tmap__bar {
+  display: flex;
+  gap: 3px;
+  height: 6px;
+}
+
+.app-shell .v2-tmap__bar i {
+  flex: 1 1 0;
+  border-radius: 999px;
+  background: #cfd4da;
+  transition: background 0.4s;
+}
+
+.app-shell .v2-tmap__bar i.is-available { background: #3182f6; }
+.app-shell .v2-tmap__bar i.is-reserved { background: #f2b224; }
+
+.app-shell .v2-tmap__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+}
+
+.app-shell .v2-tmap--compact .v2-tmap__grid {
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 6px;
+}
+
+.app-shell .v2-tmap__tile {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 6px 9px;
+  border-radius: 14px;
+  background: #e8f3ff;
+  min-width: 0;
+  transition: background 0.4s, transform 0.2s;
+}
+
+.app-shell .v2-tmap__tile strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: #191f28 !important;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.app-shell .v2-tmap__tile small {
+  font-size: 11px;
+  font-weight: 700;
+  color: #3182f6 !important;
+}
+
+.app-shell .v2-tmap__icon {
+  width: 56px;
+  height: 35px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.app-shell .v2-tmap--compact .v2-tmap__icon {
+  width: 46px;
+  height: 29px;
+}
+
+.app-shell .v2-tmap__top { fill: #3182f6; transition: fill 0.4s; }
+.app-shell .v2-tmap__chair { fill: #9cc4fb; transition: fill 0.4s; }
+
+.app-shell .v2-tmap__tile.is-in_use,
+.app-shell .v2-tmap__tile.is-full {
+  background: #eceff3;
+}
+
+.app-shell .v2-tmap__tile.is-in_use small,
+.app-shell .v2-tmap__tile.is-full small {
+  color: #6b7684 !important;
+}
+
+.app-shell .v2-tmap__tile.is-in_use .v2-tmap__top,
+.app-shell .v2-tmap__tile.is-full .v2-tmap__top { fill: #8b95a1; }
+
+.app-shell .v2-tmap__tile.is-in_use .v2-tmap__chair,
+.app-shell .v2-tmap__tile.is-full .v2-tmap__chair { fill: #b0b8c1; }
+
+.app-shell .v2-tmap__tile.is-reserved { background: #fff5d6; }
+.app-shell .v2-tmap__tile.is-reserved small { color: #b7820c !important; }
+.app-shell .v2-tmap__tile.is-reserved .v2-tmap__top { fill: #f2b224; }
+.app-shell .v2-tmap__tile.is-reserved .v2-tmap__chair { fill: #f8d783; }
+
+.app-shell .v2-tmap__legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app-shell .v2-tmap__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #6b7684 !important;
+}
+
+.app-shell .v2-tmap__legend span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #b0b8c1;
+}
+
+.app-shell .v2-tmap__legend .is-available::before { background: #3182f6; }
+.app-shell .v2-tmap__legend .is-reserved::before { background: #f2b224; }
+
+/* 접기/펴기 */
+.app-shell .v2-tmap__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.app-shell .v2-tmap__body > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.app-shell .v2-tmap__body--open {
+  grid-template-rows: 1fr;
+}
+
+.app-shell .v2-tmap__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.app-shell .v2-tmap__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.app-shell .v2-tmap__chev {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.app-shell .v2-tmap__chev.is-open {
+  transform: rotate(180deg);
+}
+
+/* 손님 카드(연파랑 바탕): 빈 자리 타일은 흰색, 이용 중은 연회색 */
+.app-shell[data-v2="true"] .v2-seats .v2-tmap__tile {
+  background: #fff;
+}
+
+.app-shell[data-v2="true"] .v2-seats .v2-tmap__tile.is-in_use,
+.app-shell[data-v2="true"] .v2-seats .v2-tmap__tile.is-full {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.app-shell[data-v2="true"] .v2-seats .v2-tmap__bar i {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.app-shell[data-v2="true"] .v2-seats .v2-tmap__bar i.is-available {
+  background: #3182f6;
+}
+
+/* 손님 카드: 그림이 들어가면 한 줄 구성으로 */
+.app-shell[data-v2="true"] .v2-seats--map {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.9rem;
+}
+
+.app-shell[data-v2="true"] .v2-seats__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* 첫 화면 카드의 점 띠 */
+.app-shell .v2-tdots {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 3px;
+  margin-left: 2px;
+}
+
+.app-shell .v2-tdots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #cfd4da;
+}
+
+.app-shell .v2-tdots i.is-free { background: #3182f6; }
